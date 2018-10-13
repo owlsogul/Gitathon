@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from hackathon.forms import *
+from hackathon.models import *
 
 # Create your views here.
 
@@ -17,3 +18,7 @@ def holdHackathon(request):
             form = Form()
 
     return render(request, 'hold.html',{'form':form})
+
+def listHackathon(request):
+    contestList = hackathonInformation.objects.all
+    return render(request, 'listHackathon.html', {'contestList' : contestList})
