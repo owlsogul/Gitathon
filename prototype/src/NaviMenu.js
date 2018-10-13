@@ -1,23 +1,26 @@
 import React from 'react';
+import './NaviMenu.css'
 
 function NaviMenu({gitathonLogo, userName, hackathonLogo, profileLogo}){
   return (
-    <div className="NaviMenu">
-      <div className = "GitathonLogo">
-        <ShowLogo logoPath = {gitathonLogo} name = {"gitathonLogo"}/>
-      </div>
-      <div className = "UserName">
-        <Welcome name = {userName}/>
-      </div>
-      <div className = "HackathonLogo">
-        <ShowLogo logoPath = {hackathonLogo} name = {"hackathonLogo"}/>
-        <b>Hackathon</b>
-      </div>
-      <div className = "profileLogo">
-        <ShowLogo logoPath = {profileLogo} name = {"profileLogo"} />
-        <b>Profile</b>
-      </div>
-    </div>
+     <table className="NaviMenu">
+      <tr>
+        <td className = "MainLogo">
+          <ShowLogo logoPath = {gitathonLogo} name = {"gitathonLogo"}/>
+        </td>
+        <td className = "UserName">
+          <Welcome name = {userName}/>
+        </td>
+        <td className = "Hackathon">
+          <ShowLogo logoPath = {hackathonLogo} name = {"hackathonLogo"}/>
+          <b>Hackathon</b>
+        </td>
+        <td className = "profile">
+          <ShowLogo logoPath = {profileLogo} name = {"profileLogo"} />
+          <b>Profile</b>
+        </td>
+      </tr>
+    </table>
   )
 }
 
