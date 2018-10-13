@@ -20,5 +20,14 @@ def holdHackathon(request):
     return render(request, 'hold.html',{'form':form})
 
 def listHackathon(request):
+
     contestList = hackathonInformation.objects.all
-    return render(request, 'listHackathon.html', {'contestList' : contestList})
+    q = ''
+
+    # 제목 검색
+    if request.method == 'GET':
+        q = request.GET.get('q','')
+        if q:
+            contestList = hackathonInformation.objects.filter(title__contains=q)
+
+    return render(request, 'listHackathon.html', {'contestList' : contestList, 'q' : q})
