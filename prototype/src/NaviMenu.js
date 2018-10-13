@@ -11,9 +11,11 @@ function NaviMenu({gitathonLogo, userName, hackathonLogo, profileLogo}){
       </div>
       <div className = "HackathonLogo">
         <ShowLogo logoPath = {hackathonLogo} name = {"hackathonLogo"}/>
+        <b>Hackathon</b>
       </div>
       <div className = "profileLogo">
         <ShowLogo logoPath = {profileLogo} name = {"profileLogo"} />
+        <b>Profile</b>
       </div>
     </div>
   )
