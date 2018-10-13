@@ -16,5 +16,5 @@ class hackathonInformation(models.Model):
     memberNum_max = models.IntegerField()
     memberNum_min = models.IntegerField()
     selectMatching = models.IntegerField(choices = matching)
-    Images = models.FileField(blank=True, upload_to='./Hackathon/static/uploads')
+    Images = models.FileField(blank=True, upload_to='./hackathon/static/uploads')
     text = models.TextField(blank=True)
