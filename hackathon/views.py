@@ -10,7 +10,8 @@ def holdHackathon(request):
     form = Form()
 
     if request.method == 'POST':
-        form = Form(request.POST)
+        # Model Form 을 이용해서 file을 upload할 때 주의
+        form = Form(request.POST, request.FILES)
         if form.is_valid():
             # form을 DB에 저장
             form.save()
