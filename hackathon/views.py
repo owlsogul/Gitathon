@@ -38,6 +38,8 @@ def listHackathon(request):
 
 def applyHackathon(request, hackathonInformation_id):
 
+    # 임의의 유저 ID
+    USERID = 'yedoriii6'
     contestList = hackathonInformation.objects.all
     q = ''
     message = ''
@@ -53,12 +55,12 @@ def applyHackathon(request, hackathonInformation_id):
             # 이미 참여한 상태인지 확인 필요(memberID 부분 변경 요망)
 
             # 이미 참여한 상태라면
-            if participate.objects.filter(memberID = 'yedoriii', hackathonID = appliedContest) :
+            if participate.objects.filter(memberID = USERID, hackathonID = appliedContest) :
                 message = '이미 참여한 상태입니다.'
             # 이미 참여한 상태가 아니라면
             else:
                 # 해커톤 ID와 참여자 ID 저장 (참여자 ID는 추후 추가)
-                temp_participate = participate(memberID = 'yedoriii' , hackathonID = appliedContest)
+                temp_participate = participate(memberID = USERID , hackathonID = appliedContest)
                 temp_participate.save()
                 # applyNum 증가
                 appliedContest.applyNum += 1
