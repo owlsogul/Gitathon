@@ -29,7 +29,7 @@
       <thead>
         <tr>
           <th scope="col">대회이름</th>
-          <th scope="col">인원수</th>
+          <th scope="col">인원</th>
           <th scope="col">대회 기간</th>
           <th scope="col">신청 마감 기한</th>
           <th scope="col">신청하기</th>
@@ -43,13 +43,21 @@
           <td>{{hackathonInformation.applyNum}} / {{hackathonInformation.peopleNum}}</td>
           <td>{{hackathonInformation.contestDate_start}} {{hackathonInformation.contestTime_start}} ~ {{hackathonInformation.contestDate_end}} {{hackathonInformation.contestTime_end}}</td>
           <td>{{hackathonInformation.applyDate_end}} {{hackathonInformation.applyTime_end}} </td>
-          {% if hackathonInformation.applyDate_end.year >= today.year and hackathonInformation.applyDate_end.month >= today.month and hackathonInformation.applyDate_end.day >= today.day and hackathonInformation.applyTime_end.hour >= today.hour and hackathonInformation.applyTime_end.minute >= today.minute and hackathonInformation.applyTime_end.second >= today.second %}
+          {% if hackathonInformation.applyDate_end >= todayDate %}
+            {% if hackathonInformation.applyDate_end != todayDate %}
             <td><button type="submit" name="choice" value = {{hackathonInformation.id}} class="btn btn-primary">신청</button></td>
+            {% else %}
+              {% if hackathonInformation.applyTime_end >= todayTime %}
+              <td><button type="submit" name="choice" value = {{hackathonInformation.id}} class="btn btn-primary">신청</button></td>
+              {% else %}
+              <td>마감</td>
+              {% endif %}
+            {% endif %}
           {% else %}
             <td>마감</td>
           {% endif %}
         </tr>
-                  {% csrf_token %}
+            {% csrf_token %}
         </form>
       {% endfor %}
       </tbody>

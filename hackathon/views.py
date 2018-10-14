@@ -25,7 +25,8 @@ def listHackathon(request):
 
     contestList = hackathonInformation.objects.all
     q = ''
-    today = datetime.today()
+    todayDate = datetime.today().date
+    todayTime = datetime.today().time
 
     # 제목 검색
 
@@ -34,7 +35,7 @@ def listHackathon(request):
         if q:
             contestList = hackathonInformation.objects.filter(title__contains=q)
 
-    return render(request, 'listHackathon.html', {'contestList' : contestList, 'q' : q, 'today' : today})
+    return render(request, 'listHackathon.html', {'contestList' : contestList, 'q' : q, 'todayDate' : todayDate, 'todayTime' : todayTime})
 
 
 def applyHackathon(request, hackathonInformation_id):
@@ -44,7 +45,8 @@ def applyHackathon(request, hackathonInformation_id):
     contestList = hackathonInformation.objects.all
     q = ''
     message = ''
-    today = datetime.today().strftime("%Y%m%d%H%M%S")
+    todayDate = datetime.today().date
+    todayTime = datetime.today().time
 
     # 신청 버튼 클릭
     if request.method == 'POST':
@@ -72,4 +74,4 @@ def applyHackathon(request, hackathonInformation_id):
         else :
             message = '신청 인원을 초과하였습니다.'
 
-    return render(request, 'listHackathon.html', {'contestList' : contestList, 'q' : q, 'message' : message, 'today' : today})
+    return render(request, 'listHackathon.html', {'contestList' : contestList, 'q' : q, 'message' : message, 'todayDate' : todayDate, 'todayTime' : todayTime})
