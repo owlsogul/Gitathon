@@ -4,6 +4,11 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <title>Hackathon List Page</title>
+    <script>
+    {% if message %}
+    alert('{{ message }}');
+    {% endif %}
+    </script>
   </head>
   <body>
     <div class = "container">
@@ -25,18 +30,23 @@
         <tr>
           <th scope="col">대회이름</th>
           <th scope="col">인원수</th>
+          <th scope="col">대회 기간</th>
           <th scope="col">신청 마감 기한</th>
           <th scope="col">신청하기</th>
         </tr>
       </thead>
       <tbody>
       {% for hackathonInformation in contestList %}
+        <form method = "POST" action="/hackathon/list/{{hackathonInformation.id}}/">
         <tr>
           <th scope="row">{{hackathonInformation.title}}</th>
           <td>{{hackathonInformation.applyNum}} / {{hackathonInformation.peopleNum}}</td>
+          <td>{{hackathonInformation.contestDate_start}} {{hackathonInformation.contestTime_start}} ~ {{hackathonInformation.contestDate_end}} {{hackathonInformation.contestTime_end}}</td>
           <td>{{hackathonInformation.applyDate_end}} {{hackathonInformation.applyTime_end}} 시</td>
-          <td><button type="submit" class="btn btn-primary">신청</button></td>
+          <td><button type="submit" name="choice" value = {{hackathonInformation.id}} class="btn btn-primary">신청</button></td>
         </tr>
+                  {% csrf_token %}
+        </form>
       {% endfor %}
       </tbody>
       </table>
