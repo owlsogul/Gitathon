@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import *
+from time import strftime
 
 # Create your models here.
 
@@ -36,4 +37,3 @@ class participate(models.Model):
 
 class tempLoginInformation(models.Model):
     memeberID = models.CharField(max_length = 100, default = "yedoriii")
-    
