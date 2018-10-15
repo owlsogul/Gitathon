@@ -1,37 +1,24 @@
-<!DOCTYPE html>
-<html lang="kr" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <header class="title-bar">
-      <a href="#">Logo</a>
-      wkdthf21님 환영합니다.
-      <a href="#">logout</a>
-      <a href="#">Hackathon</a>
-      <a href="#">Profile</a>
-    </header>
-    <div class="side-bar">
-    </div>
-    <div class="main">
-      <div class="input-box">
-        <form class="" action="create_process" method="GET">
-          <table>
-            <tr>
-              <td>팀 프로젝트 명</td>
-              <td><input type="text" name="" value=""></td>
-            </tr>
-            <tr>
-              <td>소속 해커톤</td>
-              <td><input type="text" name="" value=""></td>
-            </tr>
-          </table>
-          <input type="submit" name="" value="개설">
-          <input type="button" name="" value="취소">
-        </form>
-      </div>
+{% extends 'lobby/base.html' %}
 
-    </div>
-  </body>
-</html>
+{% block content %}
+<div class="side-bar">
+</div>
+<div class="main">
+  <div class="input-box">
+    <form class="" action="create_process" method="GET">
+      <table>
+        <tr>
+          <td>팀 프로젝트 명</td>
+          <td><input type="text" name="" value=""></td>
+        </tr>
+        <tr>
+          <td>소속 해커톤</td>
+          <td><input type="text" name="" value=""></td>
+        </tr>
+      </table>
+      <input type="submit" name="" value="개설">
+      <input type="button" name="" value="취소">
+    </form>
+  </div>
+</div>
+{% endblock %}
