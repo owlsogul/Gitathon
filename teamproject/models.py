@@ -8,9 +8,9 @@ class Team(models.Model):
 
 class TeamContribution(models.Model):
     teamId = models.ForeignKey('teamproject.Team', on_delete=models.CASCADE)
-    comment = models.FloatField()
-    code = models.FloatField()
-    resource = models.FloatField()
+    comment = models.FloatField(default=0.0)
+    code = models.FloatField(default=0.0)
+    resource = models.FloatField(default=0.0)
 
 class TeamNotice(models.Model):
     teamId = models.ForeignKey('teamproject.Team', on_delete=models.CASCADE)

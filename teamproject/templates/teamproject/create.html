@@ -5,17 +5,19 @@
 </div>
 <div class="main">
   <div class="input-box">
-    <form class="" action="create_process" method="GET">
+    <form class="" action="process_create" method="POST">
+      {% csrf_token %}
       <table>
         <tr>
           <td>팀 프로젝트 명</td>
-          <td><input type="text" name="" value=""></td>
+          <td><input type="text" name="teamName" placeholder="팀 이름을 입력해주세요"></td>
         </tr>
         <tr>
           <td>소속 해커톤</td>
-          <td><input type="text" name="" value=""></td>
+          <td><input type="text" name="hackName" placeholder="소속된 해커톤이 없습니다" readonly></td>
         </tr>
       </table>
+      <input type="hidden" name="hackTtitle" value="">
       <input type="submit" name="" value="개설">
       <input type="button" name="" value="취소">
     </form>
