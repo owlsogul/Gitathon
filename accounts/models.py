@@ -13,3 +13,8 @@ class Member(models.Model):
     def register(self):
         self.registerDate = timezone.now()
         self.save()
+
+class Participate(models.Model):
+    memberId = models.ForeignKey('accounts.Member', on_delete=models.CASCADE)
+    #hackId = models.ForeignKey('hackthon', default=None, on_delete=models.CASCADE)
+    teamId = models.ForeignKey('teamproject.Team', default=None, on_delete=models.CASCADE)
