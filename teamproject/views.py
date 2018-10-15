@@ -10,6 +10,47 @@ def main(request, teamId):
         return render(request, 'teamproject/main.html', {
             'memberId':request.session['memberId'],
             'teamId':teamId,
+            'team':Team.objects.get(pk=teamId),
+        })
+
+def notice(request, teamId):
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+    else:
+        return render(request, 'teamproject/notice.html', {
+            'memberId':request.session['memberId'],
+            'teamId':teamId,
+            'team':Team.objects.get(pk=teamId),
+        })
+
+def contribution(request, teamId):
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+    else:
+        return render(request, 'teamproject/contribution.html', {
+            'memberId':request.session['memberId'],
+            'teamId':teamId,
+            'team':Team.objects.get(pk=teamId),
+        })
+
+def chat(request, teamId):
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+    else:
+        return render(request, 'teamproject/chat.html', {
+            'memberId':request.session['memberId'],
+            'teamId':teamId,
+            'team':Team.objects.get(pk=teamId),
+        })
+
+def member(request, teamId):
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+    else:
+        return render(request, 'teamproject/member.html', {
+            'memberId':request.session['memberId'],
+            'teamId':teamId,
+            'team':Team.objects.get(pk=teamId),
         })
 
 # TODO: create view에서 해커톤 아이디랑 이름 받아와서 해커톤 가능하게 할 수 있겠다.

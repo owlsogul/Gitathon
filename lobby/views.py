@@ -17,13 +17,10 @@ def main(request):
         return redirect('/lobby')
     else:
         member = Member.objects.filter(memberId=request.session['memberId'])
-        print(member)
         joinIds = []
         for id in Participate.objects.filter(memberId=member[0]).values('teamId'):
             joinIds.append(id['teamId'])
-        print(joinIds)
         joinTeams = Team.objects.filter(id__in=joinIds)
-        print(joinTeams)
         return render(request, 'lobby/main.html', {
             'memberId':request.session['memberId'],
             'teams':joinTeams,
