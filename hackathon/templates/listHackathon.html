@@ -39,7 +39,7 @@
       {% for hackathonInformation in contestList %}
         <form method = "POST" action="/hackathon/list/{{hackathonInformation.id}}/">
         <tr>
-          <th scope="row">{{hackathonInformation.title}}</th>
+          <th scope="row"><a href="/hackathon/page/main/{{hackathonInformation.id}}">{{hackathonInformation.title}}</a></th>
           <td>{{hackathonInformation.applyNum}} / {{hackathonInformation.peopleNum}}</td>
           <td>{{hackathonInformation.contestDate_start}} {{hackathonInformation.contestTime_start}} ~ {{hackathonInformation.contestDate_end}} {{hackathonInformation.contestTime_end}}</td>
           <td>{{hackathonInformation.applyDate_end}} {{hackathonInformation.applyTime_end}} </td>

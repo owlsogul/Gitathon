@@ -37,7 +37,7 @@ def listHackathon(request):
 
     return render(request, 'listHackathon.html', {'contestList' : contestList, 'q' : q, 'todayDate' : todayDate, 'todayTime' : todayTime})
 
-
+# 해커톤 목록 페이지에서 신청 버튼을 눌렀을 때
 def applyHackathon(request, hackathonInformation_id):
 
     # 임의의 유저 ID
@@ -75,3 +75,8 @@ def applyHackathon(request, hackathonInformation_id):
             message = '신청 인원을 초과하였습니다.'
 
     return render(request, 'listHackathon.html', {'contestList' : contestList, 'q' : q, 'message' : message, 'todayDate' : todayDate, 'todayTime' : todayTime})
+
+# 해커톤 목록 페이지에서 해커톤 제목을 눌렀을 때
+def mainpageHackathon(request, hackathonInformation_id):
+
+    return render(request, 'mainpageHackathon.html')
