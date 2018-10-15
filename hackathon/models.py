@@ -22,7 +22,7 @@ class hackathonInformation(models.Model):
     memberNum_max = models.IntegerField()
     memberNum_min = models.IntegerField()
     selectMatching = models.IntegerField(choices = matching)
-    Images = models.FileField(upload_to='./hackathon/static/uploads/%Y/%m/%d')
+    Images = models.ImageField(upload_to='uploads/%Y/%m/%d')
     text = models.TextField(blank=True)
     created_date = models.DateTimeField(auto_now = True)
     # 회원정보 아직 없어서 default로 wkdthf21

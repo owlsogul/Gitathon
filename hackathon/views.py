@@ -41,7 +41,7 @@ def listHackathon(request):
 def applyHackathon(request, hackathonInformation_id):
 
     # 임의의 유저 ID
-    USERID = 'yedoriii6'
+    USERID = 'yedoriii7'
     contestList = hackathonInformation.objects.all
     q = ''
     message = ''
@@ -79,4 +79,8 @@ def applyHackathon(request, hackathonInformation_id):
 # 해커톤 목록 페이지에서 해커톤 제목을 눌렀을 때
 def mainpageHackathon(request, hackathonInformation_id):
 
-    return render(request, 'mainpageHackathon.html')
+    contest = hackathonInformation.objects.get(pk = hackathonInformation_id)
+    todayDate = datetime.today().date
+    todayTime = datetime.today().time
+
+    return render(request, 'mainpageHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime})
