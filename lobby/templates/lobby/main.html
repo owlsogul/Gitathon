@@ -45,9 +45,9 @@ Gitathon Main
     </div>
     <div class="ContentBoxBody">
       <ul>
-        <li><a href="/team/gitathon/main">Gitathon 프로젝트, 30분전</a></li>
-        <li>Emotshirt, 12시간전</li>
-        <li>AR 그라운드 프로젝트, 09/01</li>
+        {% for team in teams %}
+          <li><a href="/team/{{ team.id }}/main">{{ team.teamName }}</a></li>
+        {% endfor %}
       </ul>
     </div>
     <div class="ContentBoxFooter">
