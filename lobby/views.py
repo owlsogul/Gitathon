@@ -1,14 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 # Create your views here.
 def login(request):
-    return render(request, 'lobby/login.html', {
-        'numTeamproject' : 3000,
-        'numHackathon' : 12345
-    })
+    if not 'memberId' in request.session:
+        return render(request, 'lobby/login.html', {
+            'numTeamproject' : 3000,
+            'numHackathon' : 12345
+        })
+    else:
+        return redirect('/lobby/main')
 
 def main(request):
-    return render(request, 'lobby/main.html', {})
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+    else:
+        return render(request, 'lobby/main.html', {'memberId':request.session['memberId']})
 
 def signup(request):
     return lobby(request)
