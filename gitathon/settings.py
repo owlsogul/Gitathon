@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'lobby',
     'teamproject',
     'hackathon',
+    'accounts',
 ]
 
 MIDDLEWARE = [
