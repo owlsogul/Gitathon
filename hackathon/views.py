@@ -23,7 +23,7 @@ def holdHackathon(request):
 
 def listHackathon(request):
 
-    contestList = hackathonInformation.objects.all
+    contestList = HackathonInformation.objects.all
     q = ''
     todayDate = datetime.today().date
     todayTime = datetime.today().time
@@ -33,16 +33,16 @@ def listHackathon(request):
     if request.method == 'GET':
         q = request.GET.get('q','')
         if q:
-            contestList = hackathonInformation.objects.filter(title__contains=q)
+            contestList = HackathonInformation.objects.filter(title__contains=q)
 
     return render(request, 'listHackathon.html', {'contestList' : contestList, 'q' : q, 'todayDate' : todayDate, 'todayTime' : todayTime})
 
 # 해커톤 목록 페이지에서 신청 버튼을 눌렀을 때
-def applyHackathon(request, hackathonInformation_id):
+def applyHackathon(request, HackathonInformation_id):
 
     # 임의의 유저 ID
     USERID = 'yedoriii7'
-    contestList = hackathonInformation.objects.all
+    contestList = HackathonInformation.objects.all
     q = ''
     message = ''
     todayDate = datetime.today().date
@@ -51,7 +51,7 @@ def applyHackathon(request, hackathonInformation_id):
     # 신청 버튼 클릭
     if request.method == 'POST':
         selection = request.POST['choice']
-        appliedContest = hackathonInformation.objects.get(pk = selection)
+        appliedContest = HackathonInformation.objects.get(pk = selection)
 
         # 신청 인원이 초과되지 않은 경우
         if appliedContest.peopleNum > appliedContest.applyNum :
@@ -77,10 +77,17 @@ def applyHackathon(request, hackathonInformation_id):
     return render(request, 'listHackathon.html', {'contestList' : contestList, 'q' : q, 'message' : message, 'todayDate' : todayDate, 'todayTime' : todayTime})
 
 # 해커톤 목록 페이지에서 해커톤 제목을 눌렀을 때
-def mainpageHackathon(request, hackathonInformation_id):
+def mainpageHackathon(request, HackathonInformation_id):
 
-    contest = hackathonInformation.objects.get(pk = hackathonInformation_id)
+    contest = HackathonInformation.objects.get(pk = HackathonInformation_id)
     todayDate = datetime.today().date
     todayTime = datetime.today().time
 
     return render(request, 'mainpageHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime})
+
+# 해커톤 팀목록 페이지 눌렀을 때
+def teamlistHackathon(request, HackathonInformation_id):
+
+    contest = HackathonInformation.objects.get(pk = HackathonInformation_id)
+
+    return render(request, 'teamlistHackathon.html', {'contest' : contest})

@@ -51,10 +51,10 @@
         <div class = "col">
           <ul class="nav justify-content-center nav-pills">
             <li class="nav-item">
-              <a class="nav-link active" href="/hackathon/page/main/{{contest.id}}">메인</a>
+              <a class="nav-link" href="/hackathon/page/main/{{contest.id}}">메인</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/hackathon/page/teamlist/{{contest.id}}">팀목록</a>
+              <a class="nav-link active" href="/hackathon/page/teamlist/{{contest.id}}">팀목록</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">공지사항</a>
@@ -67,34 +67,6 @@
       </div>
       <br>
       <br>
-      <div class = "row">
-        <div class = "col-2">
-        </div>
-        <div class = "col-8">
-          {% load staticfiles %}
-          <img src="{% static "uploads/2018/10/13/temp1.jpg" %}" class="rounded mx-auto d-block" alt="">
-        </div>
-        <div class = "col-2">
-        </div>
-      </div>
-      <div class = "row">
-        <div class = "col-2">
-        </div>
-        <div class = "col-8">
-          <br>
-          <br>
-          <br>
-          <div class = "card">
-            해커톤 개설자 : wkdthf21
-            <br>
-            <br>
-            <br>
-            {{contest.text}}
-          </div>
-        </div>
-        <div class = "col-2">
-        </div>
-      </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

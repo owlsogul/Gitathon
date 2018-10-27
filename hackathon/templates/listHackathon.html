@@ -36,19 +36,19 @@
         </tr>
       </thead>
       <tbody>
-      {% for hackathonInformation in contestList %}
-        <form method = "POST" action="/hackathon/list/{{hackathonInformation.id}}/">
+      {% for HackathonInformation in contestList %}
+        <form method = "POST" action="/hackathon/list/{{HackathonInformation.id}}/">
         <tr>
-          <th scope="row"><a href="/hackathon/page/main/{{hackathonInformation.id}}">{{hackathonInformation.title}}</a></th>
-          <td>{{hackathonInformation.applyNum}} / {{hackathonInformation.peopleNum}}</td>
-          <td>{{hackathonInformation.contestDate_start}} {{hackathonInformation.contestTime_start}} ~ {{hackathonInformation.contestDate_end}} {{hackathonInformation.contestTime_end}}</td>
-          <td>{{hackathonInformation.applyDate_end}} {{hackathonInformation.applyTime_end}} </td>
-          {% if hackathonInformation.applyDate_end >= todayDate %}
-            {% if hackathonInformation.applyDate_end != todayDate %}
-            <td><button type="submit" name="choice" value = {{hackathonInformation.id}} class="btn btn-primary">신청</button></td>
+          <th scope="row"><a href="/hackathon/page/main/{{HackathonInformation.id}}">{{HackathonInformation.title}}</a></th>
+          <td>{{HackathonInformation.applyNum}} / {{HackathonInformation.peopleNum}}</td>
+          <td>{{HackathonInformation.contestDate_start}} {{HackathonInformation.contestTime_start}} ~ {{HackathonInformation.contestDate_end}} {{HackathonInformation.contestTime_end}}</td>
+          <td>{{HackathonInformation.applyDate_end}} {{HackathonInformation.applyTime_end}} </td>
+          {% if HackathonInformation.applyDate_end >= todayDate %}
+            {% if HackathonInformation.applyDate_end != todayDate %}
+            <td><button type="submit" name="choice" value = {{HackathonInformation.id}} class="btn btn-primary">신청</button></td>
             {% else %}
-              {% if hackathonInformation.applyTime_end >= todayTime %}
-              <td><button type="submit" name="choice" value = {{hackathonInformation.id}} class="btn btn-primary">신청</button></td>
+              {% if HackathonInformation.applyTime_end >= todayTime %}
+              <td><button type="submit" name="choice" value = {{HackathonInformation.id}} class="btn btn-primary">신청</button></td>
               {% else %}
               <td>마감</td>
               {% endif %}
