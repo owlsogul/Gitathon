@@ -3,21 +3,29 @@ from django.http import HttpResponse
 from hackathon.forms import *
 from hackathon.models import *
 from django.contrib import messages
+from accounts.models import *
 
 # Create your views here.
 
 # 대회방 개설
 def holdHackathon(request):
-    form = Form()
+
+    #session test 지우셈
+    request.session['memberId'] = "wkdthf21"
+
+    form = PostForm()
 
     if request.method == 'POST':
         # Model Form 을 이용해서 file을 upload할 때 주의
-        form = Form(request.POST, request.FILES)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             # form을 DB에 저장
-            form.save()
+            post = form.save()
+            post.hackathonHost = request.session['memberId']
+            post.save()
+
     else:
-            form = Form()
+            form = PostForm()
 
     return render(request, 'hold.html',{'form':form})
 
@@ -41,7 +49,10 @@ def listHackathon(request):
 def applyHackathon(request, HackathonInformation_id):
 
     # 임의의 유저 ID
-    USERID = 'yedoriii7'
+
+    #session test 지우셈
+    request.session['memberId'] = "wkdthf21"
+
     contestList = HackathonInformation.objects.all
     q = ''
     message = ''
@@ -52,6 +63,7 @@ def applyHackathon(request, HackathonInformation_id):
     if request.method == 'POST':
         selection = request.POST['choice']
         appliedContest = HackathonInformation.objects.get(pk = selection)
+        userInformation = Member.objects.get(pk=request.session['memberId'])
 
         # 신청 인원이 초과되지 않은 경우
         if appliedContest.peopleNum > appliedContest.applyNum :
@@ -59,12 +71,12 @@ def applyHackathon(request, HackathonInformation_id):
             # 이미 참여한 상태인지 확인 필요(memberID 부분 변경 요망)
 
             # 이미 참여한 상태라면
-            if participate.objects.filter(memberID = USERID, hackathonID = appliedContest) :
+            if Participate.objects.filter(memberId = userInformation, hackId = appliedContest) :
                 message = '이미 참여한 상태입니다.'
             # 이미 참여한 상태가 아니라면
             else:
                 # 해커톤 ID와 참여자 ID 저장 (참여자 ID는 추후 추가)
-                temp_participate = participate(memberID = USERID , hackathonID = appliedContest)
+                temp_participate = Participate(memberId = userInformation, hackId = appliedContest, teamId = None)
                 temp_participate.save()
                 # applyNum 증가
                 appliedContest.applyNum += 1
