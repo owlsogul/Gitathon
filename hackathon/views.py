@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse, HttpResponseRedirect
 from django.http import HttpResponse
 from hackathon.forms import *
 from hackathon.models import *
 from django.contrib import messages
 from accounts.models import *
+from teamproject.models import *
+from django.db.models import Count
 
 # Create your views here.
 
@@ -79,7 +81,7 @@ def applyHackathon(request, HackathonInformation_id):
                 temp_participate = Participate(memberId = userInformation, hackId = appliedContest, teamId = None)
                 temp_participate.save()
                 # applyNum 증가
-                appliedContest.applyNum += 1
+                appliedContest.applyNum = len(Participate.objects.filter(hackId = appliedContest))
                 appliedContest.save()
 
         # 신청 인원이 초과된 경우
@@ -100,6 +102,92 @@ def mainpageHackathon(request, HackathonInformation_id):
 # 해커톤 팀목록 페이지 눌렀을 때
 def teamlistHackathon(request, HackathonInformation_id):
 
+    random = 'True'
+
+    # 해커톤 정보
     contest = HackathonInformation.objects.get(pk = HackathonInformation_id)
 
-    return render(request, 'teamlistHackathon.html', {'contest' : contest})
+    # 해커톤 참여 팀과 멤버 쿼리셋
+    teamList = Team.objects.filter(participate__hackId = contest).distinct
+    participateList = Participate.objects.filter(hackId = contest)
+    nomemberList = Member.objects.filter(participate__teamId__isnull=True).filter(participate__hackId = contest)
+
+    if contest.selectMatching == 0:
+
+        return render(request, 'teamlistHackathon.html', {'contest' : contest, 'teamList' : teamList , 'participateList' : participateList, 'nomemberList':nomemberList})
+
+    else :
+
+        return render(request, 'teamlistHackathon.html', {'contest' : contest, 'teamList' : teamList , 'participateList' : participateList, 'nomemberList':nomemberList, 'random' : random})
+
+
+# 해커톤 팀목록 페이지 팀 참가 신청 시
+def applyTeam(request, HackathonInformation_id, Team_id):
+
+    message =''
+
+    #session test 지우셈
+    request.session['memberId'] = "member1"
+
+    # 해커톤 정보
+    contest = HackathonInformation.objects.get(pk = HackathonInformation_id)
+
+    # 해커톤 참여 팀과 멤버 쿼리셋
+    teamList = Team.objects.filter(participate__hackId = contest).distinct()
+    team = Team.objects.get(pk = Team_id)
+    memberList = Member.objects.filter(participate__teamId = team)
+    participateList = Participate.objects.filter(hackId = contest)
+    userInformation = Member.objects.get(pk=request.session['memberId'])
+    nomemberList = Member.objects.filter(participate__teamId__isnull=True).filter(participate__hackId = contest)
+
+    # 신청 버튼 클릭
+    if request.method == 'POST':
+
+        selection = request.POST['apply']
+        appliedTeam = Team.objects.get(pk = selection)
+        userInformation = Member.objects.get(pk=request.session['memberId'])
+
+        # 팀 인원이 초과되지 않은 경우
+        if contest.memberNum_max > len(memberList) :
+
+            message = len(memberList)
+
+            # 이미 참여한 상태라면
+            if memberList.filter(memberId = request.session['memberId']) :
+                message = '이미 참여한 상태입니다.'
+            # 다른 팀에 참여한 상태라면
+            elif participateList.get(memberId = userInformation).teamId :
+                message = '이미 다른 팀에 참여했습니다.'
+            # 이미 참여한 상태가 아니라면
+            else:
+                member = participateList.get(memberId = userInformation)
+                # 우선은 팀원으로 그냥 추가
+                # 수정 요망
+                member.teamId = team
+                member.save()
+                message = '신청이 완료되었습니다.'
+
+
+        # 팀 인원이 초과된 경우
+        else :
+            message = '팀 인원이 모두 찼습니다.'
+
+
+    return render(request, 'teamlistHackathon.html', {'contest' : contest, 'teamList' : teamList , 'participateList' : participateList, 'message' : message, 'nomemberList':nomemberList})
+
+def adminHackathon(request, HackathonInformation_id):
+
+    #session test 지우셈
+    request.session['memberId'] = "wkdthf21"
+    # 해커톤 정보
+    contest = HackathonInformation.objects.get(pk = HackathonInformation_id)
+    # 해커톤 참여 팀과 멤버 쿼리셋
+    teamList = Team.objects.filter(participate__hackId = contest).distinct()
+    team = teamList.all()[:1].get()
+
+    # 해커톤 관리자만이 접근 가능
+    if contest.hackathonHost == request.session['memberId'] :
+        return render(request, 'adminHackathon.html', {'contest' : contest, 'teamList' : teamList, 'team' : team})
+    else:
+        redirect_to = reverse('mainpageHackathon', kwargs={'HackathonInformation_id':contest.id})
+        return HttpResponseRedirect(redirect_to)
