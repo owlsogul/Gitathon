@@ -55,21 +55,23 @@ def member(request, teamId):
         })
 
 # TODO: create view에서 해커톤 아이디랑 이름 받아와서 해커톤 가능하게 할 수 있겠다.
-def create(request, hackId=0):
+def create(request):
     if not 'memberId' in request.session:
         return redirect('/lobby')
     else:
-        if hackId == 0:
-            return render(request, 'teamproject/create.html', {
-                'memberId':request.session['memberId'],
-            })
-        else :
-            contest = HackathonInformation.objects.get(pk=hackId)
-            return render(request, 'teamproject/create.html', {
-                'memberId':request.session['memberId'],
-                'hackTitle':contest.title
-            })
+        return render(request, 'teamproject/create.html', {
+            'memberId':request.session['memberId'],
+        })
 
+def createWithHackId(request, hackId):
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+    else:
+        hackTitle = HackathonInformation.objects.get(pk=hackId).title
+        return render(request, 'teamproject/create.html', {
+            'memberId':request.session['memberId'],
+            'hackTitle':hackTitle
+        })
 def process_create(request):
 
     # exception

@@ -14,11 +14,7 @@
         </tr>
         <tr>
           <td>소속 해커톤</td>
-          {%if hackTitle %}
-            <td><input type="text" name="hackName" placeholder="{{hackTitle}}" readonly></td>
-          {% else %}
-            <td><input type="text" name="hackName" placeholder="소속된 해커톤이 없습니다" readonly></td>
-          {% endif %}
+          <td><input type="text" name="hackName" placeholder="소속된 해커톤이 없습니다" value= "{{ hackTitle }}"readonly></td>
         </tr>
       </table>
       <input type="hidden" name="hackTtitle" value="">

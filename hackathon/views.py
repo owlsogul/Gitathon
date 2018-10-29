@@ -23,6 +23,7 @@ def holdHackathon(request):
             post = form.save()
             post.hackathonHost = request.session['memberId']
             post.save()
+            return redirect('../../lobby/main')
 
     else:
             form = PostForm()
@@ -119,7 +120,7 @@ def teamlistHackathon(request, HackathonInformation_id):
         contestId = request.GET.get('createTeam')
 
         if contestId :
-            redirect_to = reverse('create', kwargs={'hackId':contest.id})
+            redirect_to = reverse('/team/create', kwargs={'hackId':contest.id})
             return HttpResponseRedirect(redirect_to)
 
 
@@ -182,7 +183,7 @@ def applyTeam(request, HackathonInformation_id, Team_id):
         contestId = request.GET.get('createTeam')
 
         if contestId :
-            redirect_to = reverse('create', kwargs={'hackId':contest.id})
+            redirect_to = reverse('/team/create', kwargs={'hackId':contest.id})
             return HttpResponseRedirect(redirect_to)
 
 
