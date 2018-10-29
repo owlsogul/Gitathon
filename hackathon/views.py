@@ -212,6 +212,12 @@ def adminHackathon(request, HackathonInformation_id, Team_id=0):
                 Team_id = team.id
                 memberList = None
                 nomemberList = Member.objects.filter(participate__teamId__isnull=True, participate__hackId = contest)
+            # 자율 매칭인데 팀이 없어요
+            elif contest.selectMatching == 0 and len(teamList) == 0:
+                team = Team(teamName = "no Team")
+                Team_id = team.id
+                memberList = None
+                nomemberList = Member.objects.filter(participate__teamId__isnull=True, participate__hackId = contest)
             else :
                 team = teamList.all()[:1].get()
                 Team_id = team.id
