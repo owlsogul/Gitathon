@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from teamproject.models import *
 from accounts.models import *
+from hackathon.models import *
 
 # Create your views here.
 def main(request, teamId):
@@ -54,13 +55,20 @@ def member(request, teamId):
         })
 
 # TODO: create view에서 해커톤 아이디랑 이름 받아와서 해커톤 가능하게 할 수 있겠다.
-def create(request):
+def create(request, hackId=0):
     if not 'memberId' in request.session:
         return redirect('/lobby')
     else:
-        return render(request, 'teamproject/create.html', {
-            'memberId':request.session['memberId'],
-        })
+        if hackId == 0:
+            return render(request, 'teamproject/create.html', {
+                'memberId':request.session['memberId'],
+            })
+        else :
+            contest = HackathonInformation.objects.get(pk=hackId)
+            return render(request, 'teamproject/create.html', {
+                'memberId':request.session['memberId'],
+                'hackTitle':contest.title
+            })
 
 def process_create(request):
 
