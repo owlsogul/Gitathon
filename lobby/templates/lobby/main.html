@@ -63,10 +63,11 @@ Gitathon Main
     </div>
     <div class="ContentBoxBody">
       <ul>
-        <li>Gitathon 프로젝트, 30분전</li>
-        <li>Emotshirt, 12시간전</li>
-        <li>AR 그라운드 프로젝트, 09/01</li>
+        {% for hack in hackList %}
+          <li><a href="/hackathon/page/main/{{hack.id}}">{{hack.title}}</a></li>
+        {% endfor %}
       </ul>
+
     </div>
     <div class="ContentBoxFooter">
       <a href="#">show more</a><br/>
