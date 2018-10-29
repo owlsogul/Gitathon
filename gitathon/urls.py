@@ -21,4 +21,5 @@ urlpatterns = [
     path('lobby/', include('lobby.urls')),
     path('team/', include('teamproject.urls')),
     path('accounts/', include('accounts.urls')),
+	path('well-known/', include('letsencrypt.urls')),
 ]
