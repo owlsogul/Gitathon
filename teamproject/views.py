@@ -62,6 +62,14 @@ def create(request):
             'memberId':request.session['memberId'],
         })
 
+def createWithHackId(request, hackId):
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+    else:
+        return render(request, 'teamproject/create.html', {
+            'memberId':request.session['memberId'],
+            'hackId':hackId
+        })
 def process_create(request):
 
     # exception
