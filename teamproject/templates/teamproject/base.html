@@ -1,0 +1,24 @@
+{% extends 'lobby/base.html' %}
+
+{% block content %}
+<div class="main">
+  <div class="team-name-bar">
+    {{ team.teamName }}
+  </div>
+  <div class="menu-bar">
+    <table>
+      <tr>
+        <td><a href="./main">메인</a></td>
+        <td><a href="./notice">공지사항</a></td>
+        <td><a href="./contribution">기여도</a></td>
+        <td><a href="./chat">채팅</a></td>
+        <td><a href="./member">멤버 관리</a></td>
+      </tr>
+    </table>
+  </div>
+  <div class="team-content-wrapper">
+    {% block teamContent %}
+    {% endblock %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="kr" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block customTitle %}{% endblock %}</title>
+    {% block customStyle %}{% endblock %}
+  </head>
+  <body>
+    <header class="title-bar">
+      <a href="/lobby/main">Logo</a>
+      {{ memberId }}님 환영합니다.
+      <a href="/accounts/logout">logout</a>
+      <a href="#">Hackathon</a>
+      <a href="#">Profile</a>
+    </header>
+    {% block content %}{% endblock %}
+  </body>
+</html>

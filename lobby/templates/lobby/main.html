@@ -1,96 +1,90 @@
-<!DOCTYPE html>
-<html lang="kr" dir="ltr">
-  <head>
-    <style>
-      div{
-        margin-left: 2px;
-        margin-right: 2px;
-        margin-top: 2px;
-        margin-bottom: 2px;
-      }
-      .side-bar{
-        float: left;
-        height: 100%;
-      }
-      .main{
-        float: left;
-        height: 100%;
-      }
+{% extends 'lobby/base.html' %}
 
-      .ContentBoxWithTitle {
-        border: 1px gray solid;
-      }
-      .ContentBoxWithTitle .ContentBoxTitle{
-        background: gray;
-        margin: 0, 0, 0, 0;
-        color: white;
-      }
-      .ContentBoxWithTitle .RecentActBox{
-        width: 100%;
-      }
-    </style>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <header class="title-bar">
-      <a href="#">Logo</a>
-      {{ memberId }}님 환영합니다.
-      <a href="/accounts/logout">logout</a>
-      <a href="#">Hackathon</a>
-      <a href="#">Profile</a>
-    </header>
-    <div class="side-bar">
-      <div class="TeamprojectBox ContentBoxWithTitle">
-        <div class="ContentBoxTitle">
-          내 팀프로젝트
-        </div>
-        <div class="ContentBoxHeader">
-        </div>
-        <div class="ContentBoxBody">
-          <ul>
-            <li>Gitathon 프로젝트, 30분전</li>
-            <li>Emotshirt, 12시간전</li>
-            <li>AR 그라운드 프로젝트, 09/01</li>
-          </ul>
-        </div>
-        <div class="ContentBoxFooter">
-          <a href="#">show more</a><br/>
-          <a href="#">create new</a>
-        </div>
-      </div>
-      <div class="ContentBoxWithTitle HackathonBox">
-        <div class="ContentBoxTitle">
-          내 해커톤
-        </div>
-        <div class="ContentBoxHeader">
-        </div>
-        <div class="ContentBoxBody">
-          <ul>
-            <li>Gitathon 프로젝트, 30분전</li>
-            <li>Emotshirt, 12시간전</li>
-            <li>AR 그라운드 프로젝트, 09/01</li>
-          </ul>
-        </div>
-        <div class="ContentBoxFooter">
-          <a href="#">show more</a><br/>
-          <a href="#">create new</a>
-        </div>
-      </div>
-    </div>
-    <div class="main">
-      <div class="ContentBoxWithTitle RecentActBox">
-        <div class="ContentBoxTitle">
-          최근 활동들
-        </div>
-        <div class="ContentBoxHeader">
-        </div>
-        <div class="ContentBoxBody">
-          안녕하세요
-        </div>
-        <div class="ContentBoxFooter"></div>
-      </div>
-    </div>
+{% block customStyle %}
+<style>
+  div{
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+  .side-bar{
+    float: left;
+    height: 100%;
+  }
+  .main{
+    float: left;
+    height: 100%;
+  }
 
-  </body>
-</html>
+  .ContentBoxWithTitle {
+    border: 1px gray solid;
+  }
+  .ContentBoxWithTitle .ContentBoxTitle{
+    background: gray;
+    margin: 0, 0, 0, 0;
+    color: white;
+  }
+  .ContentBoxWithTitle .RecentActBox{
+    width: 100%;
+  }
+</style>
+{% endblock %}
+
+{% block customTitle %}
+Gitathon Main
+{% endblock %}
+
+{% block content %}
+<div class="side-bar">
+  <div class="TeamprojectBox ContentBoxWithTitle">
+    <div class="ContentBoxTitle">
+      내 팀프로젝트
+    </div>
+    <div class="ContentBoxHeader">
+    </div>
+    <div class="ContentBoxBody">
+      <ul>
+        {% for team in teams %}
+          <li><a href="/team/{{ team.id }}/main">{{ team.teamName }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="ContentBoxFooter">
+      <a href="#">show more</a><br/>
+      <a href="/team/create">create new</a>
+    </div>
+  </div>
+  <div class="ContentBoxWithTitle HackathonBox">
+    <div class="ContentBoxTitle">
+      내 해커톤
+    </div>
+    <div class="ContentBoxHeader">
+    </div>
+    <div class="ContentBoxBody">
+      <ul>
+        <li>Gitathon 프로젝트, 30분전</li>
+        <li>Emotshirt, 12시간전</li>
+        <li>AR 그라운드 프로젝트, 09/01</li>
+      </ul>
+    </div>
+    <div class="ContentBoxFooter">
+      <a href="#">show more</a><br/>
+      <a href="#">create new</a>
+    </div>
+  </div>
+</div>
+<div class="main">
+  <div class="ContentBoxWithTitle RecentActBox">
+    <div class="ContentBoxTitle">
+      최근 활동들
+    </div>
+    <div class="ContentBoxHeader">
+    </div>
+    <div class="ContentBoxBody">
+      안녕하세요
+    </div>
+    <div class="ContentBoxFooter"></div>
+  </div>
+</div>
+{% endblock%}

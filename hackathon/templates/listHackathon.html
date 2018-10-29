@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Hackathon List Page</title>
+    <script>
+    {% if message %}
+    alert('{{ message }}');
+    {% endif %}
+    </script>
+  </head>
+  <body>
+    <div class = "container">
+    <div class ="row justify-content-between">
+      <div class = "col-md-8">
+      <h3><a href = "/hackathon/list/">해커톤 대회 목록</a></h3>
+      </div>
+      <div class = "col-md-4">
+        <form method="GET" class="get-form">
+          <input type="text" name="q" value="{{q}}">
+          <button type="submit" class="btn btn-primary">검색</button>
+        </form>
+      </div>
+    </div>
+    <br>
+    <div class = "row">
+      <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">대회이름</th>
+          <th scope="col">인원</th>
+          <th scope="col">대회 기간</th>
+          <th scope="col">신청 마감 기한</th>
+          <th scope="col">신청하기</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for HackathonInformation in contestList %}
+        <form method = "POST" action="/hackathon/list/{{HackathonInformation.id}}/">
+        <tr>
+          <th scope="row"><a href="/hackathon/page/main/{{HackathonInformation.id}}">{{HackathonInformation.title}}</a></th>
+          <td>{{HackathonInformation.applyNum}} / {{HackathonInformation.peopleNum}}</td>
+          <td>{{HackathonInformation.contestDate_start}} {{HackathonInformation.contestTime_start}} ~ {{HackathonInformation.contestDate_end}} {{HackathonInformation.contestTime_end}}</td>
+          <td>{{HackathonInformation.applyDate_end}} {{HackathonInformation.applyTime_end}} </td>
+          {% if HackathonInformation.applyDate_end >= todayDate %}
+            {% if HackathonInformation.applyDate_end != todayDate %}
+            <td><button type="submit" name="choice" value = {{HackathonInformation.id}} class="btn btn-primary">신청</button></td>
+            {% else %}
+              {% if HackathonInformation.applyTime_end >= todayTime %}
+              <td><button type="submit" name="choice" value = {{HackathonInformation.id}} class="btn btn-primary">신청</button></td>
+              {% else %}
+              <td>마감</td>
+              {% endif %}
+            {% endif %}
+          {% else %}
+            <td>마감</td>
+          {% endif %}
+        </tr>
+            {% csrf_token %}
+        </form>
+      {% endfor %}
+      </tbody>
+      </table>
+    </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>

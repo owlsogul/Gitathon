@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Hackathon Main Page</title>
+    <script>
+    {% if message %}
+    alert('{{ message }}');
+    {% endif %}
+    </script>
+  </head>
+  <body>
+    <div class = "containter">
+      <div class = "row">
+        <div class ="col">
+        header
+        <br>
+        </div>
+      </div>
+      <div class ="row">
+      <div class = "col-2">
+      </div>
+      <div class = "col-8">
+        <div class = "alert alert-dark" role="alert">
+          {% if contest.contestDate_end > todayDate %}
+            {% if contest.contestDate_start > todayDate %}
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회 시작전</span>
+            {% elif contestDate_start == todayDate %}
+              {% if contestTime_start <= todayTime %}
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회 중</span>
+              {% else %}
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회 시작 전</span>
+              {% endif %}
+            {% else %}
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회 중</span>
+             {% endif %}
+          {% elif contest.contestDate_end == todayDate %}
+            {% if contest.contestTime_end < todayTime %}
+            <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회종료</span>
+            {% else %}
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회중</span>
+            {% endif %}
+          {% else %}
+          <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회종료</span>
+          {% endif %}
+        </div>
+      </div>
+      <div class = "col-2">
+      </div>
+      </div>
+    </div>
+    <br>
+    <div class = "containter">
+      <div class = "row">
+        <div class = "col">
+          <ul class="nav justify-content-center nav-pills">
+            <li class="nav-item">
+              <a class="nav-link" href="/hackathon/page/main/{{contest.id}}">메인</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/hackathon/page/teamlist/{{contest.id}}">팀목록</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">공지사항</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/hackathon/admin/{{contest.id}}">관리자메뉴</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <br>
+      <br>
+    </div>
+    <div class = "containter">
+      <div class = "row">
+        <div class = "col-2">
+        </div>
+        <div class = "col-8">
+          <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">팀 이름</th>
+              <th scope="col">현재 멤버</th>
+              <th scope="col">참가</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for Team in teamList %}
+            <tr>
+              <td> {{Team.teamName}} </td>
+              <td>
+                {% for participate in participateList %}
+                  {% if participate.teamId == Team %}
+                    {{participate.memberId.memberId}}
+                    <br>
+                  {% endif %}
+                {% endfor %}
+              </td>
+              <td>
+                {% if random %}
+                {% else %}
+                  <form method = "POST" action="/hackathon/page/teamlist/{{contest.id}}/{{Team.id}}/">
+                    <button type="submit" name="apply" value = {{Team.id}} class="btn btn-primary">참가</button>
+                  {% csrf_token %}
+                  </form>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+          </table>
+        </div>
+        <div class = "col-2">
+        </div>
+      </div>
+    </div>
+    <br/>
+    <br/>
+    <div class = "container">
+      <div class = "row">
+        <div class = "col-5">
+        </div>
+        <div class = "col-2">
+          <form method = "GET" action="">
+            <button type="submit" name="createTeam" value = {{contest.id}} class="btn btn-primary">팀 추가</button>
+          {% csrf_token %}
+        </div>
+        <div class = "col-5">
+        </div>
+      </div>
+    </div>
+    <br/>
+    <br/>
+    <div class = "container">
+      <div class = "row">
+        <div class = "col-1">
+        </div>
+        <div class = "col-9">
+          <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">팀 없는 참가자들</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for member in nomemberList %}
+            <tr>
+              <td> {{member.memberId}} </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+          </table>
+        </div>
+        <div class = "col -6">
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+  </body>
+</html>

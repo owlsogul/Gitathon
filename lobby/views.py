@@ -1,4 +1,6 @@
 from django.shortcuts import redirect, render
+from teamproject.models import Team
+from accounts.models import Member, Participate
 
 # Create your views here.
 def login(request):
@@ -14,7 +16,15 @@ def main(request):
     if not 'memberId' in request.session:
         return redirect('/lobby')
     else:
-        return render(request, 'lobby/main.html', {'memberId':request.session['memberId']})
+        member = Member.objects.filter(memberId=request.session['memberId'])
+        joinIds = []
+        for id in Participate.objects.filter(memberId=member[0]).values('teamId'):
+            joinIds.append(id['teamId'])
+        joinTeams = Team.objects.filter(id__in=joinIds)
+        return render(request, 'lobby/main.html', {
+            'memberId':request.session['memberId'],
+            'teams':joinTeams,
+        })
 
 def signup(request):
     return lobby(request)

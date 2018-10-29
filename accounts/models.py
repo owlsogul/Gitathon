@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from hackathon.models import *
+from teamproject.models import *
 
 # Create your models here.
 class Member(models.Model):
@@ -13,3 +15,8 @@ class Member(models.Model):
     def register(self):
         self.registerDate = timezone.now()
         self.save()
+
+class Participate(models.Model):
+    memberId = models.ForeignKey(Member, on_delete=models.CASCADE)
+    hackId = models.ForeignKey(HackathonInformation, null=True, on_delete=models.CASCADE)
+    teamId = models.ForeignKey(Team, null=True, on_delete=models.SET_NULL)
