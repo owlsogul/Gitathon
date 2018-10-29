@@ -26,7 +26,9 @@ SECRET_KEY = 'zyml6(y4tu-b3d@$n_5-45&1lbmah+8i$w)f4xqg=yr6llssa7'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'owlsogul.iptime.org'
+    'localhost',
+    'owlsogul.iptime.org',
+    'gitathon.ddns.net'
 ]
 
 
@@ -39,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'letsencrypt',
     'lobby',
     'teamproject',
     'hackathon',
