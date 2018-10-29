@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from teamproject.models import *
 from accounts.models import *
+import subprocess
 
 # Create your views here.
 def main(request, teamId):
@@ -91,7 +92,9 @@ def process_create(request):
     if 'hackId' in request.POST:
         participate = Participate.objects.create(memberId=leader, teamId=team, hackId=request.POST['hackId'])
         participate.save()
+        subprocess.call ('~/remote/remote.sh ' + hackId + ' ' + teamName, shell=True)
     else:
         participate = Participate.objects.create(memberId=leader, teamId=team)
         participate.save()
+        subprocess.call ('~/remote/remote.sh ' + request.session['memberId'] + ' ' + teamName, shell=True)
     return redirect('/lobby')
