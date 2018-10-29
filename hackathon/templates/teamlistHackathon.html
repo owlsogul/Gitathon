@@ -124,7 +124,7 @@
         </div>
         <div class = "col-2">
           <form method = "GET" action="">
-            <button type="submit" class="btn btn-primary">팀 추가</button>
+            <button type="submit" name="createTeam" value = {{contest.id}} class="btn btn-primary">팀 추가</button>
           {% csrf_token %}
         </div>
         <div class = "col-5">

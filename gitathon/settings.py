@@ -25,7 +25,10 @@ SECRET_KEY = 'zyml6(y4tu-b3d@$n_5-45&1lbmah+8i$w)f4xqg=yr6llssa7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'owlsogul.iptime.org',
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
     'lobby',
     'teamproject',
     'hackathon',
+    'accounts',
 ]
 
 MIDDLEWARE = [

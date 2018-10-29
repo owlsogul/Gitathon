@@ -60,7 +60,7 @@
               <a class="nav-link" href="#">공지사항</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/hackathon/admin/{{contest.id}}/0">관리자메뉴</a>
+              <a class="nav-link" href="/hackathon/admin/{{contest.id}}">관리자메뉴</a>
             </li>
           </ul>
         </div>
@@ -71,8 +71,7 @@
         <div class = "col-2">
         </div>
         <div class = "col-8">
-          {% load staticfiles %}
-          <img src="{% static "uploads/2018/10/28/temp3.jpg" %}" class="rounded mx-auto d-block" alt="">
+          이미지
         </div>
         <div class = "col-2">
         </div>
@@ -86,9 +85,8 @@
           <br>
           <div class = "card">
             해커톤 개설자 : wkdthf21
-            <br>
-            <br>
-            <br>
+            <br/>
+            <br/>
             {{contest.text}}
           </div>
         </div>
