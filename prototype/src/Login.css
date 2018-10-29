@@ -1,0 +1,16 @@
+.gitaLogo{
+  width: 45vmin;
+  height: auto;
+  margin-bottom: 5vmin;
+}
+
+.LogoMain{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+}
+
+.container{
+  position: relative;
+}

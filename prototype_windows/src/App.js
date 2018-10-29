@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NaviMenu from './NaviMenu';
 import MakeTeam from './MakeTeam';
+import LoginMain from './Login';
 
 const metaInfo = [
     {
@@ -15,6 +16,10 @@ class App extends Component {
     render() {
         return (
             <div className="App">
+                {
+                /*
+                 * Team Make Site
+
                 <NaviMenu
                     gitathonLogo={metaInfo[0].gitathonLogo}
                     userName={metaInfo[0].userName}
@@ -23,6 +28,13 @@ class App extends Component {
                 />
                 <br/><br/><br/>
                 <MakeTeam />
+                */
+                }
+                <LoginMain
+                    gitathonLogo = {metaInfo[0].gitathonLogo}
+                    hackNum = {3000}
+                    teamNum = {27450}
+                />
             </div>
         );
     }
