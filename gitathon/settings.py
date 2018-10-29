@@ -26,8 +26,9 @@ SECRET_KEY = 'zyml6(y4tu-b3d@$n_5-45&1lbmah+8i$w)f4xqg=yr6llssa7'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'localhost',
     'owlsogul.iptime.org',
-    '127.0.0.1',
+    'gitathon.ddns.net'
 ]
 
 
