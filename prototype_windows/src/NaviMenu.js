@@ -1,22 +1,31 @@
 import React from 'react';
 import './NaviMenu.css'
 
-function NaviMenu({gitathonLogo, userName, hackathonLogo, profileLogo}){
+const metaInfo = [
+    {
+      gitathonLogo : "/img/gitathonLogo.png",
+      userName : "장예솔",
+      hackathonLogo : "/img/hackathonLogo.png",
+      profileLogo : "/img/profileLogo.png"
+    }
+]
+
+function NaviMenu(){
   return (
      <table className="NaviMenu">
       <tr>
         <td className = "MainLogo">
-          <ShowLogo logoPath = {gitathonLogo} name = {"gitathonLogo"}/>
+          <ShowLogo logoPath = {metaInfo[0].gitathonLogo} name = {"gitathonLogo"}/>
         </td>
         <td className = "UserName">
-          <Welcome name = {userName}/>
+          <Welcome name = {metaInfo[0].userName}/>
         </td>
         <td className = "Hackathon">
-          <ShowLogo logoPath = {hackathonLogo} name = {"hackathonLogo"}/>
+          <ShowLogo logoPath = {metaInfo[0].hackathonLogo} name = {"hackathonLogo"}/>
           <b>Hackathon</b>
         </td>
         <td className = "profile">
-          <ShowLogo logoPath = {profileLogo} name = {"profileLogo"} />
+          <ShowLogo logoPath = {metaInfo[0].profileLogo} name = {"profileLogo"} />
           <b>Profile</b>
         </td>
       </tr>

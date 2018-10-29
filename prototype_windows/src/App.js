@@ -20,21 +20,20 @@ class App extends Component {
                 /*
                  * Team Make Site
 
-                <NaviMenu
-                    gitathonLogo={metaInfo[0].gitathonLogo}
-                    userName={metaInfo[0].userName}
-                    hackathonLogo = {metaInfo[0].hackathonLogo}
-                    profileLogo={metaInfo[0].profileLogo}
-                />
-                <br/><br/><br/>
                 <MakeTeam />
                 */
                 }
+                {
+                /*
+                 * Login Site
+
                 <LoginMain
                     gitathonLogo = {metaInfo[0].gitathonLogo}
                     hackNum = {3000}
                     teamNum = {27450}
                 />
+                */
+                }
             </div>
         );
     }

@@ -1,8 +1,12 @@
 import React from 'react';
+import NaviMenu from './NaviMenu';
 import './MakeTeam.css'
 
 function MakeTeam (){
     return (
+      <div id = "parent">
+      <NaviMenu />
+      <br/><br/><br/>
       <table className = "TeamMake">
           <tr>
               <td>
@@ -26,6 +30,7 @@ function MakeTeam (){
               </td>
           </tr>
       </table>
+      </div>
     )
 }
 
