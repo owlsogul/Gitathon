@@ -1,21 +1,43 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import NaviMenu from './NaviMenu';
+import MakeTeam from './MakeTeam';
+import LoginMain from './Login';
+
+const metaInfo = [
+    {
+      gitathonLogo : "/img/gitathonLogo.png",
+      userName : "장예솔",
+      hackathonLogo : "/img/hackathonLogo.png",
+      profileLogo : "/img/profileLogo.png"
+    }
+]
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="App">
+                {
+                /*
+                 * Team Make Site
+
+                <NaviMenu
+                    gitathonLogo={metaInfo[0].gitathonLogo}
+                    userName={metaInfo[0].userName}
+                    hackathonLogo = {metaInfo[0].hackathonLogo}
+                    profileLogo={metaInfo[0].profileLogo}
+                />
+                <br/><br/><br/>
+                <MakeTeam />
+                */
+                }
+                <LoginMain
+                    gitathonLogo = {metaInfo[0].gitathonLogo}
+                    hackNum = {3000}
+                    teamNum = {27450}
+                />
+            </div>
+        );
+    }
 }
 
 export default App;

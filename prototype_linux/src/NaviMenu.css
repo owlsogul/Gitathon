@@ -1,0 +1,29 @@
+.gitathonLogo {
+  height: 10vmin;
+  width: 20vmin;
+  margin-left: 4vmin;
+  margin-right: 4vmin;
+}
+
+.hackathonLogo{
+  height: 5vmin;
+  width: 5vmin;
+  margin-left: 4vmin;
+  margin-right: 2vmin;
+}
+
+
+.profileLogo{
+  height: 5vmin;
+  width: 5vmin;
+  margin-left: 4vmin;
+  margin-right: 2vmin;
+}
+
+.UserName{
+    width: 30vmin;
+}
+
+.NaviMenu{
+    width:100%
+}
