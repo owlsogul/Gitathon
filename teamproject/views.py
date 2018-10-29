@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from teamproject.models import *
 from accounts.models import *
+from hackathon.models import *
 import subprocess
 
 # Create your views here.
@@ -67,9 +68,10 @@ def createWithHackId(request, hackId):
     if not 'memberId' in request.session:
         return redirect('/lobby')
     else:
+        hackTitle = HackathonInformation.objects.get(pk=hackId).title
         return render(request, 'teamproject/create.html', {
             'memberId':request.session['memberId'],
-            'hackId':hackId
+            'hackTitle':hackTitle
         })
 def process_create(request):
 
