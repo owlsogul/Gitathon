@@ -25,5 +25,9 @@
 }
 
 .NaviMenu{
-    width:100%
+    width:100%;
+}
+
+.Logout{
+  font-size: x-small;
 }

@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
-import NaviMenu from './NaviMenu';
 import MakeTeam from './MakeTeam';
+import MainPage from './MainPage';
 import LoginMain from './Login';
 
-const metaInfo = [
-    {
-      gitathonLogo : "/img/gitathonLogo.png",
-      userName : "장예솔",
-      hackathonLogo : "/img/hackathonLogo.png",
-      profileLogo : "/img/profileLogo.png"
-    }
-]
 
 class App extends Component {
     render() {
@@ -34,6 +26,7 @@ class App extends Component {
                 />
                 */
                 }
+                <MainPage />
             </div>
         );
     }
