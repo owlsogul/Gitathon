@@ -96,7 +96,7 @@ def process_create(request):
         hackathon = HackathonInformation.objects.get(id=request.POST['hackId'])
         participate = Participate.objects.create(memberId=leader, teamId=team, hackId=hackathon)
         participate.save()
-        subprocess.call ('~/remote/remote.sh ' + hackId + ' ' + teamName, shell=True)
+        subprocess.call ('~/remote/remote.sh ' + request.POST['hackId'] + ' ' + teamName, shell=True)
     else:
         participate = Participate.objects.create(memberId=leader, teamId=team)
         participate.save()
