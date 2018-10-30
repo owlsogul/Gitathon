@@ -84,6 +84,7 @@ def process_create(request):
 
     leaderId = request.session['memberId']
     teamName = request.POST['teamName']
+    hackId = request.POST['hackId']
     leader = Member.objects.filter(memberId=leaderId)[0]
 
     team = Team.objects.create(teamName=teamName, leaderId=leader)
@@ -92,7 +93,7 @@ def process_create(request):
     teamContribution = TeamContribution.objects.create(teamId=team)
     teamContribution.save()
 
-    if 'hackId' in request.POST:
+    if !eq(hackId, ""):
         hackathon = HackathonInformation.objects.get(id=request.POST['hackId'])
         participate = Participate.objects.create(memberId=leader, teamId=team, hackId=hackathon)
         participate.save()
