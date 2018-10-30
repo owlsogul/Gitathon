@@ -93,7 +93,7 @@ def process_create(request):
     teamContribution = TeamContribution.objects.create(teamId=team)
     teamContribution.save()
 
-    if !eq(hackId, ""):
+    if hackId != "":
         hackathon = HackathonInformation.objects.get(id=request.POST['hackId'])
         participate = Participate.objects.create(memberId=leader, teamId=team, hackId=hackathon)
         participate.save()
