@@ -71,7 +71,8 @@ def createWithHackId(request, hackId):
         hackTitle = HackathonInformation.objects.get(pk=hackId).title
         return render(request, 'teamproject/create.html', {
             'memberId':request.session['memberId'],
-            'hackTitle':hackTitle
+            'hackTitle':hackTitle,
+            'hackId':hackId
         })
 def process_create(request):
 
