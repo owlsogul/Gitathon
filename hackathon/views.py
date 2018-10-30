@@ -120,7 +120,7 @@ def teamlistHackathon(request, HackathonInformation_id):
         contestId = request.GET.get('createTeam')
 
         if contestId :
-            redirect_to = reverse('/team/create', kwargs={'hackId':contest.id})
+            redirect_to = reverse('create', kwargs={'hackId':contest.id})
             return HttpResponseRedirect(redirect_to)
 
 
@@ -183,7 +183,7 @@ def applyTeam(request, HackathonInformation_id, Team_id):
         contestId = request.GET.get('createTeam')
 
         if contestId :
-            redirect_to = reverse('/team/create', kwargs={'hackId':contest.id})
+            redirect_to = reverse('create', kwargs={'hackId':contest.id})
             return HttpResponseRedirect(redirect_to)
 
 
