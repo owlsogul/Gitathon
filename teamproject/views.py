@@ -94,12 +94,12 @@ def process_create(request):
     teamContribution.save()
 
     if hackId != "":
-        hackathon = HackathonInformation.objects.get(id=request.POST['hackId'])
+        hackathon = HackathonInformation.objects.get(id=hackId)
         participate = Participate.objects.create(memberId=leader, teamId=team, hackId=hackathon)
         participate.save()
-        subprocess.call ('~/remote/remote.sh ' + request.POST['hackId'] + ' ' + teamName, shell=True)
+        subprocess.call ('~/remote/remote.sh ' + hackId + ' ' + teamName, shell=True)
     else:
         participate = Participate.objects.create(memberId=leader, teamId=team)
         participate.save()
-        subprocess.call ('~/remote/remote.sh ' + request.session['memberId'] + ' ' + teamName, shell=True)
+        subprocess.call ('~/remote/remote.sh ' + leaderId + ' ' + teamName, shell=True)
     return redirect('/lobby')
