@@ -308,6 +308,157 @@ def adminHackathon(request, HackathonInformation_id, Team_id=0):
 
         return render(request, 'adminHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime': todayTime, 'teamList' : teamList, 'team' : team, 'message':message, 'memberList':memberList, 'nomemberList':nomemberList, 'random':randomMessage})
 
+    # 해커톤 관리자가 아니라면
     else:
         redirect_to = reverse('mainpageHackathon', kwargs={'HackathonInformation_id':contest.id})
         return HttpResponseRedirect(redirect_to)
+        
+
+# 공지사항 작성 페이지 보여주기
+def noticeWriteHack(request, HackathonInformation_id):
+
+    # 해커톤 정보
+    contest = HackathonInformation.objects.get(pk = HackathonInformation_id)
+    todayDate = datetime.today().date
+    todayTime = datetime.today().time
+
+    # 해커톤 공지사항 작성자
+    contestHost = contest.hackathonHost
+    W=''
+    C=''
+    message = ''
+    writeMode = 0
+
+    # 해커톤 관리자만이 공지사항 작성 가능
+    if contestHost == request.session['memberId'] :
+
+        if request.method == 'POST':
+
+            W = request.POST['write']
+
+            # 작성 버튼을 눌렀을 때
+            if W == "작성" :
+
+                writeMode = 0 # 작성모드
+                Title = request.POST['Title']
+                contents = request.POST['Contents']
+
+                if(Title != "" and contents != ""):
+
+                    hackNotice = HackNotice.objects.create(hackId=contest, title=Title, content=contents)
+                    hackNotice.save()
+                    redirect_to = reverse('noticeListHack', kwargs={'HackathonInformation_id':contest.id})
+                    return HttpResponseRedirect(redirect_to)
+
+                elif(Title == ""):
+                    message = '제목을 입력하세요.'
+                    return render(request, 'noticeWrite.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost, 'message' : message, 'writeMode' : writeMode})
+
+                else:
+                    message = '내용을 입력하세요.'
+                    return render(request, 'noticeWrite.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost, 'message' : message, 'writeMode' : writeMode})
+
+            # 취소 버튼을 눌렀을 때
+            elif W == "취소" :
+
+                redirect_to = reverse('noticeListHack', kwargs={'HackathonInformation_id':contest.id})
+                return HttpResponseRedirect(redirect_to)
+
+            # 공지사항 목록에서 작성 버튼을 눌렀을 때
+            elif W == "시작" :
+                writeMode = 0
+                return render(request, 'noticeWrite.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost, 'message' : message, 'writeMode' : writeMode})
+
+            # 공지사항 글에서 수정 버튼을 눌렀을 때
+            elif W == "수정":
+
+                writeMode = 1
+                # 오류날거같아
+                hackNoticeId = 0
+
+                if request.method == 'POST':
+
+                    hackNoticeId = request.POST['hackNoticeId']
+
+                hackNotice = HackNotice.objects.get(pk=hackNoticeId)
+
+                return render(request, 'noticeWrite.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost, 'message' : message, 'writeMode' : writeMode, 'hackNotice' : hackNotice, 'hackNoticeId' : hackNoticeId})
+
+            # 글을 수정하고 완료를 누를 때
+            elif W == "수정완료":
+
+                # 오류날거같아
+                hackNoticeId = 0
+
+                if request.method == 'POST':
+
+                    hackNoticeId = request.POST['hackNoticeId']
+                    Title = request.POST['Title']
+                    Contents = request.POST['Contents']
+
+
+                hackNotice = HackNotice.objects.get(pk=hackNoticeId)
+                hackNotice.title = Title
+                hackNotice.content = Contents
+                hackNotice.save()
+
+                redirect_to = reverse('noticeListHack', kwargs={'HackathonInformation_id':contest.id})
+                return HttpResponseRedirect(redirect_to)
+
+
+            elif W == "삭제":
+
+                # 오류날거같아
+                hackNoticeId = 0
+
+                if request.method == 'POST':
+                    hackNoticeId = request.POST['hackNoticeId']
+
+                hackNotice = HackNotice.objects.get(pk=hackNoticeId)
+                hackNotice.delete()
+
+                redirect_to = reverse('noticeListHack', kwargs={'HackathonInformation_id':contest.id})
+                return HttpResponseRedirect(redirect_to)
+
+
+        return render(request, 'noticeWrite.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost, 'message' : message})
+
+    # 해커톤 관리자가 아닌경우
+    else :
+
+        redirect_to = reverse('noticeListHack', kwargs={'HackathonInformation_id':contest.id})
+        return HttpResponseRedirect(redirect_to)
+
+
+
+
+# 작성한 공지사항 목록을 보여주기
+def noticeListHack(request, HackathonInformation_id):
+
+    # 해커톤 정보
+    contest = HackathonInformation.objects.get(pk = HackathonInformation_id)
+    todayDate = datetime.today().date
+    todayTime = datetime.today().time
+    message = ''
+
+    noticeList = HackNotice.objects.filter(hackId = contest)
+
+    return render(request, 'noticeList.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'noticeList' : noticeList, 'message':message})
+
+# 공지사항 글 하나 보여주기
+def noticeViewHack(request, HackathonInformation_id, HackNotice_id):
+
+    # 해커톤 정보
+    todayDate = datetime.today().date
+    todayTime = datetime.today().time
+
+    hackId = HackathonInformation_id
+    hackNoticeId = HackNotice_id
+    message = ''
+
+    contest = HackathonInformation.objects.get(pk = hackId)
+    contestHost = contest.hackathonHost
+    hackNotice = HackNotice.objects.get(pk=hackNoticeId)
+
+
+    return render(request, 'noticeView.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost, 'hackNotice' : hackNotice, 'message' : message})
