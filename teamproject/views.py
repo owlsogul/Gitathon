@@ -95,6 +95,8 @@ def process_create(request):
 
     if hackId != "":
         hackathon = HackathonInformation.objects.get(id=hackId)
+        # 삭제하고 다시 생성하는 과정!
+        Participate.objects.get(memberId = leader, hackId = hackathon).delete()
         participate = Participate.objects.create(memberId=leader, teamId=team, hackId=hackathon)
         participate.save()
         subprocess.call ('~/remote/remote.sh ' + hackId + ' ' + teamName, shell=True)
