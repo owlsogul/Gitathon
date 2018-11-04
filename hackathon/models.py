@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import *
 from time import strftime
+from django.utils import timezone
 
 # Create your models here.
 
@@ -25,5 +26,12 @@ class HackathonInformation(models.Model):
     Images = models.ImageField(upload_to='uploads/%Y/%m/%d')
     text = models.TextField(blank=True)
     created_date = models.DateTimeField(auto_now = True)
-    # 회원정보 아직 없어서 default로 wkdthf21
     hackathonHost = models.CharField(max_length = 100, default = "none")
+
+# 해커톤 공지사항
+class HackNotice(models.Model):
+    hackNoticeId = models.AutoField(primary_key=True)
+    hackId = models.ForeignKey(HackathonInformation, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    date = models.DateTimeField(default=timezone.now())
