@@ -12,7 +12,11 @@ urlpatterns = [
     url(r'^list/(?P<HackathonInformation_id>\d+)/$', views.applyHackathon),
     url(r'^page/main/(?P<HackathonInformation_id>\d+)/$', views.mainpageHackathon, name='mainpageHackathon'),
     url(r'^page/teamlist/(?P<HackathonInformation_id>\d+)/$', views.teamlistHackathon),
-    url(r'^page/teamlist/(?P<HackathonInformation_id>\d+)/(?P<Team_id>\d+)/$', views.applyTeam)
+    url(r'^page/teamlist/(?P<HackathonInformation_id>\d+)/(?P<Team_id>\d+)/$', views.applyTeam),
+    url(r'^page/notice/(?P<HackathonInformation_id>\d+)/$', views.noticeWriteHack),
+    url(r'^page/notice/list/(?P<HackathonInformation_id>\d+)/$', views.noticeListHack, name = 'noticeListHack'),
+    url(r'^page/notice/(?P<HackathonInformation_id>\d+)/(?P<HackNotice_id>\d+)/$', views.noticeViewHack),
+
 ]
 
 if settings.DEBUG:
