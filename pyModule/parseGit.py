@@ -2,7 +2,7 @@ import subprocess
 import os
 import sys
 
-def test(hackName, teamName, lastCommit, resource):
+def parseGit(hackName, teamName, lastCommit, resource):
 	path = "/home/pi/remote/" + hackName + "/" + teamName
 
 	os.chdir(path)
@@ -11,8 +11,13 @@ def test(hackName, teamName, lastCommit, resource):
 		result = subprocess.check_output('git log --abbrev-commit --name-status', shell=True)
 		newCommit = findNewCommit(result, lastCommit, resource)
 		findCommandAndCode(newCommit)
-		print ("Parse Successful!")
-		return newCommit
+		if len(newCommit) == 0:
+			print("Parse Fail!")
+			return 0
+
+		else:
+			print ("Parse Successful!")
+			return newCommit
 
 	except subprocess.CalledProcessError, e:
 		print ("Error", e.output)
