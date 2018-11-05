@@ -12,7 +12,7 @@
   <tr class="RowOfChat">
       <td>{{ chat.sender.memberId }}</td>
       <td>{{ chat.chatMsg }}</td>
-      <td>{{ chat.sendedDate|date:"Y-m-d H:M:S" }}</td>
+      <td>{{ chat.sendedDate|date:"Y-m-d H:i:s" }}</td>
   </tr>
   {% endfor %}
 </tbody>
