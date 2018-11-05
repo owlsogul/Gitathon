@@ -39,10 +39,13 @@ def chat(request, teamId):
     if not 'memberId' in request.session:
         return redirect('/lobby')
     else:
+        team = Team.objects.get(pk=teamId)
+        chatMsgs = TeamChat.objects.filter(teamId = team)
         return render(request, 'teamproject/chat.html', {
             'memberId':request.session['memberId'],
             'teamId':teamId,
-            'team':Team.objects.get(pk=teamId),
+            'team':team,
+            'chatMsgs':chatMsgs,
         })
 
 def member(request, teamId):

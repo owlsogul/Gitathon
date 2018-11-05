@@ -1,6 +1,11 @@
 # chat/consumers.py
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
+
+from teamproject.models import *
+from accounts.models import *
+from django.utils import timezone
+
 import json
 
 class ChatConsumer(WebsocketConsumer):
@@ -25,14 +30,24 @@ class ChatConsumer(WebsocketConsumer):
     # Receive message from WebSocket
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
-        message = text_data_json['message']
+        teamId = text_data_json['teamId']
+        sender = text_data_json['sender']
+        message = text_data_json['chatMsg']
+        sendedDate = timezone.now()
+
+        team = Team.objects.get(pk=teamId)
+        member = Member.objects.get(pk=sender)
+        teamChat = TeamChat.objects.create(teamId = team, sender=member, chatMsg = message, sendedDate = sendedDate)
+        teamChat.save()
 
         # Send message to room group
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
                 'type': 'chat_message',
-                'message': message
+                'sender': sender,
+                'sendedDate': sendedDate,
+                'chatMsg': message,
             }
         )
 

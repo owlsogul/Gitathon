@@ -1,12 +1,74 @@
 {% extends 'teamproject/base.html' %}
 
 {% block teamContent %}
-<table>
+<table class="ChatTable">
 <tr>
   <td>아이디</td>
   <td>내용</td>
+  <td>날짜</td>
 </tr>
+<tbody>
+  {% for chat in chatMsgs %}
+  <tr class="RowOfChat">
+      <td>chat.sender</td>
+      <td>chat.chatMsg</td>
+      <td>chat.sendedDate</td>
+  </tr>
+  {% endfor %}
+</tbody>
 </table>
-<input type="text" name="" value="" placeholder="내용을 입력하세요">
-<input type="submit" name="" value="전송">
+
+<input type="text"   id="chat-message-input" name="" value="" placeholder="내용을 입력하세요">
+<input type="button" id="chat-message_submit" name="" value="전송">
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript">
+  var roomName = "{{ teamId }}";
+
+  var chatSocket = new WebSocket(
+      'ws://' + window.location.host +
+      '/ws/chat/' + roomName + '/');
+
+  chatSocket.onmessage = function(e) {
+      var data = JSON.parse(e.data);
+
+      // 추가되어야 할 데이터 목록
+      var sender = data['sender']
+      var sendedDate = data['sendedDate'];
+      var chatMsg = data['chatMsg'];
+
+      $('table.ChatTable > tbody:last').append(
+        "<tr class='RowOfChat'>" +
+        "<td>" + sender + "</td>" +
+        "<td>" + chatMsg + "</td>" +
+        "<td>" + sendedDate + "</td>" +
+        "</tr>"
+      );
+
+  };
+
+  chatSocket.onclose = function(e) {
+      console.error('Chat socket closed unexpectedly');
+  };
+
+  document.querySelector('#chat-message-input').focus();
+  document.querySelector('#chat-message-input').onkeyup = function(e) {
+      if (e.keyCode === 13) {  // enter, return
+          document.querySelector('#chat-message-submit').click();
+      }
+  };
+
+  document.querySelector('#chat-message-submit').onclick = function(e) {
+      var messageInputDom = document.querySelector('#chat-message-input');
+      var message = messageInputDom.value;
+      chatSocket.send(JSON.stringify({
+          'teamId' : "{{ teamId }}", 
+          'sender': "{{ memberId }}",
+          'chatMsg': message
+      }));
+
+      messageInputDom.value = '';
+  };
+</script>
+
 {% endblock %}
