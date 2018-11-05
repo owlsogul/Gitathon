@@ -46,7 +46,7 @@ class ChatConsumer(WebsocketConsumer):
             {
                 'type': 'chat_message',
                 'sender': sender,
-                'sendedDate': sendedDate.replace(tzinfo=timezone.utc).astimezone(tz=None),
+                'sendedDate': sendedDate.strftime("%Y-%m-%d %H:%M:%S"),
                 'chatMsg': message,
             }
         )
