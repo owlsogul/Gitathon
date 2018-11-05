@@ -2,6 +2,8 @@ from django.shortcuts import redirect, render
 from teamproject.models import *
 from accounts.models import *
 from hackathon.models import *
+
+import parseGit
 import subprocess
 
 # Create your views here.
@@ -29,10 +31,27 @@ def contribution(request, teamId):
     if not 'memberId' in request.session:
         return redirect('/lobby')
     else:
+        memberId = request.session['memberId']
+        member = Member.objects.get(pk=memberId)
+        team = Team.objects.get(pk=teamId)
+        teamContribution = TeamContribution.get(teamId = team)
+
+        participate = Participate.objects.get(memberId=member, teamId=team)
+        hackName = participate.hackId.pk
+        if participate.hackId is None:
+            hackName = memberId
+
+        resourceList = ["jpg", "png"]
+        parsingData = parseGit(hackName, team.teamName, "", resourceList)
+        print(parsingData)
+
         return render(request, 'teamproject/contribution.html', {
-            'memberId':request.session['memberId'],
+            'memberId':memberId,
             'teamId':teamId,
-            'team':Team.objects.get(pk=teamId),
+            'team':team,
+            'comment':teamContribution.comment,
+            'code':teamContribution.code,
+            'resource':teamContribution.resource,
         })
 
 def chat(request, teamId):
