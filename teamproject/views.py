@@ -122,9 +122,9 @@ def process_create(request):
         Participate.objects.get(memberId = leader, hackId = hackathon).delete()
         participate = Participate.objects.create(memberId=leader, teamId=team, hackId=hackathon)
         participate.save()
-        subprocess.call ('~/remote/remote.sh ' + hackId + ' ' + teamName, shell=True)
+        subprocess.call ('/home/pi/remote/remote.sh ' + hackId + ' ' + teamName, shell=True)
     else:
         participate = Participate.objects.create(memberId=leader, teamId=team)
         participate.save()
-        subprocess.call ('~/remote/remote.sh ' + leaderId + ' ' + teamName, shell=True)
+        subprocess.call ('/home/pi/remote/remote.sh ' + leaderId + ' ' + teamName, shell=True)
     return redirect('/lobby')
