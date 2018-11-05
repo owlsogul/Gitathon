@@ -14,7 +14,7 @@ def test(hackName, teamName, lastCommit, resource):
 		print ("Parse Successful!")
 		return newCommit
 
-	except subprocess.CalledProcessError, e:
+	except subprocess.CalledProcessError as e:
 		print ("Error", e.output)
 		return 0
 
@@ -72,7 +72,7 @@ def findCommandAndCode(newCommit):
 		isCommand = False
 
 		lines = subprocess.check_output('git show ' + commit['commit'], shell=True)
-		
+
 		for line in lines.split("\n"):
 			words = line.split()
 
@@ -107,7 +107,7 @@ def findCommandAndCode(newCommit):
 		commit["code"] = code
 		commit["command"] = command
 		code = 0
-		command = 0	
+		command = 0
 
 
 def isCCommand(words, flag):
@@ -138,9 +138,9 @@ def isJavaCommand(words, flag):
 		return True
 	else:
 		return False
- 
+
 def isPyCommand(words):
 	if words[1][0:1] == "#":
-		return True		
+		return True
 
 	return False
