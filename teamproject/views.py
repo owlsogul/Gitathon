@@ -3,7 +3,7 @@ from teamproject.models import *
 from accounts.models import *
 from hackathon.models import *
 
-import parseGit
+from parseGit import test
 import subprocess
 
 # Create your views here.
@@ -42,7 +42,7 @@ def contribution(request, teamId):
             hackName = memberId
 
         resourceList = ["jpg", "png"]
-        parsingData = parseGit(hackName, team.teamName, "", resourceList)
+        parsingData = test(hackName, team.teamName, "", resourceList)
         print(parsingData)
 
         return render(request, 'teamproject/contribution.html', {
