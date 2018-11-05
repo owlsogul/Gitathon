@@ -43,7 +43,7 @@ def contribution(request, teamId):
 
         resourceList = ["jpg", "png"]
         parsingData = parseGit.test(hackName, team.teamName, "", resourceList)
-        #print(parsingData)
+        print(parsingData)
 
         return render(request, 'teamproject/contribution.html', {
             'memberId':memberId,
