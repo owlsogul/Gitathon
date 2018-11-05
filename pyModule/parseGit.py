@@ -8,7 +8,7 @@ def parseGit(hackName, teamName, lastCommit, resource):
 	os.chdir(path)
 
 	try:
-		result = subprocess.check_output('git log --abbrev-commit --name-status', shell=True)
+		result = subprocess.check_output('git log --abbrev-commit --name-status --all', shell=True)
 		newCommit = findNewCommit(result, lastCommit, resource)
 		findCommandAndCode(newCommit)
 		if len(newCommit) == 0:
