@@ -34,15 +34,15 @@ def contribution(request, teamId):
         memberId = request.session['memberId']
         member = Member.objects.get(pk=memberId)
         team = Team.objects.get(pk=teamId)
-        teamContribution = TeamContribution.get(teamId = team)
+        teamContribution = TeamContribution.objects.get(teamId = team)
 
         participate = Participate.objects.get(memberId=member, teamId=team)
-        hackName = participate.hackId.pk
-        if participate.hackId is None:
-            hackName = memberId
+        hackName = memberId
+        if participate.hackId is not None:
+            hackName = participate.hackId.pk
 
         resourceList = ["jpg", "png"]
-        parsingData = test(hackName, team.teamName, "", resourceList)
+        parsingData = parseGit.test(hackName, team.teamName, "", resourceList)
         print(parsingData)
 
         return render(request, 'teamproject/contribution.html', {
