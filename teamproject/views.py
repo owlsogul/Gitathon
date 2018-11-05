@@ -3,7 +3,7 @@ from teamproject.models import *
 from accounts.models import *
 from hackathon.models import *
 
-import parseGit
+from . import parseGit
 import subprocess
 
 # Create your views here.
