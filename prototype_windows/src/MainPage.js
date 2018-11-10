@@ -10,7 +10,7 @@ class MainPage extends Component {
                 <table borader = "1" bordercolor="red">
                     <tr>
                         <td className = "MyTeams">
-                            FIRST
+                            <TeamTable />
                         </td>
                         <td className = "Recents" rowspan =  "2">
                             SECOND
@@ -31,6 +31,11 @@ function TeamTable(){
     return(
         <div className = "TeamTable">
             <table boarder = "1" bordercolor = "blue">
+                <tr>
+                    <td>
+                        MyTems
+                    </td>
+                </tr>
             </table>
         </div>
     )
