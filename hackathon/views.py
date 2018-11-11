@@ -312,7 +312,7 @@ def adminHackathon(request, HackathonInformation_id, Team_id=0):
     else:
         redirect_to = reverse('mainpageHackathon', kwargs={'HackathonInformation_id':contest.id})
         return HttpResponseRedirect(redirect_to)
-        
+
 
 # 공지사항 작성 페이지 보여주기
 def noticeWriteHack(request, HackathonInformation_id):
@@ -462,3 +462,25 @@ def noticeViewHack(request, HackathonInformation_id, HackNotice_id):
 
 
     return render(request, 'noticeView.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost, 'hackNotice' : hackNotice, 'message' : message})
+
+# 관리자메뉴 - git 활용도
+def gitHackathon(request, HackathonInformation_id):
+
+    # 해커톤 정보
+    contest = HackathonInformation.objects.get(pk = HackathonInformation_id)
+    todayDate = datetime.today().date
+    todayTime = datetime.today().time
+    message = ''
+
+    # 해커톤 참여 팀 리스트
+    teamList = Team.objects.filter(participate__hackId = contest).distinct()
+
+    # 팀 명과 멤버 인원 수
+    teamInfo = []
+
+    for team in teamList :
+
+        memberList = Member.objects.filter(participate__hackId = contest, participate__teamId = team)
+        teamInfo.append([team.teamName, len(memberList)])
+
+    return render(request, 'gitHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'teamInfo':teamInfo})
