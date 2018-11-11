@@ -78,10 +78,10 @@
         <div class = "col">
           <ul class="nav justify-content-center nav-pills">
             <li class="nav-item">
-              <a class="nav-link active" href="/hackathon/admin/{{contest.id}}">팀정보</a>
+              <a class="nav-link" href="/hackathon/admin/{{contest.id}}">팀정보</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/hackathon/admin/git/{{contest.id}}">깃활용도</a>
+              <a class="nav-link active" href="/hackathon/admin/git/{{contest.id}}">깃활용도</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">어뷰징관리</a>
@@ -91,93 +91,82 @@
       </div>
     </div>
     <br/>
-    <form method="GET" class="get-form">
     <div class = "container">
-      <div class = "row">
-        <div class = "col-1">
-        </div>
-        <div class = "col-7">
-          <div class="btn-group">
-          <button type="button" class="btn btn-danger">{{team.teamName}}</button>
-          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            {% for Team in teamList %}
-              <li><a href="/hackathon/admin/{{contest.id}}/{{Team.id}}">{{Team.teamName}}</a></li>
-            {% endfor %}
-          </ul>
-        </div>
-        </div>
-        <div class = "col-1">
-          {% if random %}
-            <button type="submit" name = "randomTeam" value = "RANDOM" class="btn btn-primary">랜덤매칭</a></button>
-            <button type="submit" name = "resetTeam" value = "RESET" class="btn btn-primary">초기화</a></button>
-          {% else %}
-          {% endif %}
-        </div>
-        <div class = "col-2">
-            <button type="submit" class="btn btn-primary">추가</button>
-        </div>
-      </div>
+      <br/>
+      깃 활용 점수 보여주는 그래프
+      <br/>
     </div>
     <br/>
-    <br/>
-    <div class = "container">
+    <div class = "containter">
       <div class = "row">
-        <div class = "col-1">
+        <div class = "col-2">
         </div>
-        <div class = "col-9">
+        <div class = "col-8">
           <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">이름</th>
-              <th scope="col">이메일</th>
-            </tr>
-          </thead>
-          <tbody>
-          {% for member in memberList %}
-            <tr>
-              <td> {{member.memberId}} </td>
-              <td> {{member.email}} </td>
-            </tr>
-          {% endfor %}
-          </tbody>
+            <thead>
+              <tr>
+                <th scope="col">Commit 수</th>
+                <th scope="col">수정된 줄 수</th>
+                <th scope="col">Merge된 Branch 수</th>
+                <th scope="col">팀원 기여도</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><textarea class="gitEval" name="Commit" rows="1" placeholder="25(%)"></textarea></td>
+                <td><textarea class="gitEval" name="Line" rows="1" placeholder="25(%)"></textarea></td>
+                <td><textarea class="gitEval" name="Branch" rows="1" placeholder="25(%)"></textarea></td>
+                <td><textarea class="gitEval" name="Team" rows="1" placeholder="25(%)"></textarea></td>
+              </tr>
+            </tbody>
           </table>
         </div>
-        <div class = "col -6">
+        <div class = "col-2">
+        </div>
+      </div>
+      <div class = "row">
+        <div class = "col-9">
+        </div>
+        <div class = "col-2">
+          <button type="submit" name="view" value="보기" class="btn btn-primary">보기</button>
+          <button type="submit" name="eval" value="평가" class="btn btn-primary">평가</button>
+        </div>
+        <div class = "col-1">
         </div>
       </div>
     </div>
     <br/>
-    <div class = "container">
+    <br/>
+    <div class = "containter">
       <div class = "row">
-        <div class = "col-1">
+        <div class = "col-2">
         </div>
-        <div class = "col-9">
+        <div class = "col-8">
           <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">팀 없는 참가자들</th>
+              <th scope="col">팀 이름</th>
+              <th scope="col">팀 인원</th>
+              <th scope="col">깃 활용 점수</th>
               <th scope="col">선택</th>
             </tr>
           </thead>
           <tbody>
-          {% for member in nomemberList %}
+          {% for teamName, memberNum in teamInfo %}
             <tr>
-              <td> {{member.memberId}} </td>
-              <td> <input type ="checkbox" name = "nomemberId" value = "{{member.memberId}}"> </td>
+              <td> {{teamName}}  </td>
+              <td> {{memberNum}} </td>
+              <td></td>
+              <td></td>
             </tr>
           {% endfor %}
           </tbody>
           </table>
         </div>
-        <div class = "col -6">
+        <div class = "col-2">
         </div>
       </div>
     </div>
-    </form>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
