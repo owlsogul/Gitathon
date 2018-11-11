@@ -9,6 +9,7 @@ urlpatterns = [
     path('list/', views.listHackathon, name='listHackathon'),
     url(r'^admin/(?P<HackathonInformation_id>\d+)/$', views.adminHackathon),
     url(r'^admin/(?P<HackathonInformation_id>\d+)/(?P<Team_id>\d+)/$', views.adminHackathon),
+    url(r'^admin/git/(?P<HackathonInformation_id>\d+)/$', views.gitHackathon),
     url(r'^list/(?P<HackathonInformation_id>\d+)/$', views.applyHackathon),
     url(r'^page/main/(?P<HackathonInformation_id>\d+)/$', views.mainpageHackathon, name='mainpageHackathon'),
     url(r'^page/teamlist/(?P<HackathonInformation_id>\d+)/$', views.teamlistHackathon),
