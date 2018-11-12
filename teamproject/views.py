@@ -75,7 +75,8 @@ def contribution(request, teamId):
             total = 0
 
         contributions = {}
-        etcContribution = ContributionData(memberId='etc')
+        etcContribution = ContributionData()
+        etcContribution.memberId='etc'
 
         participate = Participate.objects.filter(teamId=team)
         for p in participate:
