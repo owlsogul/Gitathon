@@ -21,10 +21,27 @@ def notice(request, teamId):
     if not 'memberId' in request.session:
         return redirect('/lobby')
     else:
+        memberId = request.session['memberId']
+        member = Member.objects.get(pk=memberId)
+        team = Team.objects.get(pk=teamId)
+        participate = Participate.objects.get(memberId=member, teamId=team)
+        hackathon = participate.hackId;
+
+        hasHackathon = True
+        teamNotices = TeamNotice.objects.filter(teamId = team)
+        hackNotices = []
+
+        if hackathon is None:
+            hasHackathon = false;
+        else :
+            hackNotices = HackNotice.objects.filter(hackId = hackathon)
         return render(request, 'teamproject/notice.html', {
-            'memberId':request.session['memberId'],
+            'memberId':memberId,
             'teamId':teamId,
-            'team':Team.objects.get(pk=teamId),
+            'team': team,
+            'hasHackathon':hasHackathon,
+            'teamNotices':teamNotices,
+            'hackNotices':hackNotices,
         })
 
 def contribution(request, teamId):
