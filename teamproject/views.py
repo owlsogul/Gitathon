@@ -122,7 +122,7 @@ def contribution_save(request, teamId):
             teamContribution.resource = resource
             teamContribution.save()
         except:
-
+            print('float parsing err')
         return redirect('./contribution')
 
 def chat(request, teamId):
