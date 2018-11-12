@@ -75,7 +75,7 @@ def contribution(request, teamId):
             newContribution = {'memberId':p.memberId.memberId, 'code':0, 'comment':0, 'resource':0, 'total':0}
             contributions[p.memberId.memberId] = newContribution
 
-        if parsingGit != 0: # error exception
+        if parsingData != 0: # error exception
             for commit in parsingData:
                 author = commit['author']
                 if author in contributions:
