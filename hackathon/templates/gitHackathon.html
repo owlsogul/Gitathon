@@ -106,6 +106,8 @@
         </div>
         <div class = "col-8">
           <table class="table table-hover">
+            <form method="POST" class="get-form">
+            {% csrf_token %}
             <thead>
               <tr>
                 <th scope="col">Commit 수</th>
@@ -116,10 +118,10 @@
             </thead>
             <tbody>
               <tr>
-                <td><textarea class="gitEval" name="Commit" rows="1" placeholder="25(%)"></textarea></td>
-                <td><textarea class="gitEval" name="Line" rows="1" placeholder="25(%)"></textarea></td>
-                <td><textarea class="gitEval" name="Branch" rows="1" placeholder="25(%)"></textarea></td>
-                <td><textarea class="gitEval" name="Team" rows="1" placeholder="25(%)"></textarea></td>
+                <td><textarea class="gitEval" name="Commit" rows="1" placeholder="25"></textarea></td>
+                <td><textarea class="gitEval" name="Line" rows="1" placeholder="25"></textarea></td>
+                <td><textarea class="gitEval" name="Branch" rows="1" placeholder="25"></textarea></td>
+                <td><textarea class="gitEval" name="Team" rows="1" placeholder="25"></textarea></td>
               </tr>
             </tbody>
           </table>
@@ -130,8 +132,6 @@
       <div class = "row">
         <div class = "col-9">
         </div>
-        <form method="POST" class="get-form">
-        {% csrf_token %}
         <div class = "col-2">
           <button type="submit" name="gitBtn" value="보기" class="btn btn-primary">보기</button>
           <button type="submit" name="gitBtn" value="평가" class="btn btn-primary">평가</button>
