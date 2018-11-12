@@ -88,8 +88,13 @@ def contribution(request, teamId):
                     etcContribution['resource'] += commit['resource']
 
             contributions['#etc'] = etcContribution
+            totalContribution = 0.0
             for con in contributions.values():
                 con['total'] = con['code'] * teamContribution.code + con['comment'] * teamContribution.comment + con['resource'] * teamContribution.resource
+                totalContribution += con['total']
+
+            for con in contributions.values():
+                con['total'] = con['total']/totalContribution
 
         return render(request, 'teamproject/contribution.html', {
             'memberId':memberId,
