@@ -38,6 +38,7 @@
     {% endfor %}
   </table>
   <form class="" action="./team_notice_post" method="post">
+    {% csrf_token %}
     <input type="text" name="title" value="" placeholder="제목을 입력해주세요"><br>
     <textarea name="content" rows="8" cols="80"></textarea><br>
     <input type="hidden" name="teamId" value="{{ teamId }}">
