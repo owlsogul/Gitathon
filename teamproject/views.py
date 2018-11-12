@@ -97,7 +97,7 @@ def contribution(request, teamId):
             'comment':teamContribution.comment,
             'code':teamContribution.code,
             'resource':teamContribution.resource,
-            'contributions':contributions.values,
+            'contributions':contributions.values(),
             'test': contributions,
         })
 
