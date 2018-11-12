@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.utils import timezone
 from teamproject.models import *
 from accounts.models import *
 from hackathon.models import *
@@ -164,3 +165,53 @@ def process_create(request):
         participate.save()
         subprocess.call ('/home/pi/remote/remote.sh ' + leaderId + ' ' + teamName, shell=True)
     return redirect('/lobby')
+
+def team_notice_post(request, teamId):
+
+    # exception
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+    if request.method == 'GET':
+        return redirect('/lobby')
+
+    writerId = request.session['memberId']
+
+    writer = Member.objects.get(pk=writerId)
+    team = Team.objects.get(pk=teamId)
+    title = request.POST['title']
+    content = request.POST['content']
+    writtenDate = timezone.now()
+
+    notice = TeamNotice.objects.create(title=title, teamId=team, content=content, writer=writer, writtenDate = writtenDate)
+    notice.save()
+    return redirect('./notice')
+
+def team_notice_view(request, teamId, noticeId):
+
+    # exception
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+
+    memberId = request.session['memberId']
+    noticeType = 'team'
+    notice = TeamNotice.objects.get(pk=noticeId)
+
+    return render(request, 'teamproject/notice_view.html', {
+        'memberId':memberId,
+        'noticeType':noticeType,
+        'notice':notice,
+    })
+def hack_notice_view(request, teamId, noticeId):
+    # exception
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+
+    memberId = request.session['memberId']
+    noticeType = 'hackathon'
+    notice = TeamNotice.objects.get(pk=noticeId)
+
+    return render(request, 'teamproject/notice_view.html', {
+        'memberId':memberId,
+        'noticeType':noticeType,
+        'notice':notice,
+    })

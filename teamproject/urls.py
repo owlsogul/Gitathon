@@ -11,4 +11,7 @@ urlpatterns = [
     path('<teamId>/contribution', views.contribution, name='contribution'),
     path('<teamId>/chat', views.chat, name='chat'),
     path('<teamId>/member', views.member, name='member'),
+    path('<teamId>/team_notice_post', views.team_notice_post, name='team_notice_post'),
+    path('<teamId>/team_notice_view/<noticeId>', views.team_notice_view, name='team_notice_view'),
+    path('<teamId>/hack_notice_view/<noticeId>', views.hack_notice_view, name='hack_notice_view'),
 ]

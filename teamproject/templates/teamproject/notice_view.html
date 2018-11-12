@@ -1,0 +1,25 @@
+{% extends 'teamproject/base.html' %}
+
+{% block teamContent %}
+<div class="">
+{% if noticeType == 'team' %}
+팀 공지사항 보기
+{% else %}
+해커톤 공지사항 보기
+{% endif %}
+</div>
+<div class="">
+제목 : {{ notice.title }}
+</div>
+<div class="">
+{% if noticeType == 'team' %}
+작성자 : {{ notice.writer }}<br>
+작성 시간 : {{ notice.writtenDate }}
+{% else %}
+작성 시간 : {{ notice.date }}
+{% endif %}
+</div>
+<div class="">
+{{ notice.content }}
+</div>
+{% endblock %}
