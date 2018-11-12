@@ -42,8 +42,8 @@ def contribution(request, teamId):
             hackName = participate.hackId.pk
 
         resourceList = ["jpg", "png"]
-        #parsingData = parseGit.parseGit(hackName, team.teamName, "", resourceList)
-        #print(parsingData)
+        parsingData = parseGit.parseGit(hackName, team.teamName, "", resourceList)
+        print(parsingData)
 
         return render(request, 'teamproject/contribution.html', {
             'memberId':memberId,
@@ -52,7 +52,7 @@ def contribution(request, teamId):
             'comment':teamContribution.comment,
             'code':teamContribution.code,
             'resource':teamContribution.resource,
-            'test':'test',
+            'test':parseData,
         })
 
 def chat(request, teamId):
