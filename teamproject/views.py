@@ -74,12 +74,29 @@ def contribution(request, teamId):
             resource = 0
             total = 0
 
-        contributions = []
+        contributions = {}
+        etcContribution = ContributionData(memberId='etc')
+
         participate = Participate.objects.filter(teamId=team)
         for p in participate:
             contributionData = ContributionData()
             contributionData.memberId = p.memberId.memberId
-            contributions.append(contributionData)
+            contributions[contributionData.memberId] = contributionData
+
+        for commit in parsingData:
+            author = commit['author']
+            if author in contributions:
+                contributions[author].code += commit['code']
+                contributions[author].comment += commit['comment']
+                contributions[author].resource += commit['resource']
+            else :
+                etcContribution.code += commit['code']
+                etcContribution.comment += commit['comment']
+                etcContribution.resource += commit['resource']
+
+        contributions['etc'] = etcContribution
+        for con in contributions.values
+            con.total = con.code * teamContribution.code + con.comment * teamContribution.comment + con.resource * teamContribution.resource
 
         return render(request, 'teamproject/contribution.html', {
             'memberId':memberId,
@@ -88,7 +105,7 @@ def contribution(request, teamId):
             'comment':teamContribution.comment,
             'code':teamContribution.code,
             'resource':teamContribution.resource,
-            'contributions':contributions,
+            'contributions':contributions.values,
             'test': parsingData,
         })
 
