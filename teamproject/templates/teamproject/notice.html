@@ -37,7 +37,12 @@
     </tr>
     {% endfor %}
   </table>
-  <input type="button" name="" value="작성">
+  <form class="" action="../team_notice_post" method="post">
+    <input type="text" name="title" value="" placeholder="제목을 입력해주세요">
+    <textarea name="content" rows="8" cols="80"></textarea>
+    <input type="hidden" name="teamId" value="{{ teamId }}">
+    <input type="submit" name="" value="작성">
+  </form>
 </div>
 
 {% endblock %}
