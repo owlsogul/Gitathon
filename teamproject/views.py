@@ -43,7 +43,8 @@ def contribution(request, teamId):
 
         resourceList = ["jpg", "png"]
         parsingData = parseGit.parseGit(hackName, team.teamName, "", resourceList)
-        print(parsingData)
+        print("@@@@ hackName: " + hackName)
+        print("@@@@ teamName: " + team.teamName)
 
         return render(request, 'teamproject/contribution.html', {
             'memberId':memberId,

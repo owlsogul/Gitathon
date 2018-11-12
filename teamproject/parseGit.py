@@ -3,24 +3,36 @@ import os
 import sys
 
 def parseGit(hackName, teamName, lastCommit, resource):
+	old_path = os.getcwd()
 	path = "/home/pi/remote/" + hackName + "/" + teamName
 	#path  = "C:\\Users\\owlsogul\\Documents\\GitHub\\AI_Project1"
 	os.chdir(path)
+	print("###################")
+	print ("ls test: ")
+	print (subprocess.check_output('ls'))
+	print("###################")
 
 	try:
-		result = subprocess.check_output('git log --abbrev-commit --name-status --all', shell=True)
+		result = subprocess.check_output('git log --abbrev-commit --name-status --all', shell=True).decode()
+		print("$$$$$$$$$$$$$$$$$")
+		print("result test: ")
+		print(result)
+		print("$$$$$$$$$$$$$$$$$")
 		newCommit = findNewCommit(result, lastCommit, resource)
 		findCommandAndCode(newCommit)
 		if len(newCommit) == 0:
 			print("Parse Fail!")
+			os.chdir(old_path)
 			return 0
 
 		else:
 			print ("Parse Successful!")
+			os.chdir(old_path)
 			return newCommit
 
 	except subprocess.CalledProcessError as e:
 		print ("Error", e.output)
+		os.chdir(old_path)
 		return 0
 
 
@@ -31,6 +43,7 @@ def findNewCommit(output, lastCommit, extens):
 	oneDic = {}
 	isNotFirst = False
 	totalRes = 0
+	output.decode()
 
 	for line in output.split("\n"):
 		words = line.split()
