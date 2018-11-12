@@ -13,7 +13,7 @@
 </div>
 <div class="">
 {% if noticeType == 'team' %}
-작성자 : {{ notice.writer }}<br>
+작성자 : {{ notice.writer.pk }}<br>
 작성 시간 : {{ notice.writtenDate }}
 {% else %}
 작성 시간 : {{ notice.date }}
