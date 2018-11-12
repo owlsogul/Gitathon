@@ -42,8 +42,8 @@ def contribution(request, teamId):
             hackName = participate.hackId.pk
 
         resourceList = ["jpg", "png"]
-        #parsingData = parseGit.parseGit(hackName, team.teamName, "", resourceList)
-        #print(parsingData)
+        parsingData = parseGit.parseGit(hackName, team.teamName, "", resourceList)
+        print(parsingData)
 
         class ContributionData:
             memberId = ""
@@ -66,7 +66,11 @@ def contribution(request, teamId):
             'comment':teamContribution.comment,
             'code':teamContribution.code,
             'resource':teamContribution.resource,
+<<<<<<< HEAD
             'contributions':contributions,
+=======
+            'test': parsingData,
+>>>>>>> bd1c16b580b27311494b5ea16a65f187c0bbdd37
         })
 
 def chat(request, teamId):
