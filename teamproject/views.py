@@ -46,6 +46,20 @@ def contribution(request, teamId):
         print("@@@@ hackName: " + hackName)
         print("@@@@ teamName: " + team.teamName)
 
+        class ContributionData:
+            memberId = ""
+            code = 0
+            comment = 0
+            resource = 0
+            total = 0
+
+        contributions = []
+        participate = Participate.objects.filter(teamId=team)
+        for p in participate:
+            contributionData = ContributionData()
+            contributionData.memberId = p.memberId.memberId
+            contributions.append(contributionData)
+
         return render(request, 'teamproject/contribution.html', {
             'memberId':memberId,
             'teamId':teamId,
@@ -53,6 +67,7 @@ def contribution(request, teamId):
             'comment':teamContribution.comment,
             'code':teamContribution.code,
             'resource':teamContribution.resource,
+            'contributions':contributions,
             'test': parsingData,
         })
 
