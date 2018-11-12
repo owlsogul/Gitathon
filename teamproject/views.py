@@ -75,20 +75,21 @@ def contribution(request, teamId):
             newContribution = {'memberId':p.memberId.memberId, 'code':0, 'comment':0, 'resource':0, 'total':0}
             contributions[p.memberId.memberId] = newContribution
 
-        for commit in parsingData:
-            author = commit['author']
-            if author in contributions:
-                contributions[author]['code']     += commit['code']
-                contributions[author]['comment']  += commit['comment']
-                contributions[author]['resource'] += commit['resource']
-            else :
-                etcContribution['code']     += commit['code']
-                etcContribution['comment']  += commit['comment']
-                etcContribution['resource'] += commit['resource']
+        if parsingGit != 0: # error exception
+            for commit in parsingData:
+                author = commit['author']
+                if author in contributions:
+                    contributions[author]['code']     += commit['code']
+                    contributions[author]['comment']  += commit['comment']
+                    contributions[author]['resource'] += commit['resource']
+                else :
+                    etcContribution['code']     += commit['code']
+                    etcContribution['comment']  += commit['comment']
+                    etcContribution['resource'] += commit['resource']
 
-        contributions['#etc'] = etcContribution
-        for con in contributions.values():
-            con['total'] = con['code'] * teamContribution.code + con['comment'] * teamContribution.comment + con['resource'] * teamContribution.resource
+            contributions['#etc'] = etcContribution
+            for con in contributions.values():
+                con['total'] = con['code'] * teamContribution.code + con['comment'] * teamContribution.comment + con['resource'] * teamContribution.resource
 
         return render(request, 'teamproject/contribution.html', {
             'memberId':memberId,
