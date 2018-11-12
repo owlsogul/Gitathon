@@ -66,11 +66,8 @@ def contribution(request, teamId):
             'comment':teamContribution.comment,
             'code':teamContribution.code,
             'resource':teamContribution.resource,
-<<<<<<< HEAD
             'contributions':contributions,
-=======
             'test': parsingData,
->>>>>>> bd1c16b580b27311494b5ea16a65f187c0bbdd37
         })
 
 def chat(request, teamId):
