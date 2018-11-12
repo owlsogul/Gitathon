@@ -180,10 +180,9 @@ def team_notice_post(request, teamId):
     team = Team.objects.get(pk=teamId)
     title = request.POST['title']
     content = request.POST['content']
-    writtenDate = django.utils.timezone.now()
 
-    notice = TeamNotice.objects.create(title=title, teamId=team, content=content, writer=writer, writtenDate = writtenDate)
-    notice.save()
+    notice = TeamNotice.objects.create(title=title, teamId=team, content=content, writer=writer)
+    notice.post()
     return redirect('./notice')
 
 def team_notice_view(request, teamId, noticeId):
