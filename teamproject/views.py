@@ -45,6 +45,20 @@ def contribution(request, teamId):
         #parsingData = parseGit.parseGit(hackName, team.teamName, "", resourceList)
         #print(parsingData)
 
+        class ContributionData:
+            memberId = ""
+            code = 0
+            comment = 0
+            resource = 0
+            total = 0
+
+        contributions = []
+        participate = Participate.objects.filter(teamId=team)
+        for p in participate:
+            contributionData = ContributionData()
+            contributionData.memberId = p.memberId.memberId
+            contributions.append(contributionData)
+
         return render(request, 'teamproject/contribution.html', {
             'memberId':memberId,
             'teamId':teamId,
@@ -52,7 +66,7 @@ def contribution(request, teamId):
             'comment':teamContribution.comment,
             'code':teamContribution.code,
             'resource':teamContribution.resource,
-            'test':'test',
+            'contributions':contributions,
         })
 
 def chat(request, teamId):
