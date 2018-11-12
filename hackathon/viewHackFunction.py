@@ -35,4 +35,37 @@ def calPercent(c,l,b,t):
 
 
     except:
-        raise Exception(c)
+        raise Exception("비율 계산 중 오류가 발생하였습니다.")
+
+
+# git활용도 평가 시
+# 서로 다른 값의 범주 즉, commit 수, 수정된 줄 수 등의 표준화 한 값들을
+# 0 ~ 1 사이로 정규화하는 함수
+
+def nomalization(c,l,b,t):
+
+    try:
+
+        temp = []
+        maxVal=""
+        minVal=""
+        temp.append(float(c))
+        temp.append(float(l))
+        temp.append(float(b))
+        temp.append(float(t))
+
+        # 4개의 Rate 중 max 값
+        maxVal = max(temp)
+        # 4개의 Rate 중 min 값
+        minVal = min(temp)
+
+        for i in range(0,4) :
+
+            temp[i] = (temp[i]-minVal) / (maxVal - minVal)
+            # 소수점 두째 자리에서 반올림
+            temp[i] = round(temp[i], 2)
+
+        return temp
+
+    except:
+        raise Exception("정규화 중 오류가 발생하였습니다.")
