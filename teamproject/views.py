@@ -5,6 +5,7 @@ from hackathon.models import *
 
 from teamproject import parseGit
 import subprocess
+import os
 
 # Create your views here.
 def main(request, teamId):
@@ -42,7 +43,9 @@ def contribution(request, teamId):
             hackName = participate.hackId.pk
 
         resourceList = ["jpg", "png"]
+        current_path = os.getcwd()
         parsingData = parseGit.parseGit(hackName, team.teamName, "", resourceList)
+        os.chdir(current_path)
         print("@@@@ hackName: " + hackName)
         print("@@@@ teamName: " + team.teamName)
 

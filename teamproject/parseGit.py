@@ -7,19 +7,12 @@ def parseGit(hackName, teamName, lastCommit, resource):
 	path = "/home/pi/remote/" + hackName + "/" + teamName
 	#path  = "C:\\Users\\owlsogul\\Documents\\GitHub\\AI_Project1"
 	os.chdir(path)
-	print("###################")
-	print ("ls test: ")
-	print (subprocess.check_output('ls'))
-	print("###################")
 
 	try:
 		result = subprocess.check_output('git log --abbrev-commit --name-status --all', shell=True).decode()
-		print("$$$$$$$$$$$$$$$$$")
-		print("result test: ")
-		print(result)
-		print("$$$$$$$$$$$$$$$$$")
 		newCommit = findNewCommit(result, lastCommit, resource)
 		findCommandAndCode(newCommit)
+		print("command finish")
 		if len(newCommit) == 0:
 			print("Parse Fail!")
 			os.chdir(old_path)
@@ -43,7 +36,7 @@ def findNewCommit(output, lastCommit, extens):
 	oneDic = {}
 	isNotFirst = False
 	totalRes = 0
-	output.decode()
+	output.encode()
 
 	for line in output.split("\n"):
 		words = line.split()
@@ -84,23 +77,32 @@ def findNewCommit(output, lastCommit, extens):
 def findCommandAndCode(newCommit):
 	for commit in newCommit:
 
-		extension = ""
+		extension = b""
 		command = 0
 		code = 0
 		isCommand = False
-
 		lines = subprocess.check_output('git show ' + commit['commit'], shell=True)
 
+		lines.decode()
+
+		print("#####################")
+		print("word start: ")
 		for line in lines.split("\n"):
+
 			words = line.split()
 
 			if len(words) != 0:
+					
 
-				if words[0] == "+++" or words[0] == "---":
-					extension = words[1][words[1].rfind(".") + 1:]
+				print (words[0][0])
 
-				elif words[0][0] == "+" or words[0][0] == "-":
+				if words[0] == b"+++" or words[0] == b"---":
+					#extension = (words[1][words[1].rfind(".") + 1:]).encode()
+					a = 1
 
+				elif chr(words[0][0]) == '+' or chr(words[0][0]) == '-':
+					code = code + 1
+					'''
 					if extension == "c" or extension == "cpp" or extension == "ino":
 						if isCCommand(words, isCommand):
 							command = command + 1
@@ -121,11 +123,13 @@ def findCommandAndCode(newCommit):
 
 					else:
 						code = code + 1
+					'''
 
 		commit["code"] = code
 		commit["command"] = command
 		code = 0
 		command = 0
+		print("word end")
 
 
 def isCCommand(words, flag):
