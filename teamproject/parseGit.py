@@ -77,32 +77,28 @@ def findNewCommit(output, lastCommit, extens):
 def findCommandAndCode(newCommit):
 	for commit in newCommit:
 
-		extension = b""
+		extension = ""
 		command = 0
 		code = 0
 		isCommand = False
 		lines = subprocess.check_output('git show ' + commit['commit'], shell=True)
 
-		lines.decode()
-
 		print("#####################")
 		print("word start: ")
-		for line in lines.split("\n"):
+		for line in lines.split(b"\n"):
 
 			words = line.split()
 
 			if len(words) != 0:
-					
-
-				print (words[0][0])
 
 				if words[0] == b"+++" or words[0] == b"---":
-					#extension = (words[1][words[1].rfind(".") + 1:]).encode()
-					a = 1
+					extension = (words[1][words[1].rfind(b".") + 1:])
+					extension = extension.decode()
 
 				elif chr(words[0][0]) == '+' or chr(words[0][0]) == '-':
-					code = code + 1
-					'''
+
+					print ("extension: ", extension)
+	
 					if extension == "c" or extension == "cpp" or extension == "ino":
 						if isCCommand(words, isCommand):
 							command = command + 1
@@ -123,7 +119,7 @@ def findCommandAndCode(newCommit):
 
 					else:
 						code = code + 1
-					'''
+					
 
 		commit["code"] = code
 		commit["command"] = command
