@@ -485,11 +485,9 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
     # 선택된 팀이 없다면
     if Team_id == 0 :
         selectedTeamId = 0
-        message = selectedTeamId
     # 선택된 팀이 있다면
     else :
         selectedTeamId = Team_id
-        message = selectedTeamId
 
     for team in teamList :
 
@@ -532,6 +530,13 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
                     raise Exception('Merge된 branch 수 비율을 올바른 숫자로 다시 입력하세요!  ex) 25 or 1 or 3.6')
                 if(isNumber(teamRate) == False):
                     raise Exception('팀원 기여도 비율을 올바른 숫자로 다시 입력하세요!  ex) 25 or 1 or 3.6')
+
+
+                # 입력한 수를 기준으로 비율 계산
+                # 소수점 둘 째자리로 반올림
+                # percentage = [commitRate, lineRate, branchRate, teamRate]
+                percentage = []
+                percentage = calPercent(commitRate,lineRate,branchRate,teamRate)
 
 
 
