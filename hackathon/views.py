@@ -473,6 +473,7 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
     todayTime = datetime.today().time
     selectedTeamId = 0
     message = ''
+    gitScore = 0
 
     # 해커톤 참여 팀 리스트
     teamList = Team.objects.filter(participate__hackId = contest).distinct()
@@ -489,10 +490,25 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
     else :
         selectedTeamId = Team_id
 
+
+    # 전체 팀들의 raw Data 생성(수정)
+    # 전체 팀의 평균  commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 가져오기
+    # numpy.mean(listName)
+    avgTotalData = [600,1500,8,70]
+    # 전체 팀의 표준편차
+    # numpy.std(listName)
+    stdTotalData = [20,18,11,7]
+
     for team in teamList :
 
         memberList = Member.objects.filter(participate__hackId = contest, participate__teamId = team)
-        teamInfo.append([team.id, team.teamName, len(memberList)])
+        # 그 팀들의 raw Data 생성(수정)
+        # 한 팀의 commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 가져오기
+        teamRawData = [500, 1000, 10, 50]
+
+        # 비율이랑 그 팀의 raw Data와 전체 팀들의 raw Data 필요
+        gitScore = gitEval(1,1,1,1, avgTotalData, stdTotalData, teamRawData)
+        teamInfo.append([team.id, team.teamName, len(memberList), gitScore])
 
     if request.method == 'POST':
 
@@ -514,75 +530,33 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
         # 가중치 비율 정해서 평가하기 눌렀을 때
         elif btnMode == '평가' :
 
-            try:
 
-                commitRate = request.POST['Commit']
-                lineRate = request.POST['Line']
-                branchRate = request.POST['Branch']
-                teamRate = request.POST['Team']
+            for team in teamInfo :
 
-                # 입력 예외 처리
-                if(isNumber(commitRate) == False):
-                    raise Exception('commit 수 비율을 올바른 숫자로 다시 입력하세요! ex) 25 or 1 or 3.6')
-                if(isNumber(lineRate) == False):
-                    raise Exception('수정된 줄 수 비율을 올바른 숫자로 다시 입력하세요!  ex) 25 or 1 or 3.6')
-                if(isNumber(branchRate) == False):
-                    raise Exception('Merge된 branch 수 비율을 올바른 숫자로 다시 입력하세요!  ex) 25 or 1 or 3.6')
-                if(isNumber(teamRate) == False):
-                    raise Exception('팀원 기여도 비율을 올바른 숫자로 다시 입력하세요!  ex) 25 or 1 or 3.6')
+                try:
 
+                    commitRate = request.POST['Commit']
+                    lineRate = request.POST['Line']
+                    branchRate = request.POST['Branch']
+                    teamRate = request.POST['Team']
 
-                # 입력한 수를 기준으로 비율 계산
-                # 소수점 둘 째자리로 반올림
-                # percentage = [commitRate, lineRate, branchRate, teamRate]
-                percentage = []
-                percentage = calPercent(commitRate,lineRate,branchRate,teamRate)
-
-                # 전체 팀의 평균  commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 가져오기
-                # numpy.mean(listName)
-                avgcommitData = 600
-                avglineData = 1500
-                avgbranchData = 8
-                avgteamData = 70
-
-                # 전체 팀의 표준편차
-                # numpy.std(listName)
-                stdcommitData = 20
-                stdlineData = 18
-                stdbranchData = 11
-                stdteamData = 17
-
-                # 한 팀의 commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 가져오기
-
-                commitData = 500
-                lineData = 1000
-                branchData = 10
-                teamData = 50
-
-                # 전체 평균 대비 한 팀의 commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 계산하기
-                # 표준화
-                commitData = (commitData - avgcommitData) / stdcommitData # -5 0.81
-                lineData = (lineData - avglineData) / stdlineData # -27.7 0.0
-                branchData = (branchData - avgbranchData) / stdbranchData # 0.18 1.0
-                teamData = (teamData - avgteamData) / stdteamData # -1.17 0.95
-
-                # 정규화
-                nomalData=[]
-                nomalData = nomalization(commitData,lineData,branchData,teamData)
-
-                # 계산
-
-                gitScore = 0
-
-                for i in range(0,4) :
-
-                    gitScore += round(percentage[i] * nomalData[i], 2)
-
-                # 최종 결과값
-                message = nomalData[3]
-
-            except Exception as e:
-                message = e
+                    # 입력 예외 처리
+                    if(isNumber(commitRate) == False):
+                        raise Exception('commit 수 비율을 올바른 숫자로 다시 입력하세요! ex) 25 or 1 or 3.6')
+                    if(isNumber(lineRate) == False):
+                        raise Exception('수정된 줄 수 비율을 올바른 숫자로 다시 입력하세요!  ex) 25 or 1 or 3.6')
+                    if(isNumber(branchRate) == False):
+                        raise Exception('Merge된 branch 수 비율을 올바른 숫자로 다시 입력하세요!  ex) 25 or 1 or 3.6')
+                    if(isNumber(teamRate) == False):
+                        raise Exception('팀원 기여도 비율을 올바른 숫자로 다시 입력하세요!  ex) 25 or 1 or 3.6')
 
 
-    return render(request, 'gitHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'message':message, 'teamInfo' : teamInfo, 'selectedTeamId' : selectedTeamId })
+                    gitScore = gitEval(commitRate, lineRate, branchRate, teamRate, avgTotalData, stdTotalData, teamRawData)
+
+                    team[3] = gitScore
+
+                except Exception as e:
+                    message = e
+
+
+    return render(request, 'gitHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'message':message, 'teamInfo' : teamInfo, 'selectedTeamId' : selectedTeamId, 'gitScore' : gitScore })
