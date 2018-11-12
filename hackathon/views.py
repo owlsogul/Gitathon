@@ -538,7 +538,48 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
                 percentage = []
                 percentage = calPercent(commitRate,lineRate,branchRate,teamRate)
 
+                # 전체 팀의 평균  commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 가져오기
+                # numpy.mean(listName)
+                avgcommitData = 600
+                avglineData = 1500
+                avgbranchData = 8
+                avgteamData = 70
 
+                # 전체 팀의 표준편차
+                # numpy.std(listName)
+                stdcommitData = 20
+                stdlineData = 18
+                stdbranchData = 11
+                stdteamData = 17
+
+                # 한 팀의 commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 가져오기
+
+                commitData = 500
+                lineData = 1000
+                branchData = 10
+                teamData = 50
+
+                # 전체 평균 대비 한 팀의 commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 계산하기
+                # 표준화
+                commitData = (commitData - avgcommitData) / stdcommitData # -5 0.81
+                lineData = (lineData - avglineData) / stdlineData # -27.7 0.0
+                branchData = (branchData - avgbranchData) / stdbranchData # 0.18 1.0
+                teamData = (teamData - avgteamData) / stdteamData # -1.17 0.95
+
+                # 정규화
+                nomalData=[]
+                nomalData = nomalization(commitData,lineData,branchData,teamData)
+
+                # 계산
+
+                gitScore = 0
+
+                for i in range(0,4) :
+
+                    gitScore += round(percentage[i] * nomalData[i], 2)
+
+                # 최종 결과값
+                message = nomalData[3]
 
             except Exception as e:
                 message = e
