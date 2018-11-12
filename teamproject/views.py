@@ -68,7 +68,7 @@ def contribution(request, teamId):
         print("@@@@ teamName: " + team.teamName)
 
         contributions = {}
-        etcContribution = {'memberId':'etc', 'code':0, 'comment':0, 'resource':0, 'total':0}
+        etcContribution = {'memberId':'#etc', 'code':0, 'comment':0, 'resource':0, 'total':0}
 
         participate = Participate.objects.filter(teamId=team)
         for p in participate:
@@ -86,7 +86,7 @@ def contribution(request, teamId):
                 etcContribution['comment']  += commit['comment']
                 etcContribution['resource'] += commit['resource']
 
-        contributions['etc'] = etcContribution
+        contributions['#etc'] = etcContribution
         for con in contributions.values():
             con['total'] = con['code'] * teamContribution.code + con['comment'] * teamContribution.comment + con['resource'] * teamContribution.resource
 
