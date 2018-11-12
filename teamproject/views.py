@@ -33,7 +33,7 @@ def notice(request, teamId):
         hackNotices = []
 
         if hackathon is None:
-            hasHackathon = false;
+            hasHackathon = False;
         else :
             hackNotices = HackNotice.objects.filter(hackId = hackathon)
         return render(request, 'teamproject/notice.html', {
