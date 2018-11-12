@@ -180,7 +180,7 @@ def team_notice_post(request, teamId):
     team = Team.objects.get(pk=teamId)
     title = request.POST['title']
     content = request.POST['content']
-    writtenDate = timezone.now()
+    writtenDate = django.utils.timezone.now()
 
     notice = TeamNotice.objects.create(title=title, teamId=team, content=content, writer=writer, writtenDate = writtenDate)
     notice.save()
