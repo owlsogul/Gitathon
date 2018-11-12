@@ -6,6 +6,7 @@ from django.contrib import messages
 from accounts.models import *
 from teamproject.models import *
 from django.db.models import Count
+from hackathon.viewHackFunction import *
 import random
 
 # Create your views here.
@@ -511,6 +512,31 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
 
                 redirect_to = reverse('gitHackathon', kwargs={'HackathonInformation_id':contest.id, 'Team_id' : 0})
                 return HttpResponseRedirect(redirect_to)
+
+        # 가중치 비율 정해서 평가하기 눌렀을 때
+        elif btnMode == '평가' :
+
+            try:
+
+                commitRate = request.POST['Commit']
+                lineRate = request.POST['Line']
+                branchRate = request.POST['Branch']
+                teamRate = request.POST['Team']
+
+                # 입력 예외 처리
+                if(isNumber(commitRate) == False):
+                    raise Exception('commit 수 비율을 올바른 숫자로 다시 입력하세요! ex) 25 or 1 or 3.6')
+                if(isNumber(lineRate) == False):
+                    raise Exception('수정된 줄 수 비율을 올바른 숫자로 다시 입력하세요!  ex) 25 or 1 or 3.6')
+                if(isNumber(branchRate) == False):
+                    raise Exception('Merge된 branch 수 비율을 올바른 숫자로 다시 입력하세요!  ex) 25 or 1 or 3.6')
+                if(isNumber(teamRate) == False):
+                    raise Exception('팀원 기여도 비율을 올바른 숫자로 다시 입력하세요!  ex) 25 or 1 or 3.6')
+
+
+
+            except Exception as e:
+                message = e
 
 
     return render(request, 'gitHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'message':message, 'teamInfo' : teamInfo, 'selectedTeamId' : selectedTeamId })
