@@ -94,7 +94,7 @@ def contribution(request, teamId):
                 totalContribution += con['total']
 
             for con in contributions.values():
-                con['total'] = con['total']/totalContribution
+                con['total'] = con['total']/totalContribution * 100
 
         return render(request, 'teamproject/contribution.html', {
             'memberId':memberId,
