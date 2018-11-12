@@ -17,11 +17,11 @@
   </tr>
   {% for contribution in contributions  %}
   <tr>
-    <td>{{ contribution.memberId }}</td>
-    <td>{{ contribution.comment }}</td>
-    <td>{{ contribution.code }}</td>
-    <td>{{ contribution.resource }}</td>
-    <td>{{ contribution.total }}</td>
+    <td>{{ contribution['memberId'] }}</td>
+    <td>{{ contribution['comment'] }}</td>
+    <td>{{ contribution['code'] }}</td>
+    <td>{{ contribution['resource'] }}</td>
+    <td>{{ contribution['total'] }}</td>
   </tr>
   {% endfor %}
 </table>

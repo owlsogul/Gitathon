@@ -67,37 +67,29 @@ def contribution(request, teamId):
         print("@@@@ hackName: " + hackName)
         print("@@@@ teamName: " + team.teamName)
 
-        class ContributionData:
-            memberId = ""
-            code = 0
-            comment = 0
-            resource = 0
-            total = 0
-
         contributions = {}
-        etcContribution = ContributionData()
+        etcContribution = {'memberId':'etc', 'code':0, 'comment':0, 'resource':0, 'total':0}
         etcContribution.memberId='etc'
 
         participate = Participate.objects.filter(teamId=team)
         for p in participate:
-            contributionData = ContributionData()
-            contributionData.memberId = p.memberId.memberId
-            contributions[contributionData.memberId] = contributionData
+            newContribution = {'memberId':p.memberId.memberId, 'code':0, 'comment':0, 'resource':0, 'total':0}
+            contributions[p.memberId.memberId] = newContribution
 
         for commit in parsingData:
             author = commit['author']
             if author in contributions:
-                contributions[author].code += commit['code']
-                contributions[author].comment += commit['comment']
-                contributions[author].resource += commit['resource']
+                contributions[author]['code']     += commit['code']
+                contributions[author]['comment']  += commit['comment']
+                contributions[author]['resource'] += commit['resource']
             else :
-                etcContribution.code += commit['code']
-                etcContribution.comment += commit['comment']
-                etcContribution.resource += commit['resource']
+                etcContribution['code']     += commit['code']
+                etcContribution['comment']  += commit['comment']
+                etcContribution['resource'] += commit['resource']
 
         contributions['etc'] = etcContribution
         for con in contributions.values:
-            con.total = con.code * teamContribution.code + con.comment * teamContribution.comment + con.resource * teamContribution.resource
+            con['total'] = con['code'] * teamContribution.code + con['comment'] * teamContribution.comment + con['resource'] * teamContribution.resource
 
         return render(request, 'teamproject/contribution.html', {
             'memberId':memberId,
@@ -107,7 +99,7 @@ def contribution(request, teamId):
             'code':teamContribution.code,
             'resource':teamContribution.resource,
             'contributions':contributions.values,
-            'test': parsingData,
+            'test': contributions,
         })
 
 def chat(request, teamId):
