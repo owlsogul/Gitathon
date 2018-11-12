@@ -1,17 +1,25 @@
 {% extends 'teamproject/base.html' %}
 
 {% block teamContent %}
+
+{% if hasHackathon == True %}
 <div class="">
   해커톤 공지
   <table>
     <tr>
       <td>제목</td>
-      <td>작성자</td>
       <td>날짜</td>
     </tr>
+    {% for hackNotice in hackNotices %}
+    <tr>
+      <td><a href="../view_hack_notice/{{ hackNotice.hackNoticeId }}"></a>{{ hackNotice.title }}</td>
+      <td>{{ hackNotice.date }}</td>
+    </tr>
+    {% endfor %}
   </table>
   <a href="#">더보기</a>
 </div>
+{% endif %}
 
 <div class="">
   팀 공지
@@ -21,6 +29,13 @@
       <td>작성자</td>
       <td>날짜</td>
     </tr>
+    {% for teamNotice in teamNotices %}
+    <tr>
+      <td><a href="../view_team_notice/{{ teamNotice.teamNoticeId }}"></a>{{ teamNotice.title }}</td>
+      <td>{{ teamNotice.writer }}</td>
+      <td>{{ teamNotice.writtenDate }}</td>
+    </tr>
+    {% endfor %}
   </table>
   <input type="button" name="" value="작성">
 </div>
