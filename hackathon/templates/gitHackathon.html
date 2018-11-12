@@ -93,6 +93,9 @@
     <br/>
     <div class = "container">
       <br/>
+      {% if selectedTeamId %}
+        팀아이디 : {{selectedTeamId}} 의
+      {% endif %}
       깃 활용 점수 보여주는 그래프
       <br/>
     </div>
@@ -127,9 +130,11 @@
       <div class = "row">
         <div class = "col-9">
         </div>
+        <form method="POST" class="get-form">
+        {% csrf_token %}
         <div class = "col-2">
-          <button type="submit" name="view" value="보기" class="btn btn-primary">보기</button>
-          <button type="submit" name="eval" value="평가" class="btn btn-primary">평가</button>
+          <button type="submit" name="gitBtn" value="보기" class="btn btn-primary">보기</button>
+          <button type="submit" name="gitBtn" value="평가" class="btn btn-primary">평가</button>
         </div>
         <div class = "col-1">
         </div>
@@ -152,14 +157,15 @@
             </tr>
           </thead>
           <tbody>
-          {% for teamName, memberNum in teamInfo %}
+          {% for teamId, teamName, memberNum in teamInfo %}
             <tr>
               <td> {{teamName}}  </td>
               <td> {{memberNum}} </td>
               <td></td>
-              <td></td>
+              <td> <input type ="checkbox" name = "teamId" value = "{{teamId}}"> </td>
             </tr>
           {% endfor %}
+          </form>
           </tbody>
           </table>
         </div>
