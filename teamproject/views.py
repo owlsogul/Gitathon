@@ -102,6 +102,29 @@ def contribution(request, teamId):
             'test': contributions,
         })
 
+def contribution_save(request, teamId):
+    if request.method == 'GET':
+        return redirect('/lobby')
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+    else:
+        memberId = request.session['memberId']
+        member = Member.objects.get(pk=memberId)
+        team = Team.objects.get(pk=teamId)
+        teamContribution = TeamContribution.objects.get(teamId = team)
+
+        try:
+            comment = float(request.POST['comment'])
+            code = float(request.POST['code'])
+            resource = float(request.POST['resource'])
+            teamContribution.comment = comment
+            teamContribution.code = code
+            teamContribution.resource = resource
+            teamContribution.save()
+        except:
+
+        return redirect('./contribution')
+
 def chat(request, teamId):
     if not 'memberId' in request.session:
         return redirect('/lobby')
