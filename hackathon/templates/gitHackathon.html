@@ -81,7 +81,7 @@
               <a class="nav-link" href="/hackathon/admin/{{contest.id}}">팀정보</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/hackathon/admin/git/{{contest.id}}">깃활용도</a>
+              <a class="nav-link active" href="/hackathon/admin/git/{{contest.id}}/0">깃활용도</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">어뷰징관리</a>
@@ -157,11 +157,11 @@
             </tr>
           </thead>
           <tbody>
-          {% for teamId, teamName, memberNum in teamInfo %}
+          {% for teamId, teamName, memberNum , gitScore in teamInfo %}
             <tr>
               <td> {{teamName}}  </td>
               <td> {{memberNum}} </td>
-              <td></td>
+              <td> {{gitScore}} </td>
               <td> <input type ="checkbox" name = "teamId" value = "{{teamId}}"> </td>
             </tr>
           {% endfor %}
