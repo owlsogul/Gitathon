@@ -464,12 +464,13 @@ def noticeViewHack(request, HackathonInformation_id, HackNotice_id):
     return render(request, 'noticeView.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost, 'hackNotice' : hackNotice, 'message' : message})
 
 # 관리자메뉴 - git 활용도
-def gitHackathon(request, HackathonInformation_id):
+def gitHackathon(request, HackathonInformation_id, Team_id = 0):
 
     # 해커톤 정보
     contest = HackathonInformation.objects.get(pk = HackathonInformation_id)
     todayDate = datetime.today().date
     todayTime = datetime.today().time
+    selectedTeamId = 0
     message = ''
 
     # 해커톤 참여 팀 리스트
@@ -478,9 +479,38 @@ def gitHackathon(request, HackathonInformation_id):
     # 팀 명과 멤버 인원 수
     teamInfo = []
 
+    # 팀아이디
+
+    # 선택된 팀이 없다면
+    if Team_id == 0 :
+        selectedTeamId = 0
+        message = selectedTeamId
+    # 선택된 팀이 있다면
+    else :
+        selectedTeamId = Team_id
+        message = selectedTeamId
+
     for team in teamList :
 
         memberList = Member.objects.filter(participate__hackId = contest, participate__teamId = team)
-        teamInfo.append([team.teamName, len(memberList)])
+        teamInfo.append([team.id, team.teamName, len(memberList)])
 
-    return render(request, 'gitHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'teamInfo':teamInfo})
+    if request.method == 'POST':
+
+        btnMode = request.POST['gitBtn']
+
+        # 선택된 팀의 깃 활용 점수 보여주기
+        if btnMode == '보기' :
+
+            try:
+                teamId = request.POST['teamId']
+                redirect_to = reverse('gitHackathon', kwargs={'HackathonInformation_id':contest.id, 'Team_id' : teamId})
+                return HttpResponseRedirect(redirect_to)
+
+            except:
+
+                redirect_to = reverse('gitHackathon', kwargs={'HackathonInformation_id':contest.id, 'Team_id' : 0})
+                return HttpResponseRedirect(redirect_to)
+
+
+    return render(request, 'gitHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'message':message, 'teamInfo' : teamInfo, 'selectedTeamId' : selectedTeamId })
