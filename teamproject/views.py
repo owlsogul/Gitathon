@@ -95,7 +95,7 @@ def contribution(request, teamId):
                 etcContribution.resource += commit['resource']
 
         contributions['etc'] = etcContribution
-        for con in contributions.values
+        for con in contributions.values:
             con.total = con.code * teamContribution.code + con.comment * teamContribution.comment + con.resource * teamContribution.resource
 
         return render(request, 'teamproject/contribution.html', {
