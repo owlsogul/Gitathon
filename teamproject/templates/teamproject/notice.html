@@ -12,7 +12,7 @@
     </tr>
     {% for hackNotice in hackNotices %}
     <tr>
-      <td><a href="./hack_notice_view/{{ hackNotice.hackNoticeId }}"></a>{{ hackNotice.title }}</td>
+      <td><a href="./hack_notice_view/{{ hackNotice.pk }}">{{ hackNotice.title }}</a></td>
       <td>{{ hackNotice.date }}</td>
     </tr>
     {% endfor %}
@@ -31,8 +31,8 @@
     </tr>
     {% for teamNotice in teamNotices %}
     <tr>
-      <td><a href="./team_notice_view/{{ teamNotice.teamNoticeId }}"></a>{{ teamNotice.title }}</td>
-      <td>{{ teamNotice.writer }}</td>
+      <td><a href="./team_notice_view/{{ teamNotice.pk }}">{{ teamNotice.title }}</a></td>
+      <td>{{ teamNotice.writer.pk }}</td>
       <td>{{ teamNotice.writtenDate }}</td>
     </tr>
     {% endfor %}
