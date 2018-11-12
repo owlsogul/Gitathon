@@ -52,7 +52,7 @@ def contribution(request, teamId):
             'comment':teamContribution.comment,
             'code':teamContribution.code,
             'resource':teamContribution.resource,
-            'test':parseData,
+            'Datatest':parseData,
         })
 
 def chat(request, teamId):
