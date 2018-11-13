@@ -3,14 +3,19 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <title>Hackathon Main Page</title>
+    <title></title>
+    <script>
+    {% if message %}
+    alert('{{ message }}');
+    {% endif %}
+    </script>
   </head>
   <body>
     <div class = "containter">
       <div class = "row">
         <div class ="col">
         header
-        <br>
+        <br/>
         </div>
       </div>
       <div class ="row">
@@ -45,19 +50,19 @@
       </div>
       </div>
     </div>
-    <br>
+    <br/>
     <div class = "containter">
       <div class = "row">
         <div class = "col">
           <ul class="nav justify-content-center nav-pills">
             <li class="nav-item">
-              <a class="nav-link active" href="/hackathon/page/main/{{contest.id}}">메인</a>
+              <a class="nav-link" href="/hackathon/page/main/{{contest.id}}">메인</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/hackathon/page/teamlist/{{contest.id}}">팀목록</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/hackathon/page/notice/list/{{contest.id}}">공지사항</a>
+              <a class="nav-link active" href="/hackathon/page/notice/list/{{contest.id}}">공지사항</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/hackathon/admin/{{contest.id}}">관리자메뉴</a>
@@ -65,38 +70,62 @@
           </ul>
         </div>
       </div>
-      <br>
-      <br>
-      <div class = "row">
-        <div class = "col-2">
-        </div>
-        <div class = "col-8">
-          이미지
-        </div>
-        <div class = "col-2">
-        </div>
-      </div>
-      <div class = "row">
-        <div class = "col-2">
-        </div>
-        <div class = "col-8">
-          <br>
-          <br>
-          <br>
-          <div class = "card">
-            해커톤 개설자 : {{contest.hackathonHost}}
-            <br/>
-            <br/>
-            {{contest.text}}
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <form class="HackNotice" method="POST">
+      <div class = "container">
+        {% csrf_token %}
+        <div class = "row">
+          <div class = "col-2">
+          </div>
+          <div class = "col-8">
+              {% if writeMode == 0 %}
+              <div class = "form-group">
+                <textarea class="form-control" name="Title" rows="1" placeholder="제목"></textarea>
+                <br/>
+                <label>작성자</label>
+                <input class="form-control" type="text" placeholder="{{contestHost}}" readonly>
+                <br/>
+                <textarea class="form-control" name="Contents" rows="10" placeholder="글 내용"></textarea>
+              </div>
+              {% else %}
+              <div class = "form-group">
+                <textarea class="form-control" name="Title" rows="1">{{hackNotice.title}}</textarea>
+                <br/>
+                <label>작성자</label>
+                <input class="form-control" type="text" placeholder="{{contestHost}}" readonly>
+                <br/>
+                <textarea class="form-control" name="Contents" rows="10">{{hackNotice.content}}</textarea>
+              </div>
+              {% endif %}
+          </div>
+          <div class = "col-2">
           </div>
         </div>
-        <div class = "col-2">
+        <br/>
+        <div class = "row">
+          <div class = "col-9">
+          </div>
+          <div class = "col-2">
+            {% if writeMode == 0 %}
+            <button type="submit" name="write" value="작성" class="btn btn-primary">작성</button>
+            {% else %}
+            <button type="submit" name="write" value="수정완료" class="btn btn-primary">저장</button>
+            <input type="hidden" name="hackNoticeId" value="{{ hackNoticeId }}">
+            {% endif %}
+            <button type="submit" name="write" value="취소" class="btn btn-primary">취소</button>
+          </div>
+          <div class = "col-1">
+          </div>
         </div>
       </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  </body>
+      </form>
+      <br/>
+      <br/>
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </body>
 </html>

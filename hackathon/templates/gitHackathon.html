@@ -3,14 +3,19 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <title>Hackathon Main Page</title>
+    <title>admin page hackathon</title>
+    <script>
+    {% if message %}
+    alert('{{ message }}');
+    {% endif %}
+    </script>
   </head>
   <body>
     <div class = "containter">
       <div class = "row">
         <div class ="col">
         header
-        <br>
+        <br/>
         </div>
       </div>
       <div class ="row">
@@ -45,13 +50,14 @@
       </div>
       </div>
     </div>
-    <br>
+    </div>
+    <br/>
     <div class = "containter">
       <div class = "row">
         <div class = "col">
           <ul class="nav justify-content-center nav-pills">
             <li class="nav-item">
-              <a class="nav-link active" href="/hackathon/page/main/{{contest.id}}">메인</a>
+              <a class="nav-link" href="/hackathon/page/main/{{contest.id}}">메인</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/hackathon/page/teamlist/{{contest.id}}">팀목록</a>
@@ -60,35 +66,108 @@
               <a class="nav-link" href="/hackathon/page/notice/list/{{contest.id}}">공지사항</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/hackathon/admin/{{contest.id}}">관리자메뉴</a>
+              <a class="nav-link active" href="/hackathon/admin/{{contest.id}}">관리자메뉴</a>
             </li>
           </ul>
         </div>
       </div>
-      <br>
-      <br>
+    </div>
+    <br/>
+    <div class = "containter">
+      <div class = "row">
+        <div class = "col">
+          <ul class="nav justify-content-center nav-pills">
+            <li class="nav-item">
+              <a class="nav-link" href="/hackathon/admin/{{contest.id}}">팀정보</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/hackathon/admin/git/{{contest.id}}/0">깃활용도</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">어뷰징관리</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <div class = "container">
+      <br/>
+      {% if selectedTeamId %}
+        팀아이디 : {{selectedTeamId}} 의
+      {% endif %}
+      깃 활용 점수 보여주는 그래프
+      <br/>
+    </div>
+    <br/>
+    <div class = "containter">
       <div class = "row">
         <div class = "col-2">
         </div>
         <div class = "col-8">
-          이미지
+          <table class="table table-hover">
+            <form method="POST" class="get-form">
+            {% csrf_token %}
+            <thead>
+              <tr>
+                <th scope="col">Commit 수</th>
+                <th scope="col">수정된 줄 수</th>
+                <th scope="col">Merge된 Branch 수</th>
+                <th scope="col">팀원 기여도</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><textarea class="gitEval" name="Commit" rows="1" placeholder="25"></textarea></td>
+                <td><textarea class="gitEval" name="Line" rows="1" placeholder="25"></textarea></td>
+                <td><textarea class="gitEval" name="Branch" rows="1" placeholder="25"></textarea></td>
+                <td><textarea class="gitEval" name="Team" rows="1" placeholder="25"></textarea></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div class = "col-2">
         </div>
       </div>
       <div class = "row">
+        <div class = "col-9">
+        </div>
+        <div class = "col-2">
+          <button type="submit" name="gitBtn" value="보기" class="btn btn-primary">보기</button>
+          <button type="submit" name="gitBtn" value="평가" class="btn btn-primary">평가</button>
+        </div>
+        <div class = "col-1">
+        </div>
+      </div>
+    </div>
+    <br/>
+    <br/>
+    <div class = "containter">
+      <div class = "row">
         <div class = "col-2">
         </div>
         <div class = "col-8">
-          <br>
-          <br>
-          <br>
-          <div class = "card">
-            해커톤 개설자 : {{contest.hackathonHost}}
-            <br/>
-            <br/>
-            {{contest.text}}
-          </div>
+          <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">팀 이름</th>
+              <th scope="col">팀 인원</th>
+              <th scope="col">깃 활용 점수</th>
+              <th scope="col">선택</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for teamId, teamName, memberNum , gitScore in teamInfo %}
+            <tr>
+              <td> {{teamName}}  </td>
+              <td> {{memberNum}} </td>
+              <td> {{gitScore}} </td>
+              <td> <input type ="checkbox" name = "teamId" value = "{{teamId}}"> </td>
+            </tr>
+          {% endfor %}
+          </form>
+          </tbody>
+          </table>
         </div>
         <div class = "col-2">
         </div>
@@ -97,6 +176,5 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  </body>
   </body>
 </html>
