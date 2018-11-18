@@ -1,4 +1,5 @@
 import React from 'react';
+import './Login.css';
 
 function Login ({gitathonLogo, hackNum, teamNum}){
     return (

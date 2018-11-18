@@ -1,6 +1,8 @@
 {
   "presets": [
     "babel-preset-env",
-    "react"
-  ]
+    "react",
+    "es2015"
+  ],
+  "plugins": ["css-modules-transform"]
 }
