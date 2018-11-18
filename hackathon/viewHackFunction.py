@@ -70,14 +70,10 @@ def nomalization(c,l,b,t):
     except:
         raise Exception("정규화 중 오류가 발생하였습니다.")
 
-
-        
-
 # git 활용도 점수 계산하는 함수
 # 각 항목별 비율과
 # 전체 팀들의 평균과 표준편차 필요
-# 선택된 팀의 각 항목별 값도 필요
-
+# 선택된 팀의 각 항목별 값 필요
 def gitEval(commitRate,lineRate,branchRate,teamRate, avgTotalData, stdTotalData, teamRawData) :
 
 
