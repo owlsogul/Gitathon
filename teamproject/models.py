@@ -18,3 +18,13 @@ class TeamNotice(models.Model):
     content = models.TextField()
     writer = models.ForeignKey('accounts.Member', on_delete=models.CASCADE)
     writtenDate = models.DateTimeField('date registered', default=timezone.now())
+
+    def post(self):
+        self.writtenDate = timezone.now()
+        self.save()
+
+class TeamChat(models.Model):
+    teamId = models.ForeignKey('teamproject.Team', on_delete=models.CASCADE)
+    sender = models.ForeignKey('accounts.Member', on_delete=models.SET_NULL, null=True)
+    sendedDate = models.DateTimeField('data sended', default=timezone.now())
+    chatMsg = models.TextField()
