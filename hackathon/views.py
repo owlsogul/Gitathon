@@ -493,6 +493,7 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
 
     # 전체 팀들의 raw Data 생성(수정)
     # 전체 팀의 평균  commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 가져오기
+    # 비울도 DB에서 가져오기
     # numpy.mean(listName)
     avgTotalData = [600,1500,8,70]
     # 전체 팀의 표준편차
