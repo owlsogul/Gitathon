@@ -1,7 +1,7 @@
 import React from 'react';
 import './Login.css';
 
-function Login ({gitathonLogo, hackNum, teamNum}){
+function Login ({gitathonLogo, numHackathon, numTeamproject}){
     return (
       <table className = "LoginMain">
           <tr>
@@ -11,7 +11,7 @@ function Login ({gitathonLogo, hackNum, teamNum}){
           </tr>
           <tr>
               <td className = "Intro">
-                  <Welcome hackNum = {hackNum} teamNum = {teamNum} />
+                  <Welcome hackNum = {numHackathon} teamNum = {numTeamproject} />
               </td>
           </tr>
           <tr>
@@ -26,14 +26,14 @@ function Login ({gitathonLogo, hackNum, teamNum}){
           </tr>
           <tr>
               <td className = "LoginBtn">
-                  <button>?¨ê»˜?˜ê¸°</button>
+                  <button>??ê»˜??ê¸°</button>
               </td>
           </tr>
           <tr>
               <td className = "Join">
                   <div>
-                      ?„ì§ ê³„ì •???†ìœ¼? ê???
-                       <font color = "red"> ?Œì›ê°€??</font>
+                      ì•„ì§ ê³„ì •ì´ ì—†ìœ¼ì‹ ê°€ìš”?
+                       <font color = "red"> íšŒì›ê°€ì…</font>
                   </div>
               </td>
           </tr>
@@ -50,9 +50,9 @@ function ShowLogo({logoPath, name}) {
 function Welcome({hackNum, teamNum}){
   return(
     <span className = "Welcoming">
-      ÇöÀç <font color = "red">{hackNum}</font>°³ÀÇ
-      ÇØÄ¿Åæ°ú <font color = "red">{teamNum}</font>°³ÀÇ
-      ÆÀÇÁ·ÎÁ§Æ®°¡ ÁøÇàÁßÀÔ´Ï´Ù.
+      í˜„ì¬  <font color = "red">{hackNum}</font>ê°œì˜
+      í•´ì»¤í†¤ê³¼ <font color = "red">{teamNum}</font>ê°œì˜
+      íŒ€í”„ë¡œì íŠ¸ê°€ ì§„í–‰ì¤‘ì…ë‹ˆë‹¤.
     </span>
   )
 }
