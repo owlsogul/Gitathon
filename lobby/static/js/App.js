@@ -3,10 +3,10 @@ import LoginMain from './Login';
 
 const metaInfo = [
     {
-      gitathonLogo : "../../../img/gitathonLogo.png",
+      gitathonLogo : "127.0.0.1:8000/img/gitathonLogo.png",
       userName : "wkdthf21",
-      hackathonLogo : "../../../img/hackathonLogo.png",
-      profileLogo : "../../../img/profileLogo.png"
+      hackathonLogo : "127.0.0.1:8000/img/hackathonLogo.png",
+      profileLogo : "127.0.0.1:8000/img/profileLogo.png"
     }
 ]
 
