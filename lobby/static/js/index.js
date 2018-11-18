@@ -1,12 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
 
+const element = <App />;
 
-function Welcome(props) {
-	return <h1>Hello, {props.name}</h1>;
-}
-
-const element = <Welcome name="world" />;
 ReactDOM.render(
 	element,
 	document.getElementById('react')
