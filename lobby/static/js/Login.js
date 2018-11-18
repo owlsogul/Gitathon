@@ -26,7 +26,7 @@ function Login ({gitathonLogo, numHackathon, numTeamproject}){
           </tr>
           <tr>
               <td className = "LoginBtn">
-                  <button>??께??기</button>
+                  <button>함께하기</button>
               </td>
           </tr>
           <tr>
