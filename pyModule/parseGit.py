@@ -3,24 +3,29 @@ import os
 import sys
 
 def parseGit(hackName, teamName, lastCommit, resource):
-	#path = "/home/pi/remote/" + hackName + "/" + teamName
-	path = "C:\Users\owlsogul\Documents\GitHub\AI_Project1"
+	old_path = os.getcwd()
+	path = "/home/pi/remote/" + hackName + "/" + teamName
+	#path  = "C:\\Users\\owlsogul\\Documents\\GitHub\\AI_Project1"
 	os.chdir(path)
 
 	try:
-		result = subprocess.check_output('git log --abbrev-commit --name-status --all', shell=True)
+		result = subprocess.check_output('git log --abbrev-commit --name-status --all', shell=True).decode()
 		newCommit = findNewCommit(result, lastCommit, resource)
 		findCommandAndCode(newCommit)
+		print("command finish")
 		if len(newCommit) == 0:
 			print("Parse Fail!")
+			os.chdir(old_path)
 			return 0
 
 		else:
 			print ("Parse Successful!")
+			os.chdir(old_path)
 			return newCommit
 
-	except subprocess.CalledProcessError, e:
+	except subprocess.CalledProcessError as e:
 		print ("Error", e.output)
+		os.chdir(old_path)
 		return 0
 
 
@@ -31,6 +36,7 @@ def findNewCommit(output, lastCommit, extens):
 	oneDic = {}
 	isNotFirst = False
 	totalRes = 0
+	output.encode()
 
 	for line in output.split("\n"):
 		words = line.split()
@@ -75,19 +81,24 @@ def findCommandAndCode(newCommit):
 		command = 0
 		code = 0
 		isCommand = False
-
 		lines = subprocess.check_output('git show ' + commit['commit'], shell=True)
 
-		for line in lines.split("\n"):
+		print("#####################")
+		print("word start: ")
+		for line in lines.split(b"\n"):
+
 			words = line.split()
 
 			if len(words) != 0:
 
-				if words[0] == "+++" or words[0] == "---":
-					extension = words[1][words[1].rfind(".") + 1:]
+				if words[0] == b"+++" or words[0] == b"---":
+					extension = (words[1][words[1].rfind(b".") + 1:])
+					extension = extension.decode()
 
-				elif words[0][0] == "+" or words[0][0] == "-":
+				elif chr(words[0][0]) == '+' or chr(words[0][0]) == '-':
 
+					print ("extension: ", extension)
+	
 					if extension == "c" or extension == "cpp" or extension == "ino":
 						if isCCommand(words, isCommand):
 							command = command + 1
@@ -108,11 +119,13 @@ def findCommandAndCode(newCommit):
 
 					else:
 						code = code + 1
+					
 
 		commit["code"] = code
 		commit["command"] = command
 		code = 0
 		command = 0
+		print("word end")
 
 
 def isCCommand(words, flag):
