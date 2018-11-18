@@ -25,7 +25,7 @@ SECRET_KEY = 'zyml6(y4tu-b3d@$n_5-45&1lbmah+8i$w)f4xqg=yr6llssa7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = '*'
 
 
 # Application definition
@@ -37,10 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+	'webpack_loader',
     'lobby',
     'teamproject',
     'hackathon',
 ]
+
+WEBPACK_LOADER = {
+	'DEFAULT': {
+		'BUNDLE_DIR_NAME': 'bundles/',
+		'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+	}
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
