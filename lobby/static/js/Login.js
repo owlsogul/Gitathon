@@ -1,5 +1,6 @@
 import React from 'react';
 import './Login.css';
+import '../../../includes/bootstrap';
 
 function Login ({gitathonLogo, numHackathon, numTeamproject}){
     return (
