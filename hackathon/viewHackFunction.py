@@ -1,3 +1,4 @@
+
 def isNumber(s):
   try:
     float(s)
@@ -20,10 +21,10 @@ def calPercent(c,l,b,t):
         total = c+l+b+t
 
         # 비율 계산 (7/4 = 1.75)
-        c = c/total
-        l = l/total
-        b = b/total
-        t = t/total
+        c = round(c/total,2)
+        l = round(l/total,2)
+        b = round(b/total,2)
+        t = round(t/total,2)
 
         # list로 반환
         result.append(c)
@@ -81,6 +82,10 @@ def gitEval(commitRate,lineRate,branchRate,teamRate, avgTotalData, stdTotalData,
     percentage = []
     percentage = calPercent(commitRate,lineRate,branchRate,teamRate)
 
+    # 표준편차의 경우 작을수록 공평한 것
+    # 역수 취하고 *5000
+    teamRawData[3] = round(1.0/teamRawData[3],2) * 2000
+    avgTotalData[3] = round(1.0/avgTotalData[3],2) * 2000
 
     # 전체 평균 대비 한 팀의 commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 계산하기
     # 표준화
@@ -104,7 +109,7 @@ def gitEval(commitRate,lineRate,branchRate,teamRate, avgTotalData, stdTotalData,
 
 
     # 최종 결과값
-    gitScore = round(gitScore,2)
+    gitScore = float(format(gitScore, '.2f'))
     gitScore = gitScore * 100
 
     return gitScore
