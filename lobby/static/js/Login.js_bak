@@ -1,5 +1,6 @@
 import React from 'react';
 import './Login.css';
+import '../../../includes/bootstrap';
 
 function Login ({gitathonLogo, numHackathon, numTeamproject}){
     return (
@@ -17,14 +18,25 @@ function Login ({gitathonLogo, numHackathon, numTeamproject}){
           <tr>
               <td className = "InputID">
 	    	<form>
-                  <input />
+                  <FieldGroup
+	    	  	id = "inputId"
+	    		type = "text"
+	    		label = "ID"
+	    		placeholder = "아이디를 입력하세요."
+	    	  />
 	    	</form>
               </td>
           </tr>
           <tr>
               <td className = "InputPW">
-		<input>
-	      </td>
+	    	<form>
+	    	  <FieldGroup
+	    		id = "inputPW"
+	    		type = "password"
+	    		label = "Password"
+	    	  />
+	    	</form>
+              </td>
           </tr>
           <tr>
               <td className = "LoginBtn">
