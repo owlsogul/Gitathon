@@ -306,8 +306,6 @@ def vote_agree(request, teamId):
 
     memberId = request.session['memberId']
     requestId = request.POST['requestId']
-    fromBranch = request.POST['fromBranch']
-    toBranch = request.POST['toBranch']
 
     memeber = Member.objects.get(memberId=memberId)
     teamMergeRequest = TeamMergeRequest.objects.get(pk=requestId)
@@ -328,8 +326,6 @@ def vote_disagree(request, teamId):
 
     memberId = request.session['memberId']
     requestId = request.POST['requestId']
-    fromBranch = request.POST['fromBranch']
-    toBranch = request.POST['toBranch']
 
     memeber = Member.objects.get(memberId=memberId)
     teamMergeRequest = TeamMergeRequest.objects.get(pk=requestId)
