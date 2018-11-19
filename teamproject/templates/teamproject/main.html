@@ -15,7 +15,7 @@
   {% csrf_token %}
     <input type="text" name="fromBranch" value="" placeholder="from Branch">
     <input type="text" name="toBranch" value="" placeholder="to Branch">
-    <input type="submit" name="" value="">
+    <input type="submit" name="" value="Merge Request!">
   </form>
 </div>
 
@@ -48,7 +48,7 @@
         <form class="" action="./vote_disagree" method="post">
           {% csrf_token %}
           <input type="hidden" name="requestId" value="{{ mergeData.requestId }}">
-          <input type="submit" name="" value="agree">
+          <input type="submit" name="" value="disagree">
         </form>
       </td>
       <td>

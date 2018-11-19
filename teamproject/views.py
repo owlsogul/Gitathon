@@ -290,6 +290,8 @@ def merge_request(request, teamId):
     memberId = request.session['memberId']
     fromBranch = request.POST['fromBranch']
     toBranch = request.POST['toBranch']
+    print(fromBranch)
+    print(toBranch)
 
     team = Team.objects.get(pk=teamId)
     teamMergeRequest = TeamMergeRequest.objects.create(teamId = team, fromBranch = fromBranch, toBranch = toBranch)
