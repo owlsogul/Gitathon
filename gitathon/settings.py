@@ -93,6 +93,11 @@ CHANNEL_LAYERS = {
 
 WSGI_APPLICATION = 'gitathon.wsgi.application'
 
+# Celery
+app.conf.update(
+    CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend',
+)
+
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
