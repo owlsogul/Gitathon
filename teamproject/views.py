@@ -13,10 +13,37 @@ def main(request, teamId):
     if not 'memberId' in request.session:
         return redirect('/lobby')
     else:
+
+        memberId = request.session['memberId']
+        team = Team.objects.get(pk=teamId)
+        teamMembers = Participate.objects.filter(teamId = team)
+
+        # merge request part
+        mergeResponse = []
+        teamMergeRequests = TeamMergeRequest.objects.filter(teamId = team)
+        for teamMergeRequest in teamMergeRequests:
+            mergeData['requestId'] = teamMergeRequest.pk
+            mergeData['fromBranch'] = teamMergeRequest.fromBranch
+            mergeData['toBranch'] = teamMergeRequest.toBranch
+            mergeData['agree'] = 0
+            mergeData['disagree'] = 0
+            mergeData['canMerge'] = False
+            teamVotes = TeamVote.objects.filter(requestId = teamMergeRequest)
+            for teamVote in teamVotes:
+                if teamVote.isAgree == true:
+                    mergeData['agree'] += 1
+                else:
+                    mergeData['disagree'] += 1
+            if mergeData['agree'] >= len(teamMembers)/2:
+                mergeData['canMerge'] = True
+            mergeResponse.append(mergeData)
+
+
         return render(request, 'teamproject/main.html', {
             'memberId':request.session['memberId'],
             'teamId':teamId,
             'team':Team.objects.get(pk=teamId),
+            'mergeData':mergeData,
         })
 
 def notice(request, teamId):
@@ -252,3 +279,75 @@ def hack_notice_view(request, teamId, noticeId):
         'noticeType':noticeType,
         'notice':notice,
     })
+
+def merge_request(request, teamId):
+
+    # exception
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+
+    memberId = request.session['memberId']
+    fromBranch = request.POST['fromBranch']
+    toBranch = request.POST['toBranch']
+
+    team = Team.objects.get(pk=teamId)
+    teamMergeRequest = TeamMergeRequest.objects.create(teamId = team, fromBranch = fromBranch, toBranch = toBranch)
+    teamMergeRequest.save()
+    return redirect('./main')
+
+def vote_agree(request, teamId):
+
+    # exception
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+
+    memberId = request.session['memberId']
+    requestId = request.POST['requestId']
+    fromBranch = request.POST['fromBranch']
+    toBranch = request.POST['toBranch']
+
+    memeber = Member.objects.get(memberId=memberId)
+    teamMergeRequest = TeamMergeRequest.objects.get(pk=requestId)
+    teamVote = TeamVote.objects.get(requestId = teamMergeRequest, memberId=member)
+    if teamVote is None:
+        teamVote = TeamVote.objects.create(requestId = teamMergeRequest, memberId = member)
+        teamVote.save()
+    else:
+        teamVote.isAgree = True
+        teamVote.save()
+    return redirect('./main')
+
+def vote_disagree(request, teamId):
+
+    # exception
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+
+    memberId = request.session['memberId']
+    requestId = request.POST['requestId']
+    fromBranch = request.POST['fromBranch']
+    toBranch = request.POST['toBranch']
+
+    memeber = Member.objects.get(memberId=memberId)
+    teamMergeRequest = TeamMergeRequest.objects.get(pk=requestId)
+    teamVote = TeamVote.objects.get(requestId = teamMergeRequest, memberId=member)
+    if teamVote is None:
+        teamVote = TeamVote.objects.create(requestId = teamMergeRequest, memberId = member)
+        teamVote.save()
+    else:
+        teamVote.isAgree = False
+        teamVote.save()
+    return redirect('./main')
+
+def merge(request, teamId):
+
+    # exception
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+
+    memberId = request.session['memberId']
+    requestId = request.POST['requestId']
+
+    teamMergeRequest = TeamMergeRequest.objects.get(pk=requestId)
+    teamMergeRequest.delete()
+    return redirect('./main')
