@@ -309,12 +309,12 @@ def vote_agree(request, teamId):
 
     memeber = Member.objects.get(memberId=memberId)
     teamMergeRequest = TeamMergeRequest.objects.get(pk=requestId)
-    teamVote = TeamVote.objects.get(requestId = teamMergeRequest, memberId=member)
-    if teamVote is None:
+    teamVote = TeamVote.objects.filter(requestId = teamMergeRequest, memberId=member)
+    if len(teamVote) == 0:
         teamVote = TeamVote.objects.create(requestId = teamMergeRequest, memberId = member)
         teamVote.save()
     else:
-        teamVote.isAgree = True
+        teamVote[0].isAgree = False
         teamVote.save()
     return redirect('./main')
 
@@ -330,7 +330,7 @@ def vote_disagree(request, teamId):
     memeber = Member.objects.get(memberId=memberId)
     teamMergeRequest = TeamMergeRequest.objects.get(pk=requestId)
     teamVote = TeamVote.objects.filter(requestId = teamMergeRequest, memberId=member)
-    if teamVote is None:
+    if len(teamVote) == 0:
         teamVote = TeamVote.objects.create(requestId = teamMergeRequest, memberId = member)
         teamVote.save()
     else:
