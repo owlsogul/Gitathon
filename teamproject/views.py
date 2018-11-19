@@ -307,7 +307,7 @@ def vote_agree(request, teamId):
     memberId = request.session['memberId']
     requestId = request.POST['requestId']
 
-    memeber = Member.objects.get(memberId=memberId)
+    member = Member.objects.get(memberId=memberId)
     teamMergeRequest = TeamMergeRequest.objects.get(pk=requestId)
     teamVote = TeamVote.objects.filter(requestId = teamMergeRequest, memberId=member)
     if len(teamVote) == 0:
@@ -327,7 +327,7 @@ def vote_disagree(request, teamId):
     memberId = request.session['memberId']
     requestId = request.POST['requestId']
 
-    memeber = Member.objects.get(memberId=memberId)
+    member = Member.objects.get(memberId=memberId)
     teamMergeRequest = TeamMergeRequest.objects.get(pk=requestId)
     teamVote = TeamVote.objects.filter(requestId = teamMergeRequest, memberId=member)
     if len(teamVote) == 0:
