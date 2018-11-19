@@ -31,7 +31,7 @@ def main(request, teamId):
             mergeData['canMerge'] = False
             teamVotes = TeamVote.objects.filter(requestId = teamMergeRequest)
             for teamVote in teamVotes:
-                if teamVote.isAgree == true:
+                if teamVote.isAgree == True:
                     mergeData['agree'] += 1
                 else:
                     mergeData['disagree'] += 1
@@ -314,7 +314,7 @@ def vote_agree(request, teamId):
         teamVote = TeamVote.objects.create(requestId = teamMergeRequest, memberId = member)
         teamVote.save()
     else:
-        teamVote[0].isAgree = False
+        teamVote[0].isAgree = True
         teamVote.save()
     return redirect('./main')
 
