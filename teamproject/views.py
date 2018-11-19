@@ -315,7 +315,7 @@ def vote_agree(request, teamId):
         teamVote.save()
     else:
         teamVote[0].isAgree = True
-        teamVote.save()
+        teamVote[0].save()
     return redirect('./main')
 
 def vote_disagree(request, teamId):
@@ -335,7 +335,7 @@ def vote_disagree(request, teamId):
         teamVote.save()
     else:
         teamVote[0].isAgree = False
-        teamVote.save()
+        teamVote[0].save()
     return redirect('./main')
 
 def merge(request, teamId):
