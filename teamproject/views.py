@@ -22,6 +22,7 @@ def main(request, teamId):
         mergeResponse = []
         teamMergeRequests = TeamMergeRequest.objects.filter(teamId = team)
         for teamMergeRequest in teamMergeRequests:
+            mergeData = {}
             mergeData['requestId'] = teamMergeRequest.pk
             mergeData['fromBranch'] = teamMergeRequest.fromBranch
             mergeData['toBranch'] = teamMergeRequest.toBranch
