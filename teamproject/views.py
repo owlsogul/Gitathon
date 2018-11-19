@@ -329,12 +329,12 @@ def vote_disagree(request, teamId):
 
     memeber = Member.objects.get(memberId=memberId)
     teamMergeRequest = TeamMergeRequest.objects.get(pk=requestId)
-    teamVote = TeamVote.objects.get(requestId = teamMergeRequest, memberId=member)
+    teamVote = TeamVote.objects.filter(requestId = teamMergeRequest, memberId=member)
     if teamVote is None:
         teamVote = TeamVote.objects.create(requestId = teamMergeRequest, memberId = member)
         teamVote.save()
     else:
-        teamVote.isAgree = False
+        teamVote[0].isAgree = False
         teamVote.save()
     return redirect('./main')
 
