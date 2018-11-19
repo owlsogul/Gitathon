@@ -16,14 +16,12 @@ function Login ({gitathonLogo, numHackathon, numTeamproject}){
           </tr>
           <tr>
               <td className = "InputID">
-	    	<form>
-                  <input />
-	    	</form>
+	    	<input />
               </td>
           </tr>
           <tr>
               <td className = "InputPW">
-		<input>
+		<input />
 	      </td>
           </tr>
           <tr>
