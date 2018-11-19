@@ -21,7 +21,6 @@
 
 <div class="">
 현재 진행중인 머지 투표 목록
-{{ mergeData }}
 <table>
   <tr>
     <td>Merge Request Id</td>
@@ -33,22 +32,22 @@
   </tr>
   {% for data in mergeData %}
     <tr>
-      <td>{{ mergeData.requestId }}</td>
-      <td>{{ mergeData.fromBranch }}</td>
-      <td>{{ mergeData.toBranch }}</td>
+      <td>{{ data.requestId }}</td>
+      <td>{{ data.fromBranch }}</td>
+      <td>{{ data.toBranch }}</td>
       <td>
-        {{ mergeData.agree }}
+        {{ data.agree }}
         <form class="" action="./vote_agree" method="post">
           {% csrf_token %}
-          <input type="hidden" name="requestId" value="{{ mergeData.requestId }}">
+          <input type="hidden" name="requestId" value="{{ data.requestId }}">
           <input type="submit" name="" value="agree">
         </form>
       </td>
       <td>
-        {{ mergeData.disagree }}
+        {{ data.disagree }}
         <form class="" action="./vote_disagree" method="post">
           {% csrf_token %}
-          <input type="hidden" name="requestId" value="{{ mergeData.requestId }}">
+          <input type="hidden" name="requestId" value="{{ data.requestId }}">
           <input type="submit" name="" value="disagree">
         </form>
       </td>
@@ -56,7 +55,7 @@
       {% if data.canMerge == True %}
       <form class="" action="./merge" method="post">
         {% csrf_token %}
-        <input type="hidden" name="requestId" value="{{ mergeData.requestId }}">
+        <input type="hidden" name="requestId" value="{{ data.requestId }}">
         <input type="submit" name="" value="Merge">
       </form>
       {% else %}
