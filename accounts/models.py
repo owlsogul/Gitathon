@@ -17,6 +17,6 @@ class Member(models.Model):
         self.save()
 
 class Participate(models.Model):
-    memberId = models.ForeignKey(Member, on_delete=models.CASCADE)
+    memberId = models.ForeignKey(Member, on_delete=models.CASCADE, null=True)
     hackId = models.ForeignKey(HackathonInformation, null=True, on_delete=models.CASCADE)
     teamId = models.ForeignKey(Team, null=True, on_delete=models.SET_NULL)
