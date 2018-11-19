@@ -482,6 +482,7 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
     # 팀 명과 멤버 인원 수
     teamInfo = []
 
+
     # 팀아이디
 
     # 선택된 팀이 없다면
@@ -515,10 +516,10 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
     # 전체 팀의 평균  commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 가져오기
 
     # numpy.mean(listName)
-    avgTotalData = [600,1500,8,10]
+    avgTotalData = [500,1000,10,169]
     # 전체 팀의 표준편차
     # numpy.std(listName)
-    stdTotalData = [20,18,11,12]
+    stdTotalData = [0.1,0.1,0.1,83]
 
     for team in teamList :
 
@@ -526,14 +527,15 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
         # 그 팀들의 raw Data 생성(수정)
         # 한 팀의 commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 가져오기
 
-        # 한 팀의 팀원 기여도 점수(표준편차)
-        teamScore = TeamContribution.objects.get(teamId=team).std_score
-
+        # 한 팀의 팀원 기여도 점수(표준편차) -> 역수 취하고 *1000
+        teamScore = (1/TeamContribution.objects.get(teamId=team).std_score)*1000
         teamRawData = [500, 1000, 10, teamScore]
 
         # 비율이랑 그 팀의 raw Data와 전체 팀들의 raw Data 필요
         gitScore = gitEval(commitRate,lineRate,branchRate,teamRate, avgTotalData, stdTotalData, teamRawData)
         teamInfo.append([team.id, team.teamName, len(memberList), gitScore])
+
+
 
     if request.method == 'POST':
 
@@ -574,19 +576,24 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
 
 
                 # 비율 항목 변경
-                hackUsability.commitRate = commitRate
-                hackUsability.lineRate = lineRate
-                hackUsability.branchRate = branchRate
-                hackUsability.teamRate = teamRate
+                hackUsability.commitRate = float(commitRate)
+                hackUsability.lineRate = float(lineRate)
+                hackUsability.branchRate = float(branchRate)
+                hackUsability.teamRate = float(teamRate)
                 hackUsability.save()
 
                 for team in teamInfo :
 
                     # 그 팀들의 raw Data 생성(수정)
                     # 한 팀의 commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 가져오기
-                    teamRawData = [500, 1000, 10, 50]
 
-                    gitScore = gitEval(commitRate, lineRate, branchRate, teamRate, avgTotalData, stdTotalData, teamRawData)
+                    # 한 팀의 팀원 기여도 점수(표준편차) -> 역수 취하고 *100
+                    teamScore = (1/TeamContribution.objects.get(teamId=team).std_score)*1000
+                    teamRawData = [500, 1000, 10, teamScore]
+
+                    # 비율이랑 그 팀의 raw Data와 전체 팀들의 raw Data 필요
+                    gitScore = gitEval(commitRate,lineRate,branchRate,teamRate, avgTotalData, stdTotalData, teamRawData)
+
                     team[3] = gitScore
 
 
