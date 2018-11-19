@@ -38,8 +38,7 @@ class HackNotice(models.Model):
 
 # 해커톤 가중치 기반 깃 활용도 평가 비율
 class HackUsability(models.Model):
-    usabilityId = models.AutoField(primary_key=True)
-    hackId = models.ForeignKey(HackathonInformation, on_delete=models.CASCADE)
+    hackId = models.ForeignKey(HackathonInformation, primary_key=True, on_delete=models.CASCADE)
     commitRate = models.FloatField(default=25.0)
     lineRate = models.FloatField(default=25.0)
     branchRate = models.FloatField(default=25.0)
