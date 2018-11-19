@@ -39,40 +39,11 @@ def calPercent(c,l,b,t):
         raise Exception("비율 계산 중 오류가 발생하였습니다.")
 
 
-# git활용도 평가 시
-# 서로 다른 값의 범주 즉, commit 수, 수정된 줄 수 등의 표준화 한 값들을
-# 0 ~ 1 사이로 정규화하는 함수
-
-def nomalization(c,l,b,t):
-
-    try:
-
-        temp = []
-        maxVal=""
-        minVal=""
-        temp.append(float(c))
-        temp.append(float(l))
-        temp.append(float(b))
-        temp.append(float(t))
-
-        # 4개의 Rate 중 max 값
-        maxVal = max(temp)
-        # 4개의 Rate 중 min 값
-        minVal = min(temp)
-
-        for i in range(0,4) :
-
-            temp[i] = (temp[i]-minVal) / (maxVal - minVal)
-
-        return temp
-
-    except:
-        raise Exception("정규화 중 오류가 발생하였습니다.")
-
 # git 활용도 점수 계산하는 함수
 # 각 항목별 비율과
 # 전체 팀들의 평균과 표준편차 필요
 # 선택된 팀의 각 항목별 값 필요
+# z점수와 표준 점수 계산
 def gitEval(commitRate,lineRate,branchRate,teamRate, avgTotalData, stdTotalData, teamRawData) :
 
 
@@ -82,21 +53,18 @@ def gitEval(commitRate,lineRate,branchRate,teamRate, avgTotalData, stdTotalData,
     percentage = []
     percentage = calPercent(commitRate,lineRate,branchRate,teamRate)
 
-    # 표준편차의 경우 작을수록 공평한 것
-    # 역수 취하고 *5000
-    teamRawData[3] = round(1.0/teamRawData[3],2) * 2000
-    avgTotalData[3] = round(1.0/avgTotalData[3],2) * 2000
-
     # 전체 평균 대비 한 팀의 commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 계산하기
-    # 표준화
+    # 표준화 z점수
     teamRawData[0] = (teamRawData[0] - avgTotalData[0]) / stdTotalData[0] # -5 0.81
     teamRawData[1] = (teamRawData[1] - avgTotalData[1]) / stdTotalData[1] # -27.7 0.0
     teamRawData[2] = (teamRawData[2] - avgTotalData[2]) / stdTotalData[2] # 0.18 1.0
     teamRawData[3] = (teamRawData[3] - avgTotalData[3]) / stdTotalData[3] # -1.17 0.95
 
-    # 정규화
-    nomalData=[]
-    nomalData = nomalization(teamRawData[0],teamRawData[1],teamRawData[2],teamRawData[3])
+    # 표준 점수
+    teamRawData[0] = teamRawData[0]*stdTotalData[0] + avgTotalData[0]
+    teamRawData[1] = teamRawData[1]*stdTotalData[1] + avgTotalData[1]
+    teamRawData[2] = teamRawData[2]*stdTotalData[2] + avgTotalData[2]
+    teamRawData[3] = teamRawData[3]*stdTotalData[3] + avgTotalData[3]
 
     # 계산
 
@@ -104,12 +72,12 @@ def gitEval(commitRate,lineRate,branchRate,teamRate, avgTotalData, stdTotalData,
 
     for i in range(0,4) :
 
-        gitScore += percentage[i] * nomalData[i]
-        #gitScore += round(percentage[i] * nomalData[i], 2)
+        gitScore += percentage[i] * teamRawData[i]
+        # gitScore += round(percentage[i] * nomalData[i], 2)
 
 
     # 최종 결과값
     gitScore = float(format(gitScore, '.2f'))
-    gitScore = gitScore * 100
+    # gitScore = gitScore * 100
 
     return gitScore
