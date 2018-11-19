@@ -19,11 +19,11 @@ def calPercent(c,l,b,t):
 
         total = c+l+b+t
 
-        # 비율 계산 (7/4 = 1.75) 후 소수점 두째 자리에서 반올림
-        c = round(c/total, 2)
-        l = round(l/total, 2)
-        b = round(b/total, 2)
-        t = round(t/total, 2)
+        # 비율 계산 (7/4 = 1.75)
+        c = c/total
+        l = l/total
+        b = b/total
+        t = t/total
 
         # list로 반환
         result.append(c)
@@ -62,8 +62,6 @@ def nomalization(c,l,b,t):
         for i in range(0,4) :
 
             temp[i] = (temp[i]-minVal) / (maxVal - minVal)
-            # 소수점 두째 자리에서 반올림
-            temp[i] = round(temp[i], 2)
 
         return temp
 
@@ -101,9 +99,12 @@ def gitEval(commitRate,lineRate,branchRate,teamRate, avgTotalData, stdTotalData,
 
     for i in range(0,4) :
 
-        gitScore += round(percentage[i] * nomalData[i], 2)
+        gitScore += percentage[i] * nomalData[i]
+        #gitScore += round(percentage[i] * nomalData[i], 2)
 
-        # 최종 결과값
+
+    # 최종 결과값
+    gitScore = round(gitScore,2)
     gitScore = gitScore * 100
 
     return gitScore
