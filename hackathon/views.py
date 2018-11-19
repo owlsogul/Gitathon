@@ -515,17 +515,21 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
     # 전체 팀의 평균  commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 가져오기
 
     # numpy.mean(listName)
-    avgTotalData = [600,1500,8,70]
+    avgTotalData = [600,1500,8,10]
     # 전체 팀의 표준편차
     # numpy.std(listName)
-    stdTotalData = [20,18,11,7]
+    stdTotalData = [20,18,11,12]
 
     for team in teamList :
 
         memberList = Member.objects.filter(participate__hackId = contest, participate__teamId = team)
         # 그 팀들의 raw Data 생성(수정)
         # 한 팀의 commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 가져오기
-        teamRawData = [500, 1000, 10, 50]
+
+        # 한 팀의 팀원 기여도 점수(표준편차)
+        teamScore = TeamContribution.objects.get(teamId=team).std_score
+
+        teamRawData = [500, 1000, 10, teamScore]
 
         # 비율이랑 그 팀의 raw Data와 전체 팀들의 raw Data 필요
         gitScore = gitEval(commitRate,lineRate,branchRate,teamRate, avgTotalData, stdTotalData, teamRawData)
