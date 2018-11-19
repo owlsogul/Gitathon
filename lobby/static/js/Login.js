@@ -17,21 +17,25 @@ function Login ({gitathonLogo, numHackathon, numTeamproject}){
           </tr>
           <tr>
               <td className = "InputID">
+	    	<form>
                   <FieldGroup
 	    	  	id = "inputId"
 	    		type = "text"
 	    		label = "ID"
 	    		placeholder = "아이디를 입력하세요."
 	    	  />
+	    	</form>
               </td>
           </tr>
           <tr>
               <td className = "InputPW">
+	    	<form>
 	    	  <FieldGroup
 	    		id = "inputPW"
 	    		type = "password"
 	    		label = "Password"
 	    	  />
+	    	</form>
               </td>
           </tr>
           <tr>
