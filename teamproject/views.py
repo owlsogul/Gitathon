@@ -43,7 +43,7 @@ def main(request, teamId):
             'memberId':request.session['memberId'],
             'teamId':teamId,
             'team':Team.objects.get(pk=teamId),
-            'mergeData':mergeData,
+            'mergeData':mergeResponse,
         })
 
 def notice(request, teamId):
