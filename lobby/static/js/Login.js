@@ -1,44 +1,55 @@
 import React from 'react';
-import './Login.css';
-import '../../../includes/bootstrap';
+import { Button } from 'reactstrap';
+
 
 function Login ({gitathonLogo, numHackathon, numTeamproject}){
     return (
-      <table className = "LoginMain">
-          <tr>
-              <td className = "LogoIcon">
-                  <ShowLogo logoPath = {gitathonLogo} name = {"gitathonLogo"}/>
-              </td>
-          </tr>
-          <tr>
-              <td className = "Intro">
-                  <Welcome hackNum = {numHackathon} teamNum = {numTeamproject} />
-              </td>
-          </tr>
-          <tr>
-              <td className = "InputID">
-	    	<input />
-              </td>
-          </tr>
-          <tr>
-              <td className = "InputPW">
-		<input />
-	      </td>
-          </tr>
-          <tr>
-              <td className = "LoginBtn">
-                  <button>함께하기</button>
-              </td>
-          </tr>
-          <tr>
-              <td className = "Join">
-                  <div>
-                      아직 계정이 없으신가요?
-                       <font color = "red"> 회원가입</font>
-                  </div>
-              </td>
-          </tr>
-      </table>
+      <div class = "container">
+        <div class = "row">
+          <div class = "col-2">
+          </div>
+          <div class = "col-8">
+            <table className = "LoginMain">
+                <tr>
+                    <td className = "LogoIcon">
+                        <ShowLogo logoPath = {gitathonLogo} name = {"gitathonLogo"}/>
+                    </td>
+                </tr>
+                <tr>
+                    <td className = "Intro">
+                        <Welcome hackNum = {numHackathon} teamNum = {numTeamproject} />
+                    </td>
+                </tr>
+                <tr>
+                    <td className = "InputID">
+      	    	<input />
+                    </td>
+                </tr>
+                <tr>
+                    <td className = "InputPW">
+      		<input />
+      	      </td>
+                </tr>
+                <tr>
+                    <td className = "LoginBtn">
+                        <Button color = "danger">함께하기</Button>
+                    </td>
+                </tr>
+                <tr>
+                    <td className = "Join">
+                        <div>
+                            아직 계정이 없으신가요?
+                             <font color = "red"> 회원가입</font>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+          </div>
+          <div class = "col-2">
+          </div>
+        </div>
+      </div>
+
     )
 }
 
