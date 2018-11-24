@@ -8,6 +8,9 @@ from teamproject.models import *
 from django.db.models import Count
 from hackathon.viewHackFunction import *
 import random
+from django.core.exceptions import ObjectDoesNotExist
+from pyModule import *
+import numpy
 
 # Create your views here.
 
@@ -473,13 +476,20 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
     todayTime = datetime.today().time
     selectedTeamId = 0
     message = ''
-    gitScore = 0
+    gitScore = 0.0
 
     # 해커톤 참여 팀 리스트
     teamList = Team.objects.filter(participate__hackId = contest).distinct()
 
-    # 팀 명과 멤버 인원 수
-    teamInfo = []
+    # 가중치 기반 계산 시 필요한 Data 배열
+    teamAllData = []
+    TotalCommitData = [0]
+    TotalLineData = [0]
+    TotalBranchData = [0]
+    TotalTeamData = [0]
+    avgTotalData = [0,0,0,0]
+    stdTotalData = [0,0,0,0]
+
 
     # 팀아이디
 
@@ -490,25 +500,115 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
     else :
         selectedTeamId = Team_id
 
+    # 비울 DB에서 가져오기
+    hackUsability = HackUsability.objects.filter(hackId=contest)
+
+    if hackUsability.exists():
+
+        hackUsability =  HackUsability.objects.get(hackId=contest)
+        # 비율 항목 저장
+        commitRate = hackUsability.commitRate
+        lineRate = hackUsability.lineRate
+        branchRate = hackUsability.branchRate
+        teamRate = hackUsability.teamRate
+
+    else:
+        hackUsability = HackUsability(hackId=contest)
+        hackUsability.save()
+        # 비율 항목 저장
+        commitRate = hackUsability.commitRate
+        lineRate = hackUsability.lineRate
+        branchRate = hackUsability.branchRate
+        teamRate = hackUsability.teamRate
+
 
     # 전체 팀들의 raw Data 생성(수정)
-    # 전체 팀의 평균  commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 가져오기
-    # numpy.mean(listName)
-    avgTotalData = [600,1500,8,70]
-    # 전체 팀의 표준편차
-    # numpy.std(listName)
-    stdTotalData = [20,18,11,7]
 
     for team in teamList :
 
         memberList = Member.objects.filter(participate__hackId = contest, participate__teamId = team)
+
         # 그 팀들의 raw Data 생성(수정)
         # 한 팀의 commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 가져오기
-        teamRawData = [500, 1000, 10, 50]
 
-        # 비율이랑 그 팀의 raw Data와 전체 팀들의 raw Data 필요
-        gitScore = gitEval(1,1,1,1, avgTotalData, stdTotalData, teamRawData)
-        teamInfo.append([team.id, team.teamName, len(memberList), gitScore])
+        """
+        teamCommit = Commit.objects.filter(teamId = team)
+
+        # 특정 팀의 commit 존재
+        if teamCommit.exists() :
+
+            # 1. 한 팀의 commit 수
+
+            commitScore = len(teamCommit)
+            TotalCommitData.append(commitScore)
+
+            # 2. 한 팀의 수정된 줄 수
+
+            for teamcommit in teamCommit :
+
+                lineScore = teamcommit.comment + teamcommit.code
+                TotalLineData.append(lineScore)
+
+
+            # 3. 한 팀의 master로 merge된 branch 수
+            allbranch = countAllRemoteBranch(hackId, teamId)
+            mergebranch = countMergedBranch(hackId, teamId)
+
+            if countAllRemoteBranch != 0 :
+                branchScore = allbranch/mergebranch
+                branchScore = float(format(branchScore), '.2f'))
+                TotalBranchData.append(branchScore)
+            else:
+                branchScore = 0
+
+            # 4. 한 팀의 팀원 기여도 점수(표준편차) -> 역수 취하고 *1000
+            teamScore = (1/TeamContribution.objects.get(teamId=team).std_score)*1000
+            TotalTeamData.append(teamScore)
+
+        # 특정 팀의 commit이 존재하지 않으면
+        else :
+            commitScore = 0
+            lineScore = 0
+            branchScore = 0
+            teamScore = 0
+        """
+
+        # 4. 한 팀의 팀원 기여도 점수(표준편차) -> 역수 취하고 *1000
+        teamScore = (1/TeamContribution.objects.get(teamId=team).std_score)*1000
+
+        # 한 팀의 4가지 항목에 대한 점수 Data
+        teamRawData = [500, 1000, 10, teamScore]
+
+        # 전체 팀 Data에 합치기
+        teamAllData.append([team.id,team.teamName,len(memberList),teamRawData,gitScore])
+
+
+    # 임시 전체 Data ( 수정 )
+    TotalCommitData = [500, 500]
+    TotalLineData = [1000, 1000]
+    TotalBranchData = [10, 10]
+    TotalTeamData = [4,12]
+
+    # 전체 팀의 평균 Data
+    avgTotalData[0] = numpy.mean(TotalCommitData)
+    avgTotalData[1] = numpy.mean(TotalLineData)
+    avgTotalData[2] = numpy.mean(TotalBranchData)
+    avgTotalData[3] = numpy.mean(TotalTeamData)
+
+    # 전체 팀의 표준편차 Data
+    stdTotalData[0] = numpy.std(TotalCommitData)
+    stdTotalData[1] = numpy.std(TotalLineData)
+    stdTotalData[2] = numpy.std(TotalBranchData)
+    stdTotalData[3] = numpy.std(TotalTeamData)
+
+
+    # git score 계산
+    for teamData in teamAllData :
+
+        gitScore = gitEval(commitRate,lineRate,branchRate,teamRate, avgTotalData, stdTotalData, teamData[3])
+        teamData[4] = gitScore
+
+
 
     if request.method == 'POST':
 
@@ -530,33 +630,46 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
         # 가중치 비율 정해서 평가하기 눌렀을 때
         elif btnMode == '평가' :
 
+            try:
 
-            for team in teamInfo :
+                commitRate = request.POST['Commit']
+                lineRate = request.POST['Line']
+                branchRate = request.POST['Branch']
+                teamRate = request.POST['Team']
+
+                # 입력 예외 처리
+                if(isNumber(commitRate) == False):
+                    raise Exception('commit 수 비율을 올바른 숫자로 다시 입력하세요! ex) 25 or 1 or 3.6')
+                if(isNumber(lineRate) == False):
+                    raise Exception('수정된 줄 수 비율을 올바른 숫자로 다시 입력하세요!  ex) 25 or 1 or 3.6')
+                if(isNumber(branchRate) == False):
+                    raise Exception('Merge된 branch 수 비율을 올바른 숫자로 다시 입력하세요!  ex) 25 or 1 or 3.6')
+                if(isNumber(teamRate) == False):
+                    raise Exception('팀원 기여도 비율을 올바른 숫자로 다시 입력하세요!  ex) 25 or 1 or 3.6')
+
+
+                # 비율 항목 변경
+                hackUsability.commitRate = float(commitRate)
+                hackUsability.lineRate = float(lineRate)
+                hackUsability.branchRate = float(branchRate)
+                hackUsability.teamRate = float(teamRate)
+                hackUsability.save()
 
                 try:
+                    teamId = request.POST['teamId']
+                    redirect_to = reverse('gitHackathon', kwargs={'HackathonInformation_id':contest.id, 'Team_id' : teamId})
+                    return HttpResponseRedirect(redirect_to)
 
-                    commitRate = request.POST['Commit']
-                    lineRate = request.POST['Line']
-                    branchRate = request.POST['Branch']
-                    teamRate = request.POST['Team']
+                except:
 
-                    # 입력 예외 처리
-                    if(isNumber(commitRate) == False):
-                        raise Exception('commit 수 비율을 올바른 숫자로 다시 입력하세요! ex) 25 or 1 or 3.6')
-                    if(isNumber(lineRate) == False):
-                        raise Exception('수정된 줄 수 비율을 올바른 숫자로 다시 입력하세요!  ex) 25 or 1 or 3.6')
-                    if(isNumber(branchRate) == False):
-                        raise Exception('Merge된 branch 수 비율을 올바른 숫자로 다시 입력하세요!  ex) 25 or 1 or 3.6')
-                    if(isNumber(teamRate) == False):
-                        raise Exception('팀원 기여도 비율을 올바른 숫자로 다시 입력하세요!  ex) 25 or 1 or 3.6')
+                    redirect_to = reverse('gitHackathon', kwargs={'HackathonInformation_id':contest.id, 'Team_id' : 0})
+                    return HttpResponseRedirect(redirect_to)
 
 
-                    gitScore = gitEval(commitRate, lineRate, branchRate, teamRate, avgTotalData, stdTotalData, teamRawData)
+            except Exception as e:
+                message = e
 
-                    team[3] = gitScore
-
-                except Exception as e:
-                    message = e
-
-
-    return render(request, 'gitHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'message':message, 'teamInfo' : teamInfo, 'selectedTeamId' : selectedTeamId, 'gitScore' : gitScore })
+    return render(request, 'gitHackathon.html',
+    {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'message':message,
+    'teamAllData' : teamAllData, 'selectedTeamId' : selectedTeamId, 'gitScore' : gitScore, 'commitRate' : commitRate,
+     'lineRate' : lineRate, 'branchRate' : branchRate ,'teamRate' : teamRate, })
