@@ -583,20 +583,16 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
                 hackUsability.teamRate = float(teamRate)
                 hackUsability.save()
 
-                for team in teamInfo :
+                try:
+                    teamId = request.POST['teamId']
+                    redirect_to = reverse('gitHackathon', kwargs={'HackathonInformation_id':contest.id, 'Team_id' : teamId})
+                    return HttpResponseRedirect(redirect_to)
 
-                    # 그 팀들의 raw Data 생성(수정)
-                    # 한 팀의 commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 가져오기
+                except:
 
-                    # 한 팀의 팀원 기여도 점수(표준편차) -> 역수 취하고 *100
-                    teamScore = (1/TeamContribution.objects.get(teamId=team).std_score)*1000
-                    teamRawData = [500, 1000, 10, teamScore]
-
-                    # 비율이랑 그 팀의 raw Data와 전체 팀들의 raw Data 필요
-                    gitScore = gitEval(commitRate,lineRate,branchRate,teamRate, avgTotalData, stdTotalData, teamRawData)
-
-                    team[3] = gitScore
-
+                    redirect_to = reverse('gitHackathon', kwargs={'HackathonInformation_id':contest.id, 'Team_id' : 0})
+                    return HttpResponseRedirect(redirect_to)
+                    
 
             except Exception as e:
                 message = e
