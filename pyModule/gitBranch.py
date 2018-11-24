@@ -27,9 +27,9 @@ def showAllRemoteBranch(hackName, teamName):
 	
 	return remoteBranch
 
-def showMergedBranch(hackName, teamName):
+def countMergedBranch(hackName, teamName):
 	changeDir(hackName, teamName)
-	mergedBranch = []
+	mergedBranch = 0
 	old_branch = ""
 
 	try:
@@ -45,7 +45,7 @@ def showMergedBranch(hackName, teamName):
 				continue
 
 #			if words[1] != "HEAD":
-			mergedBranch.append(words[1])
+			mergedBranch = mergedBranch + 1
 
 	except subprocess.CalledProcessError as e:
 		print("Error //  ", e.output)
@@ -60,6 +60,7 @@ def changeDir(hackName, teamName):
 	old_path = os.getcwd()
 	path = "/home/pi/remote/" + hackName + "/" + teamName
 	os.chdir(path)
+
 
 def getCurrentBranch():
 	try:
@@ -77,3 +78,8 @@ def getCurrentBranch():
 	except subprocess.CalledProcessError as e:
 		print ("Error //   ", e.output)
 	return ""
+
+
+def countAllRemoteBranch(hackName, teamName):
+	rm = showAllRemoteBranch(hackName, teamName)
+	return len(rm)
