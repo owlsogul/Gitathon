@@ -9,7 +9,7 @@ from django.db.models import Count
 from hackathon.viewHackFunction import *
 import random
 from django.core.exceptions import ObjectDoesNotExist
-from pyModule import *
+
 
 # Create your views here.
 
