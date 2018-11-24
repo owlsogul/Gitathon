@@ -55,10 +55,23 @@ def gitEval(commitRate,lineRate,branchRate,teamRate, avgTotalData, stdTotalData,
 
     # 전체 평균 대비 한 팀의 commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 계산하기
     # 표준화 z점수
-    teamRawData[0] = (teamRawData[0] - avgTotalData[0]) / stdTotalData[0] # -5 0.81
-    teamRawData[1] = (teamRawData[1] - avgTotalData[1]) / stdTotalData[1] # -27.7 0.0
-    teamRawData[2] = (teamRawData[2] - avgTotalData[2]) / stdTotalData[2] # 0.18 1.0
-    teamRawData[3] = (teamRawData[3] - avgTotalData[3]) / stdTotalData[3] # -1.17 0.95
+    if stdTotalData[0] != 0 and stdTotalData[1] != 0 and stdTotalData[2] != 0 and stdTotalData[3] != 0 :
+
+        teamRawData[0] = (teamRawData[0] - avgTotalData[0]) / stdTotalData[0] # -5 0.81
+        teamRawData[1] = (teamRawData[1] - avgTotalData[1]) / stdTotalData[1] # -27.7 0.0
+        teamRawData[2] = (teamRawData[2] - avgTotalData[2]) / stdTotalData[2] # 0.18 1.0
+        teamRawData[3] = (teamRawData[3] - avgTotalData[3]) / stdTotalData[3] # -1.17 0.95
+
+    else :
+
+        if stdTotalData[0] == 0 :
+            teamRawData[0] = 0
+        if stdTotalData[1] == 0 :
+            teamRawData[1] = 0
+        if stdTotalData[2] == 0 :
+            teamRawData[2] = 0
+        if stdTotalData[2] == 0 :
+            teamRawData[2] = 0
 
     # 표준 점수
     teamRawData[0] = teamRawData[0]*stdTotalData[0] + avgTotalData[0]
