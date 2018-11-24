@@ -555,15 +555,15 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
             mergebranch = countMergedBranch(hackId, teamId)
 
             if countAllRemoteBranch != 0 :
-                branchScore = countMergedBranch/countAllRemoteBranch
+                branchScore = allbranch/mergebranch
                 branchScore = float(format(branchScore), '.2f'))
-                TotalBranchData.append(BranchScore)
+                TotalBranchData.append(branchScore)
             else:
                 branchScore = 0
 
             # 4. 한 팀의 팀원 기여도 점수(표준편차) -> 역수 취하고 *1000
             teamScore = (1/TeamContribution.objects.get(teamId=team).std_score)*1000
-            TotalTeamData.append(TeamScore)
+            TotalTeamData.append(teamScore)
 
         # 특정 팀의 commit이 존재하지 않으면
         else :
