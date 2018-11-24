@@ -673,3 +673,57 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
     {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'message':message,
     'teamAllData' : teamAllData, 'selectedTeamId' : selectedTeamId, 'gitScore' : gitScore, 'commitRate' : commitRate,
      'lineRate' : lineRate, 'branchRate' : branchRate ,'teamRate' : teamRate, })
+
+
+# 관리자메뉴 - abusing 검사
+def abuseHackathon(request, HackathonInformation_id, Team_id = 0):
+
+    # 해커톤 정보
+    contest = HackathonInformation.objects.get(pk = HackathonInformation_id)
+    todayDate = datetime.today().date
+    todayTime = datetime.today().time
+    selectedTeamId = 0
+    message = ''
+
+    # 해커톤 참여 팀 리스트
+    teamList = Team.objects.filter(participate__hackId = contest).distinct()
+
+    # 어뷰징 관련 Data 배열
+    abuseMessage = []
+
+    # 팀아이디
+
+    # 선택된 팀이 없다면
+    if Team_id == 0 :
+        selectedTeamId = 0
+    # 선택된 팀이 있다면
+    else :
+        selectedTeamId = Team_id
+
+    # 어뷰징 메세지 임시 Data 생성 ( 수정 )
+    abuseTeam = teamList.get(id=1)
+    abuseMessage.append([abuseTeam, "2018.11.25 17시에 Commit량 증가"])
+
+    abuseTeam = teamList.get(id=4)
+    abuseMessage.append([abuseTeam, "2018.11.25 20시에 Commit량 증가"])
+
+
+    # 선택된 어뷰징 알림 메세지의 자세한 정보 보기
+    if request.method == 'POST':
+
+        #seledtdTeam = teamList.objects.get(id=teamId)
+        try:
+            teamId = request.POST['abuseMessage']
+            #seledtdTeam = teamList.objects.get(id=teamId)
+            redirect_to = reverse('abuseHackathon', kwargs={'HackathonInformation_id':contest.id, 'Team_id' : teamId})
+            return HttpResponseRedirect(redirect_to)
+
+        except:
+            redirect_to = reverse('abuseHackathon', kwargs={'HackathonInformation_id':contest.id, 'Team_id' : 0})
+            return HttpResponseRedirect(redirect_to)
+
+
+
+    return render(request, 'abuseHackathon.html',
+    {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'message':message,
+    'abuseMessage' : abuseMessage, 'selectedTeamId' : selectedTeamId,})
