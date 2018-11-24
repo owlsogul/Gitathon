@@ -5,14 +5,12 @@ import sys
 def parseGit(hackName, teamName, lastCommit, resource):
 	old_path = os.getcwd()
 	path = "/home/pi/remote/" + hackName + "/" + teamName
-	#path  = "C:\\Users\\owlsogul\\Documents\\GitHub\\AI_Project1"
 	os.chdir(path)
 
 	try:
 		result = subprocess.check_output('git log --abbrev-commit --name-status --all', shell=True).decode()
 		newCommit = findNewCommit(result, lastCommit, resource)
 		findCommandAndCode(newCommit)
-		print("command finish")
 		if len(newCommit) == 0:
 			print("Parse Fail!")
 			os.chdir(old_path)
@@ -83,8 +81,6 @@ def findCommandAndCode(newCommit):
 		isCommand = False
 		lines = subprocess.check_output('git show ' + commit['commit'], shell=True)
 
-		print("#####################")
-		print("word start: ")
 		for line in lines.split(b"\n"):
 
 			words = line.split()
@@ -96,8 +92,6 @@ def findCommandAndCode(newCommit):
 					extension = extension.decode()
 
 				elif chr(words[0][0]) == '+' or chr(words[0][0]) == '-':
-
-					print ("extension: ", extension)
 
 					if extension == "c" or extension == "cpp" or extension == "ino":
 						if isCCommand(words, isCommand):
@@ -125,8 +119,6 @@ def findCommandAndCode(newCommit):
 		commit["command"] = command
 		code = 0
 		command = 0
-		print("word end")
-
 
 def isCCommand(words, flag):
 	if "//" in words:
