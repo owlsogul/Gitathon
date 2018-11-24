@@ -700,6 +700,10 @@ def abuseHackathon(request, HackathonInformation_id, Team_id = 0):
     else :
         selectedTeamId = Team_id
 
+    # 샐러리에서 짧은 시간 내에 Commit 수 증가가 급격한 Commit들 감지
+    # 그 Commit들 간의 FileList를 참고해서 같은 파일이 여러번 수정/삭제/추가 되었는지 확인
+    # 맞는 경우 Abusing 스키마 생성
+
     # 어뷰징 메세지 임시 Data 생성 ( 수정 )
     abuseTeam = teamList.get(id=1)
     abuseMessage.append([abuseTeam, "2018.11.25 17시에 Commit량 증가"])
@@ -708,13 +712,14 @@ def abuseHackathon(request, HackathonInformation_id, Team_id = 0):
     abuseMessage.append([abuseTeam, "2018.11.25 20시에 Commit량 증가"])
 
 
-    # 선택된 어뷰징 알림 메세지의 자세한 정보 보기
+    # 팀별로 최신 Abusing context 출력
+    # 팀 선택하면 그 팀의 Abusing 스키마 전부 나오기
+    # Abusing 스키마 목록은 commit Id의 목록들로 보여짐
+    # 누르면 abuse.py 함수 실행하고 보여준다
     if request.method == 'POST':
 
-        #seledtdTeam = teamList.objects.get(id=teamId)
         try:
             teamId = request.POST['abuseMessage']
-            #seledtdTeam = teamList.objects.get(id=teamId)
             redirect_to = reverse('abuseHackathon', kwargs={'HackathonInformation_id':contest.id, 'Team_id' : teamId})
             return HttpResponseRedirect(redirect_to)
 
