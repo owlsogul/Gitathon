@@ -1,6 +1,33 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Button } from 'reactstrap';
 
+class LoginMain extends Comopenet{
+
+    state = {
+        mode: 'Login'
+    }
+
+    // this.setState({
+    //mode: 'Register'
+    //})
+
+    render(){
+        return{
+            <div className="LoginScreen">
+            {if this.state.mode == 'Login'{
+                <Login
+                    gitathonLogo = {this.props.gitathonLogo}
+                    numHackathon = {this.props.numHackathon}
+                    numTeamproject = {this.props.numTeamproject} />
+            }
+            else if {
+                <h1>hello</h1>
+            }
+            }
+            </div>
+        };
+    }
+}
 
 function Login ({gitathonLogo, numHackathon, numTeamproject}){
     return (
