@@ -2,11 +2,11 @@
 
 from __future__ import absolute_import
 
-from gitathon.settings import Celery
-
 
 # djano 에서 쓰일 setting 지정 아래의 경우 proj/settings.py 를 사용한다는 뜻
 import os
+
+from celery import Celery
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'gitathon.settings')
 from django.conf import settings  # noqa
 
