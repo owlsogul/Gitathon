@@ -27,77 +27,84 @@ class LoginMain extends Component{
     }
 }
 
-function Login ({gitathonLogo, numHackathon, numTeamproject}){
-    return (
-      <div class = "container">
-        <div class = "row">
-          <div class = "col-2">
-          </div>
-          <div class = "col-8">
-            <table className = "LoginMain">
-                <tr>
-                    <td className = "LogoIcon">
-                        <ShowLogo logoPath = {gitathonLogo} name = {"gitathonLogo"}/>
-                    </td>
-                </tr>
-                <tr>
-                    <td className = "Intro">
-                        <Welcome hackNum = {numHackathon} teamNum = {numTeamproject} />
-                    </td>
-                </tr>
-                <tr>
-                    <td className = "InputID">
-      	    	<input />
-                    </td>
-                </tr>
-                <tr>
-                    <td className = "InputPW">
-      		<input />
-      	      </td>
-                </tr>
-                <tr>
-                    <td className = "LoginBtn">
-                        <Button color = "primary">함께하기</Button>
-                    </td>
-                </tr>
-                <tr>
-                    <td className = "Join">
-                        <div>
-                            아직 계정이 없으신가요?
-                             <Button color = "danger" onclick="regBtnClick();"> 회원가입</Button>
-                             <script>
-                                 function regBtnClick(){
-                                     this.setState({
-                                         mode: "Register"
-                                     })
-                                 }
-                            </script>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-          </div>
-          <div class = "col-2">
-          </div>
-        </div>
-      </div>
+class Login extends Component{
+    constructor(props){
+        super(props);
 
-    )
+        this.regBtnClick.bind(this);
+    }
+
+    render(){
+        return (
+            <div class = "container">
+                <div class = "row">
+                    <div class = "col-2">
+                    </div>
+                    <div class = "col-8">
+                        <table className = "LoginMain">
+                            <tr>
+                                <td className = "LogoIcon">
+                                    <ShowLogo logoPath = {this.props.gitathonLogo} name = {"gitathonLogo"}/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className = "Intro">
+                                    <Welcome hackNum = {this.props.numHackathon} teamNum = {this.props.numTeamproject} />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className = "InputID">
+      	    	                    <input />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className = "InputPW">
+      		                        <input />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className = "LoginBtn">
+                                    <Button color = "primary">함께하기</Button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className = "Join">
+                                    <div>
+                                        아직 계정이 없으신가요?
+                                        <Button color = "danger" onclick="regBtnClick();"> 회원가입</Button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                <div class = "col-2">
+                </div>
+            </div>
+        </div>
+        );
+    }
+
+    regBtnClick(){
+        this.setState({
+            mode: "Register"
+        });
+    }
 }
 
-function Register(){
-    return(
-        <div class = "container">
-            <Button onclick="finBtnClick();">완료</Button>
-            <script>
-                function finBtnClick(){
-                    this.setState({
-                        mode: "Login"
-                    })
-                }
-            </script>
-        </div>
-    )
+class Register extends Component{
+    render(){
+        return(
+            <div class = "container">
+                <Button onclick="finBtnClick();">완료</Button>
+            </div>
+        );
+    }
+
+    finBtnClick(){
+        this.setState({
+            mode: "Login"
+        });
+    }
 }
 
 function ShowLogo({logoPath, name}) {
