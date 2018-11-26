@@ -16,8 +16,7 @@ class LoginMain extends Component{
             if this.state.mode == 'Login'{
                 <Login
                     gitathonLogo = {this.props.gitathonLogo}
-                    numHackathon = {this.props.numHackathon}
-                    numTeamproject = {this.props.numTeamproject} />
+                    data = {this.props.numberInfo} />
             }
             else if {
                 <Register />
@@ -42,12 +41,12 @@ class Login extends LoginMain{
                         <table className = "LoginMain">
                             <tr>
                                 <td className = "LogoIcon">
-                                    <ShowLogo logoPath = {this.props.gitathonLogo} name = {"gitathonLogo"}/>
+                                    <ShowLogo logoPath = {gitathonLogo} name = {"gitathonLogo"}/>
                                 </td>
                             </tr>
                             <tr>
                                 <td className = "Intro">
-                                    <Welcome hackNum = {this.props.numHackathon} teamNum = {this.props.numTeamproject} />
+                                    <Welcome hackNum = {this.props.data[numHackathon]} teamNum = {this.props.data[numTeamproject]} />
                                 </td>
                             </tr>
                             <tr>
