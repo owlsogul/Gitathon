@@ -3,7 +3,7 @@ import { Button } from 'reactstrap';
 
 class LoginMain extends Comopenet{
 
-    state = {
+    state={
         mode: 'Login'
     }
 
@@ -12,7 +12,7 @@ class LoginMain extends Comopenet{
     //})
 
     render(){
-        return{
+        return(
             <div className="LoginScreen">
             {if this.state.mode == 'Login'{
                 <Login
@@ -25,7 +25,7 @@ class LoginMain extends Comopenet{
             }
             }
             </div>
-        };
+        );
     }
 }
 

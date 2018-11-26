@@ -4,5 +4,5 @@
     "react",
     "es2015"
   ],
-  "plugins": ["css-modules-transform"]
+  "plugins": ["css-modules-transform", "transform-class-properties"]
 }
