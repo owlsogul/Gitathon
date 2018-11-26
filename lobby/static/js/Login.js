@@ -46,7 +46,7 @@ class Login extends LoginMain{
                             </tr>
                             <tr>
                                 <td className = "Intro">
-                                    <Welcome hackNum = {this.props.data[numHackathon]} teamNum = {this.props.data[numTeamproject]} />
+                                    <Welcome hackNum = {this.props.data} teamNum = {this.props.data} />
                                 </td>
                             </tr>
                             <tr>
