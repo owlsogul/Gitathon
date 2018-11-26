@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { Button } from 'reactstrap';
 
 class LoginMain extends Component{
-
     state={
         mode: 'Login'
     }
@@ -21,7 +20,7 @@ class LoginMain extends Component{
                     numTeamproject = {this.props.numTeamproject} />
             }
             else if {
-                <h1>hello</h1>
+                <Register />
             }
             </div>
         );
@@ -58,14 +57,21 @@ function Login ({gitathonLogo, numHackathon, numTeamproject}){
                 </tr>
                 <tr>
                     <td className = "LoginBtn">
-                        <Button color = "danger">함께하기</Button>
+                        <Button color = "primary">함께하기</Button>
                     </td>
                 </tr>
                 <tr>
                     <td className = "Join">
                         <div>
                             아직 계정이 없으신가요?
-                             <font color = "red"> 회원가입</font>
+                             <Button color = "danger" onclick="regBtnClick();"> 회원가입</Button>
+                             <script>
+                                 function regBtnClick(){
+                                     this.setState({
+                                         mode: "Register"
+                                     })
+                                 }
+                            </script>
                         </div>
                     </td>
                 </tr>
@@ -76,6 +82,21 @@ function Login ({gitathonLogo, numHackathon, numTeamproject}){
         </div>
       </div>
 
+    )
+}
+
+function Register(){
+    return(
+        <div class = "container">
+            <Button onclick="finBtnClick();">완료</Button>
+            <script>
+                function finBtnClick(){
+                    this.setState({
+                        mode: "Login"
+                    })
+                }
+            </script>
+        </div>
     )
 }
 
