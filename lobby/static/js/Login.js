@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Button } from 'reactstrap';
 
-class LoginMain extends Comopenet{
+class LoginMain extends Compoenet{
 
     state={
         mode: 'Login'
