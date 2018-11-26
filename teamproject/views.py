@@ -5,6 +5,7 @@ from accounts.models import *
 from hackathon.models import *
 
 from teamproject import parseGit
+from teamproject import gitBranch
 import subprocess
 import os
 
@@ -18,7 +19,7 @@ def main(request, teamId):
         team = Team.objects.get(pk=teamId)
         teamMembers = Participate.objects.filter(teamId = team)
         teamLeader = team.leaderId
-        leaderParticipate = Participate.objects.filter(memberId=teamLeader, teamId=team)
+        leaderParticipate = Participate.objects.get(memberId=teamLeader, teamId=team)
         leaderHack = leaderParticipate.hackId
 
         # merge request part
@@ -53,7 +54,7 @@ def main(request, teamId):
             'teamId':teamId,
             'team':Team.objects.get(pk=teamId),
             'mergeData':mergeResponse,
-            'branchData':branchData,
+            'branchData':parsingData,
         })
 
 def notice(request, teamId):
