@@ -14,6 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +26,13 @@ SECRET_KEY = 'zyml6(y4tu-b3d@$n_5-45&1lbmah+8i$w)f4xqg=yr6llssa7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = '*'
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    '192.168.0.10',
+    'localhost',
+    'owlsogul.iptime.org',
+    'gitathon.ddns.net'
+]
 
 
 # Application definition
@@ -41,6 +48,9 @@ INSTALLED_APPS = [
     'lobby',
     'teamproject',
     'hackathon',
+    'accounts',
+    'channels',
+    'chat',
 ]
 
 WEBPACK_LOADER = {
@@ -77,6 +87,17 @@ TEMPLATES = [
         },
     },
 ]
+
+# Channels
+ASGI_APPLICATION = 'gitathon.routing.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 WSGI_APPLICATION = 'gitathon.wsgi.application'
 
@@ -130,3 +151,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/upload_files/'
+MEDIA_ROOT = os.path.join(BASE_DIR, './hackathon/static')
+
+TEMPLATE_DIRS = (
+    os.path.join(SETTINGS_PATH, 'templates'),
+)
