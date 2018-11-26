@@ -16,7 +16,7 @@ class LoginMain extends Component{
             if this.state.mode == 'Login'{
                 <Login
                     gitathonLogo = {this.props.gitathonLogo}
-                    data = {this.props.numberInfo} />
+                    data = {this.props.data} />
             }
             else if {
                 <Register />
@@ -41,7 +41,7 @@ class Login extends LoginMain{
                         <table className = "LoginMain">
                             <tr>
                                 <td className = "LogoIcon">
-                                    <ShowLogo logoPath = {gitathonLogo} name = {"gitathonLogo"}/>
+                                    <ShowLogo logoPath = {this.props.gitathonLogo} name = {"gitathonLogo"}/>
                                 </td>
                             </tr>
                             <tr>

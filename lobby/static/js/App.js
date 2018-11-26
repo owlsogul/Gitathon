@@ -16,8 +16,7 @@ class App extends Component {
             <div className="App">
                 <LoginMain
                     gitathonLogo = {metaInfo[0].gitathonLogo}
-                    numHackathon = {3000}
-                    numTeamproject = {27450}
+                    data = {this.numberInfo}
                 />
             </div>
         );
