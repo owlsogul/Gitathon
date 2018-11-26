@@ -10,7 +10,7 @@ from hackathon.viewHackFunction import *
 import random
 from django.core.exceptions import ObjectDoesNotExist
 from pyModule import *
-import numpy
+#import numpy
 
 # Create your views here.
 
