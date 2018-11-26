@@ -17,6 +17,9 @@ def main(request, teamId):
         memberId = request.session['memberId']
         team = Team.objects.get(pk=teamId)
         teamMembers = Participate.objects.filter(teamId = team)
+        teamLeader = team.leaderId
+        leaderParticipate = Participate.objects.filter(memberId=teamLeader, teamId=team)
+        leaderHack = leaderParticipate.hackId
 
         # merge request part
         mergeResponse = []
@@ -39,12 +42,18 @@ def main(request, teamId):
                 mergeData['canMerge'] = True
             mergeResponse.append(mergeData)
 
+        #branch list
+        hackName = teamLeader.memberId
+        if leaderHack is not None:
+            hackName = leaderHack.pk
+        parsingData = gitBranch.showAllRemoteBranch(hackName, team.teamName)
 
         return render(request, 'teamproject/main.html', {
             'memberId':request.session['memberId'],
             'teamId':teamId,
             'team':Team.objects.get(pk=teamId),
             'mergeData':mergeResponse,
+            'branchData':branchData,
         })
 
 def notice(request, teamId):
