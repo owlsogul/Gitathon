@@ -30,8 +30,6 @@ class LoginMain extends Component{
 class Login extends LoginMain{
     constructor(props){
         super(props);
-
-        this.regBtnClick.bind(this);
     }
 
     render(){
