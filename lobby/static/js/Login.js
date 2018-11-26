@@ -11,12 +11,24 @@ class LoginMain extends Component{
     //})
 
     render(){
+        let hackNum = 0;
+        let teamPNum = 0;
+        items(this.props.data, (key, value) => {
+            if (key == "numHackathon"){
+                hackNum = value
+            }
+            else if (key  == "numTeamproject"){
+                teamNum = value
+            }
+        })
+
         return(
             <div className="LoginScreen">
             if this.state.mode == 'Login'{
                 <Login
                     gitathonLogo = {this.props.gitathonLogo}
-                    data = {this.props.data} />
+                    hackNum = {hackNum}
+                    teamNum = {teamNum} />
             }
             else if {
                 <Register />
@@ -46,7 +58,7 @@ class Login extends LoginMain{
                             </tr>
                             <tr>
                                 <td className = "Intro">
-                                    <Welcome hackNum = {this.props.data} teamNum = {this.props.data} />
+                                    <Welcome hackNum = {this.props.hackNum} teamNum = {this.props.teamNum} />
                                 </td>
                             </tr>
                             <tr>
