@@ -61,7 +61,6 @@ INSTALLED_APPS = [
     'hackathon',
     'accounts',
     'pyModule',
-    'djcelery',
     'kombu.transport.django',
 ]
 
