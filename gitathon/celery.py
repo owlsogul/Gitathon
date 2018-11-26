@@ -15,7 +15,7 @@ from django.conf import settings  # noqa
 #              backend='amqp://',
 #              include=['proj.tasks'])
 
-app = Celery('gitathon')
+app = Celery('gitathon', broker='django://')
 
 # 데이터베이스 Backend이용
 app.conf.update(
@@ -27,7 +27,14 @@ app.conf.update(
 # 객체를 pickle로 묶을 필요가 없다는 것을 알려주기 위함입니다.
 app.config_from_object('django.conf:settings')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
-
+app.conf.update(
+    BROKER_URL='django://',
+    CELERY_TASK_SERIALIZER='json',
+    CELERY_ACCEPT_CONTENT=['json'],  # Ignore other content
+    CELERY_RESULT_SERIALIZER='json',
+    CELERY_TIMEZONE='Asia/Seoul',
+    CELERY_ENABLE_UTC=False,
+)
 if __name__ == '__main__':
     app.start()
 
