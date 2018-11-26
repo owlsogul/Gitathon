@@ -2,7 +2,7 @@
 
 from __future__ import absolute_import
 
-from celery import Celery
+from settings import Celery
 
 
 # djano 에서 쓰일 setting 지정 아래의 경우 proj/settings.py 를 사용한다는 뜻
