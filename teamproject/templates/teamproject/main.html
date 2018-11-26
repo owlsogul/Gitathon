@@ -19,7 +19,10 @@
   </form>
 </div>
 <div class="">
-{{ branchData }}
+브런치 목록
+{% for branch in branchData %}
+  {{ branch }} <br>
+{% endfor %}
 </div>
 <div class="">
 현재 진행중인 머지 투표 목록
