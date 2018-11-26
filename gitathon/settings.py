@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-
+import djcelery
+djcelery.setup_loader()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -32,6 +33,17 @@ ALLOWED_HOSTS = [
     'gitathon.ddns.net'
 ]
 
+# #### Celery CONFIGURATION
+## Broker settings.
+BROKER_URL = 'amqp://guest:guest@localhost//'
+
+# List of modules to import when celery starts.
+# 아래 부분은 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS) 때문에 필요없다.
+# CELERY_IMPORTS = ('myapp.tasks', )
+
+## Using the database to store task state and results.
+CELERY_RESULT_BACKEND = 'amqp://'
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
 
 # Application definition
 
@@ -47,7 +59,10 @@ INSTALLED_APPS = [
     'hackathon',
     'accounts',
     'pyModule',
+    'djcelery',
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
