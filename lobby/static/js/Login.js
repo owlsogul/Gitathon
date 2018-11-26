@@ -71,7 +71,7 @@ class Login extends Component{
                                 <td className = "Join">
                                     <div>
                                         아직 계정이 없으신가요?
-                                        <Button color = "danger" onclick="regBtnClick();"> 회원가입</Button>
+                                        <Button color = "danger" onclick="regBtnClick();">   회원가입</Button>
                                     </div>
                                 </td>
                             </tr>
