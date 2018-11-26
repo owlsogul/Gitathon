@@ -35,7 +35,7 @@ ALLOWED_HOSTS = [
 
 # #### Celery CONFIGURATION
 ## Broker settings.
-BROKER_URL = 'amqp://guest:guest@localhost//'
+BROKER_URL = 'django://'
 
 # List of modules to import when celery starts.
 # 아래 부분은 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS) 때문에 필요없다.
@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'accounts',
     'pyModule',
     'djcelery',
+    'kombu.transport.django',
 ]
 
 
