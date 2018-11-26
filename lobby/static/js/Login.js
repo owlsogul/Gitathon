@@ -14,7 +14,7 @@ class LoginMain extends Comopenet{
     render(){
         return(
             <div className="LoginScreen">
-            {if this.state.mode == 'Login'{
+            if this.state.mode == 'Login'{
                 <Login
                     gitathonLogo = {this.props.gitathonLogo}
                     numHackathon = {this.props.numHackathon}
@@ -22,7 +22,6 @@ class LoginMain extends Comopenet{
             }
             else if {
                 <h1>hello</h1>
-            }
             }
             </div>
         );
