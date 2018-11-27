@@ -6,7 +6,7 @@ from hackathon.models import *
 # Create your views here.
 def login(request):
     if not 'memberId' in request.session:
-        numData = list(12345)
+        numData = 12345
         return render(request, 'lobby/login.html', {
             'props': numData,
         })

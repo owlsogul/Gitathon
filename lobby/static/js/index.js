@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker';
 class Test extends Component{
 	render(){
 		var list = window.props;
+		console.log(this.props);
 		return <div>{list.map(item => <App data={this.props.numData} />)}</div>;
 	}
 }

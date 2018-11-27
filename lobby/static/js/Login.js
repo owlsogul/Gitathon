@@ -19,9 +19,8 @@ class LoginMain extends Component{
             }
         })
         */}
-
+        console.log(this.props)
         return(
-            console.log(this.props),
             <div className="LoginScreen">
             if this.state.mode == 'Login'{
                 <Login
