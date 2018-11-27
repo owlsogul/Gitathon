@@ -6,9 +6,9 @@ from hackathon.models import *
 # Create your views here.
 def login(request):
     if not 'memberId' in request.session:
-        numData = 12345
         return render(request, 'lobby/login.html', {
-            'props': numData,
+            'numTeamproject': 3000,
+            'numHackathon': 12345
         })
     else:
         return redirect('/lobby/main')

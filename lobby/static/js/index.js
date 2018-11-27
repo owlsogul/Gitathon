@@ -4,8 +4,18 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
 
+class Test extends React.Component{
+	render(){
+		var list = window.props;
+		return <div>{list.map(item =>
+			<App
+				numHackathon={item.numHackathon} 
+				numTeamproject={item.numTeamproject} />)}
+			</div>;
+	}
+}
 
 ReactDOM.render(
-	<App />,
+	<Test />,
 	document.getElementById('react')
 );

@@ -2,26 +2,41 @@ import React, {Component} from 'react';
 import { Button } from 'reactstrap';
 
 class LoginMain extends Component{
+    state={
+        mode: 'Login'
+    }
+
     render(){
+        {/*
+        let hackNum = 0;
+        let teamPNum = 0;
+        items(this.props.numData, (key, value) => {
+            if (key == "numHackathon"){
+                hackNum = value
+            }
+            else if (key  == "numTeamproject"){
+                teamNum = value
+            }
+        })
+        */}
+        console.log(this.props)
         return(
-        <div class="login-form">
-          <form class="" action="/accounts/login" method="POST">
-            <input type="text" name="memberId" placeholder="아이디를 입력해주세요" /><br />
-            <input type="password" name="password" placeholder="비밀번호를 입력해주세요" /><br />
-            <input type="submit" name="" value="함께하기" />
-          </form>
-          <form class="" action="/accounts/register" method="POST">
-            <input type="text" name="memberId" placeholder="아이디를 입력해주세요" /><br />
-            <input type="text" name="email" placeholder="이메일을 입력해주세요" /><br />
-            <input type="password" name="password" placeholder="비밀번호를 입력해주세요" /><br />
-            <input type="submit" name="" value="가입하기" />
-          </form>
-        </div>
-    );
+            <div className="LoginScreen">
+            if this.state.mode == 'Login'{
+                <Login
+                    gitathonLogo = {this.props.gitathonLogo}
+                    hackNum = {this.props.numHackathon}
+                    teamNum = {this.props.numTeamproject} />
+            }
+            else if {
+                <Register />
+            }
+            </div>
+        );
     }
 }
 
-class Login extends LoginMain{
+class Login extends Component{
     constructor(props){
         super(props);
     }
@@ -83,7 +98,7 @@ class Login extends LoginMain{
     }
 }
 
-class Register extends LoginMain{
+class Register extends Component{
     render(){
         return(
             <div class = "container">
