@@ -7,3 +7,5 @@
 팀원 아니면 팀프로젝트 페이지 못보게
 
 daphne daemon 화
+
+mapping function 에러 고치기
