@@ -6,11 +6,8 @@ class LoginMain extends Component{
         mode: 'Login'
     }
 
-    // this.setState({
-    //mode: 'Register'
-    //})
-
     render(){
+        {/*
         let hackNum = 0;
         let teamPNum = 0;
         items(this.props.numData, (key, value) => {
@@ -21,8 +18,10 @@ class LoginMain extends Component{
                 teamNum = value
             }
         })
+        */}
 
         return(
+            console.log(this.props),
             <div className="LoginScreen">
             if this.state.mode == 'Login'{
                 <Login
