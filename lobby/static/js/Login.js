@@ -7,19 +7,6 @@ class LoginMain extends Component{
     }
 
     render(){
-        {/*
-        let hackNum = 0;
-        let teamPNum = 0;
-        items(this.props.numData, (key, value) => {
-            if (key == "numHackathon"){
-                hackNum = value
-            }
-            else if (key  == "numTeamproject"){
-                teamNum = value
-            }
-        })
-        */}
-        console.log(this.props)
         return(
             <div className="LoginScreen">
             if this.state.mode == 'Login'{

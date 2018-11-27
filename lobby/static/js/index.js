@@ -8,11 +8,7 @@ class Test extends React.Component{
 	render(){
 		var list = window.props;
 		console.log(list)
-		return <div>{list.map(item =>
-			<App
-				numHackathon={item.numHackathon} 
-				numTeamproject={item.numTeamproject} />)}
-			</div>;
+		return <App numHackathon={list.numTeamproject} numTeamproject={list.numTeamproject} />;
 	}
 }
 

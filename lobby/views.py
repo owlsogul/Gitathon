@@ -7,8 +7,7 @@ from hackathon.models import *
 def login(request):
     if not 'memberId' in request.session:
         return render(request, 'lobby/login.html', {
-            'numTeamproject': 3000,
-            'numHackathon': 12345
+            'numTeamproject': 3000
         })
     else:
         return redirect('/lobby/main')
