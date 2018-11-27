@@ -13,7 +13,7 @@ class LoginMain extends Component{
     render(){
         let hackNum = 0;
         let teamPNum = 0;
-        items(this.props.data, (key, value) => {
+        items(this.props.numData, (key, value) => {
             if (key == "numHackathon"){
                 hackNum = value
             }
