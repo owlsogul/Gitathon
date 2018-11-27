@@ -2,11 +2,8 @@ import React, {Component} from 'react';
 import { Button } from 'reactstrap';
 
 class LoginMain extends Component{
-    state={
-        mode: 'Login'
-    }
-
     render(){
+        return(
         <div class="login-form">
           <form class="" action="/accounts/login" method="POST">
             <input type="text" name="memberId" placeholder="아이디를 입력해주세요" /><br />
@@ -20,6 +17,7 @@ class LoginMain extends Component{
             <input type="submit" name="" value="가입하기" />
           </form>
         </div>
+    );
     }
 }
 
