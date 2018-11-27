@@ -9,7 +9,7 @@
 	<body>
 		<div id="react"></div>
 		<script>
-			window.props = {{numTeamproject}};
+			window.props = {{numTeamproject|safe}};
 			window.react_mount = document.getElementById('react');
 		</script>
 		{% render_bundle 'main' %}

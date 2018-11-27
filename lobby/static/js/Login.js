@@ -12,8 +12,8 @@ class LoginMain extends Component{
             if this.state.mode == 'Login'{
                 <Login
                     gitathonLogo = {this.props.gitathonLogo}
-                    hackNum = {this.props.numHackathon}
-                    teamNum = {this.props.numTeamproject} />
+                    hackNum = {this.props.numHack}
+                    teamNum = {this.props.numTeam} />
             }
             else if {
                 <Register />
