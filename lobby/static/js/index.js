@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker';
 class Test extends React.Component{
 	render(){
 		var list = window.props;
+		console.log(list)
 		return <div>{list.map(item =>
 			<App
 				numHackathon={item.numHackathon} 
