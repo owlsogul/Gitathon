@@ -57,7 +57,7 @@ def lookCommit(message):
 # FileList만들기 -> git show 'commitId' --name-status
 def checkFileList(hackName, teamName, teamCommit):
 
-    print("파일리스트체크")
+    #print("파일리스트체크")
 
     fileList = []
     nameList = []
@@ -82,10 +82,10 @@ def checkFileList(hackName, teamName, teamCommit):
         for commit in teamCommit:
             abuse = Abusing(teamId=team,context="abusing 의심", commitId=commit.commitId)
             abuse.save()
-            print("어뷰징스키마출력")
-            print(abuse.commitId)
+            #print("어뷰징스키마출력")
+            #print(abuse.commitId)
 
-    print("횟수 출력")
+    #print("횟수 출력")
     print(nameCount)
 
 
