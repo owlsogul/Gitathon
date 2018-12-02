@@ -8,10 +8,6 @@ from pyModule.abuse import *
 from collections import Counter
 
 
-#### I'm abusing ####
-
-
-
 teamCommitList = []
 # 1분에 몇 개의 커밋이 , 몇 번 특정한 파일이 수정되면 어뷰징으로 볼 것인지 설정
 COMMITCOUNT = 2

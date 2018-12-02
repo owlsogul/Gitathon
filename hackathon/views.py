@@ -13,7 +13,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from pyModule.abuse import *
 from pyModule.gitBranch import *
 import numpy
-#### I'm abusing ####
 
 # Create your views here.
 
