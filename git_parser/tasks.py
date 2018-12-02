@@ -1,16 +1,8 @@
-from __future__ import absolute_import
+from background_task import background
+from logging import getLogger
 
-from celery import shared_task
-from gitathon.celery import app
+logger = getLogger(__name__)
 
-@shared_task
-def add(x, y):
-    return x + y
-
-@shared_task
-def mul(x, y):
-    return x * y
-
-@shared_task
-def xsum(numbers):
-    return sum(numbers)
+@background(schedule=20)
+def test(message):
+    print(message)
