@@ -16,8 +16,8 @@ class App extends Component {
             <div className="App">
                 <LoginMain
                     gitathonLogo = {metaInfo[0].gitathonLogo}
-		    numHack = {this.props.numHackathon}
-		    numTeam = {this.props.numTeamproject}
+		    numHack = {3}
+		    numTeam = {20}
                 />
             </div>
         );
