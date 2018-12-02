@@ -31,6 +31,8 @@ class Login extends Component{
     render(){
         return (
             <div class = "container">
+            <form class="" action="/accounts/login" method="POST">
+
                 <div class = "row">
                     <div class = "col-2">
                     </div>
@@ -48,17 +50,17 @@ class Login extends Component{
                             </tr>
                             <tr>
                                 <td className = "InputID">
-      	    	                    <input />
+      	    	                    <input type="text" name="memberId" placeholder="아이디를 입력해주세요" /><br />
                                 </td>
                             </tr>
                             <tr>
                                 <td className = "InputPW">
-      		                        <input />
+      		                        <input type="password" name="password" placeholder="비밀번호를 입력해주세요" /><br />
                                 </td>
                             </tr>
                             <tr>
                                 <td className = "LoginBtn">
-                                    <Button color = "primary">함께하기</Button>
+                                    <input type="submit" name="" value="함께하기" />
                                 </td>
                             </tr>
                             <tr>
@@ -74,6 +76,7 @@ class Login extends Component{
                 <div class = "col-2">
                 </div>
             </div>
+            </form>
         </div>
         );
     }
