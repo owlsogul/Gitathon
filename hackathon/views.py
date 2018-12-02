@@ -5,6 +5,7 @@ from hackathon.models import *
 from django.contrib import messages
 from accounts.models import *
 from teamproject.models import *
+from git_parser.models import *
 from django.db.models import Count
 from hackathon.viewHackFunction import *
 import random
@@ -704,6 +705,9 @@ def abuseHackathon(request, HackathonInformation_id, Team_id = 0):
     # 어뷰징 관련 Data 배열
     abuseMessage = []
 
+    # 어뷰징 의심 commit 정보
+    commitInfo = ""
+
     # 팀아이디
 
     # 선택된 팀이 없다면
@@ -718,31 +722,49 @@ def abuseHackathon(request, HackathonInformation_id, Team_id = 0):
     # 그 Commit들 간의 FileList를 참고해서 같은 파일이 여러번 수정/삭제/추가 되었는지 확인
     # 맞는 경우 Abusing 스키마 생성
 
-    # 어뷰징 메세지 임시 Data 생성 ( 수정 )
-    abuseTeam = teamList.get(id=1)
-    abuseMessage.append([abuseTeam, "2018.11.25 17시에 Commit량 증가"])
 
-    abuseTeam = teamList.get(id=2)
-    abuseMessage.append([abuseTeam, "2018.11.25 20시에 Commit량 증가"])
+    for team in teamList:
+
+        teamAbusing = Abusing.objects.filter(teamId = team)
+        if teamAbusing:
+            # 팀별로 최신 Abusing context 출력
+            abuseMessage.append([team, teamAbusing.latest('id').context])
+        else:
+            abuseMessage.append([team, ""])
 
 
-    # 팀별로 최신 Abusing context 출력
-    # 팀 선택하면 그 팀의 Abusing 스키마 전부 나오기
-    # Abusing 스키마 목록은 commit Id의 목록들로 보여짐
-    # 누르면 abuse.py 함수 실행하고 보여준다
+
+
     if request.method == 'POST':
 
         try:
-            teamId = request.POST['abuseMessage']
-            redirect_to = reverse('abuseHackathon', kwargs={'HackathonInformation_id':contest.id, 'Team_id' : teamId})
-            return HttpResponseRedirect(redirect_to)
+            postList = request.POST
+
+            if postList.get('teamId') is not None :
+                teamId = postList.get('teamId')
+                redirect_to = reverse('abuseHackathon', kwargs={'HackathonInformation_id':contest.id, 'Team_id' : teamId})
+                return HttpResponseRedirect(redirect_to)
+
+            # commit 누르면 abuse.py 함수 실행하고 보여준다
+            if postList.get('commitId') is not None :
+                commitId = postList.get('commitId')
+                
+
+
 
         except:
             redirect_to = reverse('abuseHackathon', kwargs={'HackathonInformation_id':contest.id, 'Team_id' : 0})
             return HttpResponseRedirect(redirect_to)
 
+    # 보기 클릭시
+    # 팀 선택하면 그 팀의 Abusing 스키마 전부 나오기
+    # Abusing 스키마 목록은 commit Id의 목록들로 보여짐
+
+    if selectedTeamId != '0':
+        team = Team.objects.get(id = selectedTeamId)
+        teamAbusing = Abusing.objects.filter(teamId = team)
 
 
     return render(request, 'abuseHackathon.html',
     {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'message':message,
-    'abuseMessage' : abuseMessage, 'selectedTeamId' : selectedTeamId,})
+    'abuseMessage' : abuseMessage, 'selectedTeamId' : selectedTeamId, 'teamAbusing':teamAbusing, 'commitInfo': commitInfo})
