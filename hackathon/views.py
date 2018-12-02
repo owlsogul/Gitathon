@@ -10,7 +10,7 @@ from hackathon.viewHackFunction import *
 import random
 from django.core.exceptions import ObjectDoesNotExist
 from pyModule import *
-#import numpy
+import numpy
 
 # Create your views here.
 
@@ -530,64 +530,77 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
 
         # 그 팀들의 raw Data 생성(수정)
         # 한 팀의 commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 가져오기
+        try:
+            """
+            teamCommit = Commit.objects.filter(teamId = team)
 
-        """
-        teamCommit = Commit.objects.filter(teamId = team)
+            # 특정 팀의 commit 존재
+            if teamCommit.exists() :
 
-        # 특정 팀의 commit 존재
-        if teamCommit.exists() :
+                # 1. 한 팀의 commit 수
 
-            # 1. 한 팀의 commit 수
+                commitScore = len(teamCommit)
+                TotalCommitData.append(commitScore)
 
-            commitScore = len(teamCommit)
-            TotalCommitData.append(commitScore)
+                # 2. 한 팀의 수정된 줄 수
 
-            # 2. 한 팀의 수정된 줄 수
+                for teamcommit in teamCommit :
 
-            for teamcommit in teamCommit :
-
-                lineScore = teamcommit.comment + teamcommit.code
-                TotalLineData.append(lineScore)
+                    lineScore = teamcommit.comment + teamcommit.code
+                    TotalLineData.append(lineScore)
 
 
-            # 3. 한 팀의 master로 merge된 branch 수
-            allbranch = countAllRemoteBranch(hackId, teamId)
-            mergebranch = countMergedBranch(hackId, teamId)
+                # 3. 한 팀의 master로 merge된 branch 수
+                allbranch = countAllRemoteBranch(hackId, teamId)
+                mergebranch = countMergedBranch(hackId, teamId)
 
-            if countAllRemoteBranch != 0 :
-                branchScore = allbranch/mergebranch
-                branchScore = float(format(branchScore), '.2f'))
-                TotalBranchData.append(branchScore)
-            else:
+                if mergebranch != 0 :
+                    branchScore = allbranch/mergebranch
+                    branchScore = float(format(branchScore), '.2f'))
+                    TotalBranchData.append(branchScore)
+                else:
+                    branchScore = 0
+                    TotalBranchData.append(branchScore)
+
+                # 4. 한 팀의 팀원 기여도 점수(표준편차) -> 역수 취하고 *1000
+                if TeamContribution.objects.get(teamId=team).std_score != 0 :
+                    teamScore = (1/TeamContribution.objects.get(teamId=team).std_score)*1000
+                    TotalTeamData.append(teamScore)
+                else:
+                    teamScore = 0
+                    TotalTeamData.append(teamScore)
+
+            # 특정 팀의 commit이 존재하지 않으면
+            else :
+                commitScore = 0
+                lineScore = 0
                 branchScore = 0
+                teamScore = 0
+            """
 
-            # 4. 한 팀의 팀원 기여도 점수(표준편차) -> 역수 취하고 *1000
-            teamScore = (1/TeamContribution.objects.get(teamId=team).std_score)*1000
-            TotalTeamData.append(teamScore)
+            # 4. 한 팀의 팀원 기여도 점수(표준편차) -> 역수 취하고 *1000 ( 나중에 지우기 )
+            if TeamContribution.objects.get(teamId=team).std_score != 0 :
+                teamScore = (1/TeamContribution.objects.get(teamId=team).std_score)*1000
+                TotalTeamData.append(teamScore)
+            else:
+                teamScore = 0
+                TotalTeamData.append(teamScore)
 
-        # 특정 팀의 commit이 존재하지 않으면
-        else :
-            commitScore = 0
-            lineScore = 0
-            branchScore = 0
-            teamScore = 0
-        """
 
-        # 4. 한 팀의 팀원 기여도 점수(표준편차) -> 역수 취하고 *1000
-        teamScore = (1/TeamContribution.objects.get(teamId=team).std_score)*1000
+            # 한 팀의 4가지 항목에 대한 점수 Data
+            teamRawData = [500, 1000, 10, teamScore]
 
-        # 한 팀의 4가지 항목에 대한 점수 Data
-        teamRawData = [500, 1000, 10, teamScore]
+            # 전체 팀 Data에 합치기
+            teamAllData.append([team.id,team.teamName,len(memberList),teamRawData,gitScore])
 
-        # 전체 팀 Data에 합치기
-        teamAllData.append([team.id,team.teamName,len(memberList),teamRawData,gitScore])
+        except:
+            raise Exception("계산 중 오류가 발생하였습니다.")
 
 
     # 임시 전체 Data ( 수정 )
     TotalCommitData = [500, 500]
     TotalLineData = [1000, 1000]
     TotalBranchData = [10, 10]
-    TotalTeamData = [4,12]
 
     # 전체 팀의 평균 Data
     avgTotalData[0] = numpy.mean(TotalCommitData)
@@ -700,7 +713,8 @@ def abuseHackathon(request, HackathonInformation_id, Team_id = 0):
     else :
         selectedTeamId = Team_id
 
-    # 샐러리에서 짧은 시간 내에 Commit 수 증가가 급격한 Commit들 감지
+    # django-backgroud-tacks에서 짧은 시간 내에 Commit 수 증가가 급격한 Commit들 감지
+    # localhost:8000/git_parser/v1/tasks/ 에서 돌아감
     # 그 Commit들 간의 FileList를 참고해서 같은 파일이 여러번 수정/삭제/추가 되었는지 확인
     # 맞는 경우 Abusing 스키마 생성
 
@@ -708,7 +722,7 @@ def abuseHackathon(request, HackathonInformation_id, Team_id = 0):
     abuseTeam = teamList.get(id=1)
     abuseMessage.append([abuseTeam, "2018.11.25 17시에 Commit량 증가"])
 
-    abuseTeam = teamList.get(id=4)
+    abuseTeam = teamList.get(id=2)
     abuseMessage.append([abuseTeam, "2018.11.25 20시에 Commit량 증가"])
 
 
