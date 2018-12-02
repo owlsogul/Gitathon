@@ -36,45 +36,32 @@ Gitathon Main
 {% endblock %}
 
 {% block content %}
-<div class="side-bar">
-  <div class="TeamprojectBox ContentBoxWithTitle">
-    <div class="ContentBoxTitle">
-      내 팀프로젝트
-    </div>
-    <div class="ContentBoxHeader">
-    </div>
-    <div class="ContentBoxBody">
+<div class="card my-4">
+  <h5 class="card-header">내 팀 프로젝트</h5>
+    <div class="card-body">
       <ul>
         {% for team in teams %}
           <li><a href="/team/{{ team.id }}/main">{{ team.teamName }}</a></li>
         {% endfor %}
       </ul>
-    </div>
-    <div class="ContentBoxFooter">
       <a href="#">show more</a><br/>
       <a href="/team/create">create new</a>
-    </div>
   </div>
-  <div class="ContentBoxWithTitle HackathonBox">
-    <div class="ContentBoxTitle">
-      내 해커톤
-    </div>
-    <div class="ContentBoxHeader">
-    </div>
-    <div class="ContentBoxBody">
+ </div>
+ <div class="card my-4">
+   <h5 class="card-header">내 해커톤</h5>
+   <div class="card-body">
       <ul>
         {% for hack in hackList %}
           <li><a href="/hackathon/page/main/{{hack.id}}">{{hack.title}}</a></li>
         {% endfor %}
       </ul>
-
-    </div>
     <div class="ContentBoxFooter">
       <a href="#">show more</a><br/>
       <a href="/hackathon/hold">create new</a>
     </div>
-  </div>
-</div>
+    </div>
+    </div>
 <div class="main">
   <div class="ContentBoxWithTitle RecentActBox">
     <div class="ContentBoxTitle">
