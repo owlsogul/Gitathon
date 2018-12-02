@@ -26,7 +26,7 @@ def lookCommit(message):
     allHack = HackathonInformation.objects.all().order_by('id')
 
     for hack in allHack :
-        print(hack.title)
+#        print(hack.title)
         teamInHack = Team.objects.filter(participate__hackId = hack).distinct().order_by('id')
 
         for team in teamInHack :
@@ -51,7 +51,7 @@ def lookCommit(message):
                 teamCommitList.append([team.id, commitCount])
 
 
-    print(teamCommitList)
+#    print(teamCommitList)
 
 
 # FileList만들기 -> git show 'commitId' --name-status
@@ -86,7 +86,7 @@ def checkFileList(hackName, teamName, teamCommit):
             #print(abuse.commitId)
 
     #print("횟수 출력")
-    print(nameCount)
+    #print(nameCount)
 
 
 
@@ -94,24 +94,35 @@ def checkFileList(hackName, teamName, teamCommit):
 @background(schedule=10)
 # Commit 을 주기적으로 감지하기 전 해커톤 참여 팀별로 commit 수 스캔 시작
 def setLookCommit():
-    # teamCommitList = [ ['teamId', 'commitCount'] ]
     print("start")
-    # scanCommit()
+    scan()
 
+def scan():
 
-def scanCommit():
-
+    print("스캔시")
     allHack = HackathonInformation.objects.all().order_by('id')
 
     for hack in allHack :
-        print("scan Commit")
+#        print(hack.title)
         teamInHack = Team.objects.filter(participate__hackId = hack).distinct().order_by('id')
 
         for team in teamInHack :
-
             teamCommit = Commit.objects.filter(teamId = team)
-            teamCommitList.append([team.id, len(teamCommit)])
+            commitCount = len(teamCommit)
+            check=0
+            # 만약 teamCommitList에 그 team이 있는지 확인
+            for teamCommitInfo in teamCommitList :
+                if team.id == teamCommitInfo[0]:
+                    if commitCount - teamCommitInfo[1] >= COMMITCOUNT :
+                        # 파일 리스트 뽑아서 체크하는 거 필요
+                        # 파일 비슷한게 여러번 수정되었음
+                        # 어뷰징 스키마 생성
+                        checkFileList(hack.id, team.id, teamCommit)
 
+                    teamCommitInfo[1] = commitCount
+                    check=1
+                    break;
 
-    print("scan결과")
-    print(teamCommitList)
+            # teamCommitList에 그 team이 없다
+            if check == 0:
+                teamCommitList.append([team.id, commitCount])
