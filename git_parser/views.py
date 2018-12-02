@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from logging import getLogger
 
-from .tasks import test, lookCommit
+from .tasks import test, lookCommit, setLookCommit
 
 logger = getLogger(__name__)
 
@@ -31,6 +31,7 @@ def startTasks(request):
 
 
 def catchAbusing(request):
+    setLookCommit()
     message = request.POST['message']
-    lookCommit(message, repeat=10)
+    lookCommit(message, repeat=30)
     return JsonResponse({}, status=302)
