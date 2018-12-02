@@ -112,7 +112,7 @@
             <tr>
               <td> {{team.teamName}} </td>
               <td> {{message}} </td>
-              <td> <button type="submit" name="abuseMessage" value={{team.id}} class="btn btn-primary">V</button> </td>
+              <td> <button type="submit" name="teamId" value="{{team.id}}" class="btn btn-primary">V</button>              </td>
             </tr>
           {% endfor %}
           </tbody>
@@ -129,6 +129,24 @@
         </div>
         <div class = "col-9">
           temaId {{selectedTeamId}}의 abusing 관련 정보
+          {% if teamAbusing %}
+            <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">abusing 의심 commitId</th>
+                <th scope="col">보기</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for abusing in teamAbusing %}
+              <tr>
+                <td> {{abusing.commitId}} </td>
+                <td> <button type="submit" name="commitId" value={{abusing.commitId}} class="btn btn-primary">V</button> </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+          {% endif %}
         </div>
         <div class = "col -6">
         </div>
