@@ -3,8 +3,14 @@ from logging import getLogger
 from teamproject.models import *
 from hackathon.models import *
 from accounts.models import *
+from git_parser.models import *
+from pyModule.abuse import *
+from collections import Counter
 
 teamCommitList = []
+# 1분에 몇 개의 커밋이 , 몇 번 특정한 파일이 수정되면 어뷰징으로 볼 것인지 설정
+COMMITCOUNT = 2
+FILECOUNT = 2
 
 @background(schedule=60)
 def test(message):
@@ -23,19 +29,64 @@ def lookCommit(message):
         teamInHack = Team.objects.filter(participate__hackId = hack).distinct().order_by('id')
 
         for team in teamInHack :
-            # 만약 teamCommitList에 그 team이 있는지 확인
             teamCommit = Commit.objects.filter(teamId = team)
             commitCount = len(teamCommit)
+            check=0
+            # 만약 teamCommitList에 그 team이 있는지 확인
             for teamCommitInfo in teamCommitList :
                 if team.id == teamCommitInfo[0]:
-                    if commitCount - teamCommitInfo[1] >= 2 :
-                        print("어뷰징 발생")
+                    if commitCount - teamCommitInfo[1] >= COMMITCOUNT :
+                        # 파일 리스트 뽑아서 체크하는 거 필요
+                        # 파일 비슷한게 여러번 수정되었음
+                        # 어뷰징 스키마 생성
+                        checkFileList(hack.id, team.id, teamCommit)
+
                     teamCommitInfo[1] = commitCount
-                else :
-                    teamCommitList.append([team.id, commitCount])
+                    check=1
+                    break;
+
+            # teamCommitList에 그 team이 없다
+            if check == 0:
+                teamCommitList.append([team.id, commitCount])
 
 
     print(teamCommitList)
+
+
+# FileList만들기 -> git show 'commitId' --name-status
+def checkFileList(hackName, teamName, teamCommit):
+
+    print("파일리스트체크")
+
+    fileList = []
+    nameList = []
+    nameCount = []
+
+    # fileList = [ ['commitId', '파일명', '파일명'], ['commitId', '파일명', '파일명'], ~  ]
+    for commit in teamCommit :
+        fileList.append(makeFileList(hackName, teamName, commit.commitId))
+
+    # nameCount = {'파일이름' : '횟수'}
+    nameCount = Counter(sum(fileList, []))
+
+    # count가 FILECOUNT 이상인 것이 존재하면
+    # Abusing 스키마 생성
+    check = 0
+    for value in nameCount.values():
+        if value >= FILECOUNT:
+            check = 1
+
+    if check == 1:
+        team = Team.objects.get(id=teamName)
+        for commit in teamCommit:
+            abuse = Abusing(teamId=team,context="abusing 의심", commitId=commit.commitId)
+            abuse.save()
+            print("어뷰징스키마출력")
+            print(abuse.commitId)
+
+    print("횟수 출력")
+    print(nameCount)
+
 
 
 
@@ -44,7 +95,7 @@ def lookCommit(message):
 def setLookCommit():
     # teamCommitList = [ ['teamId', 'commitCount'] ]
     print("start")
-    scanCommit()
+    # scanCommit()
 
 
 def scanCommit():
