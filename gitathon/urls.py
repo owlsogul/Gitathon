@@ -22,4 +22,5 @@ urlpatterns = [
     path('hackathon/', include('hackathon.urls')),
     path('team/', include('teamproject.urls')),
     path('accounts/', include('accounts.urls')),
+    path('git_parser/',include('git_parser.urls')),
 ]
