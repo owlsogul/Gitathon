@@ -533,7 +533,7 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
         # 그 팀들의 raw Data 생성(수정)
         # 한 팀의 commit수, 수정된 줄 수, merge된 branch 수, 팀원 기여도 점수 가져오기
         try:
-            """
+### 테스트시 주석 처리 ################################################################
             teamCommit = Commit.objects.filter(teamId = team)
 
             # 특정 팀의 commit 존재
@@ -556,9 +556,9 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
                 allbranch = countAllRemoteBranch(hackId, teamId)
                 mergebranch = countMergedBranch(hackId, teamId)
 
-                if mergebranch != 0 :
-                    branchScore = allbranch/mergebranch
-                    branchScore = float(format(branchScore), '.2f'))
+                if allbranch != 0 :
+                    branchScore = mergebranch/allbranch
+                    branchScore = float(format(branchScore), '.2f')
                     TotalBranchData.append(branchScore)
                 else:
                     branchScore = 0
@@ -578,19 +578,21 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
                 lineScore = 0
                 branchScore = 0
                 teamScore = 0
-            """
+#############################################################################
 
-            # 4. 한 팀의 팀원 기여도 점수(표준편차) -> 역수 취하고 *1000 ( 나중에 지우기 )
-            if TeamContribution.objects.get(teamId=team).std_score != 0 :
-                teamScore = (1/TeamContribution.objects.get(teamId=team).std_score)*1000
-                TotalTeamData.append(teamScore)
-            else:
-                teamScore = 0
-                TotalTeamData.append(teamScore)
+#            # 4. 한 팀의 팀원 기여도 점수(표준편차) -> 역수 취하고 *1000 ( 나중에 지우기 )
+#            if TeamContribution.objects.get(teamId=team).std_score != 0 :
+#                teamScore = (1/TeamContribution.objects.get(teamId=team).std_score)*1000
+#                TotalTeamData.append(teamScore)
+#            else:
+#                teamScore = 0
+#                TotalTeamData.append(teamScore)
 
 
-            # 한 팀의 4가지 항목에 대한 점수 Data
-            teamRawData = [500, 1000, 10, teamScore]
+            # 한 팀의 4가지 항목에 대한 점수 Data ( 나중에 지우기 )
+#            teamRawData = [500, 1000, 10, teamScore]
+            # ( 실제 )
+            teamRawData = [commitScore, lineScore, branchScore, teamScore]
 
             # 전체 팀 Data에 합치기
             teamAllData.append([team.id,team.teamName,len(memberList),teamRawData,gitScore])
@@ -600,9 +602,9 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
 
 
     # 임시 전체 Data ( 수정 )
-    TotalCommitData = [500, 500]
-    TotalLineData = [1000, 1000]
-    TotalBranchData = [10, 10]
+#    TotalCommitData = [500, 500]
+#    TotalLineData = [1000, 1000]
+#    TotalBranchData = [10, 10]
 
     # 전체 팀의 평균 Data
     avgTotalData[0] = numpy.mean(TotalCommitData)
@@ -734,8 +736,6 @@ def abuseHackathon(request, HackathonInformation_id, Team_id = 0):
             abuseMessage.append([team, ""])
 
 
-
-
     if request.method == 'POST':
 
         try:
@@ -760,8 +760,11 @@ def abuseHackathon(request, HackathonInformation_id, Team_id = 0):
     # Abusing 스키마 목록은 commit Id의 목록들로 보여짐
 
     if selectedTeamId != '0':
+        print(selectedTeamId)
         team = Team.objects.get(id = selectedTeamId)
         teamAbusing = Abusing.objects.filter(teamId = team)
+    else :
+        selectedTeamId = ""
 
 
     return render(request, 'abuseHackathon.html',
