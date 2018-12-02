@@ -10,7 +10,8 @@ from django.db.models import Count
 from hackathon.viewHackFunction import *
 import random
 from django.core.exceptions import ObjectDoesNotExist
-from pyModule import *
+from pyModule.abuse import *
+from pyModule.gitBranch import *
 import numpy
 
 # Create your views here.
@@ -748,9 +749,7 @@ def abuseHackathon(request, HackathonInformation_id, Team_id = 0):
             # commit 누르면 abuse.py 함수 실행하고 보여준다
             if postList.get('commitId') is not None :
                 commitId = postList.get('commitId')
-                
-
-
+                commitInfo = showDiffCommit(contest.id, selectedTeamId, commitId)
 
         except:
             redirect_to = reverse('abuseHackathon', kwargs={'HackathonInformation_id':contest.id, 'Team_id' : 0})
