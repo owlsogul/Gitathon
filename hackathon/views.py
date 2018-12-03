@@ -345,6 +345,7 @@ def noticeWriteHack(request, HackathonInformation_id):
     C=''
     message = ''
     writeMode = 0
+    memberId = request.session['memberId']
 
     # 해커톤 관리자만이 공지사항 작성 가능
     if contestHost == request.session['memberId'] :
@@ -369,11 +370,13 @@ def noticeWriteHack(request, HackathonInformation_id):
 
                 elif(Title == ""):
                     message = '제목을 입력하세요.'
-                    return render(request, 'noticeWrite.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost, 'message' : message, 'writeMode' : writeMode})
+                    return render(request, 'noticeWrite.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost,
+                    'message' : message, 'writeMode' : writeMode, 'memberId' : memberId})
 
                 else:
                     message = '내용을 입력하세요.'
-                    return render(request, 'noticeWrite.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost, 'message' : message, 'writeMode' : writeMode})
+                    return render(request, 'noticeWrite.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost,
+                    'message' : message, 'writeMode' : writeMode, 'memberId' : memberId})
 
             # 취소 버튼을 눌렀을 때
             elif W == "취소" :
@@ -384,7 +387,8 @@ def noticeWriteHack(request, HackathonInformation_id):
             # 공지사항 목록에서 작성 버튼을 눌렀을 때
             elif W == "시작" :
                 writeMode = 0
-                return render(request, 'noticeWrite.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost, 'message' : message, 'writeMode' : writeMode})
+                return render(request, 'noticeWrite.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost,
+                'message' : message, 'writeMode' : writeMode, 'memberId' : memberId})
 
             # 공지사항 글에서 수정 버튼을 눌렀을 때
             elif W == "수정":
@@ -399,7 +403,8 @@ def noticeWriteHack(request, HackathonInformation_id):
 
                 hackNotice = HackNotice.objects.get(pk=hackNoticeId)
 
-                return render(request, 'noticeWrite.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost, 'message' : message, 'writeMode' : writeMode, 'hackNotice' : hackNotice, 'hackNoticeId' : hackNoticeId})
+                return render(request, 'noticeWrite.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost,
+                'message' : message, 'writeMode' : writeMode, 'hackNotice' : hackNotice, 'hackNoticeId' : hackNoticeId, 'memberId' : memberId})
 
             # 글을 수정하고 완료를 누를 때
             elif W == "수정완료":
@@ -438,7 +443,8 @@ def noticeWriteHack(request, HackathonInformation_id):
                 return HttpResponseRedirect(redirect_to)
 
 
-        return render(request, 'noticeWrite.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost, 'message' : message})
+        return render(request, 'noticeWrite.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost,
+        'message' : message, 'memberId' : memberId})
 
     # 해커톤 관리자가 아닌경우
     else :
@@ -457,10 +463,12 @@ def noticeListHack(request, HackathonInformation_id):
     todayDate = datetime.today().date
     todayTime = datetime.today().time
     message = ''
+    memberId = request.session['memberId']
 
     noticeList = HackNotice.objects.filter(hackId = contest)
 
-    return render(request, 'noticeList.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'noticeList' : noticeList, 'message':message})
+    return render(request, 'noticeList.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'noticeList' : noticeList,
+    'message':message, 'memberId' : memberId})
 
 # 공지사항 글 하나 보여주기
 def noticeViewHack(request, HackathonInformation_id, HackNotice_id):
@@ -472,13 +480,15 @@ def noticeViewHack(request, HackathonInformation_id, HackNotice_id):
     hackId = HackathonInformation_id
     hackNoticeId = HackNotice_id
     message = ''
+    memberId = request.session['memberId']
 
     contest = HackathonInformation.objects.get(pk = hackId)
     contestHost = contest.hackathonHost
     hackNotice = HackNotice.objects.get(pk=hackNoticeId)
 
 
-    return render(request, 'noticeView.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost, 'hackNotice' : hackNotice, 'message' : message})
+    return render(request, 'noticeView.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost,
+    'hackNotice' : hackNotice, 'message' : message, 'memberId' : memberId})
 
 # 관리자메뉴 - git 활용도
 def gitHackathon(request, HackathonInformation_id, Team_id = 0):
