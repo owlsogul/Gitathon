@@ -5,7 +5,6 @@ from hackathon.models import *
 from django.contrib import messages
 from accounts.models import *
 from teamproject.models import *
-from git_parser.models import *
 from django.db.models import Count
 from hackathon.viewHackFunction import *
 import random
@@ -594,7 +593,7 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
 #                    TotalBranchData.append(branchScore)
 
                 # 4. 한 팀의 팀원 기여도 점수(표준편차) -> 역수 취하고 *1000
-                if TeamContribution.objects.get(teamId=team).std_score != 0 :
+                if TeamContribution.objects.get(teamId=team).std_score != 0.0 :
                     teamScore = (1/TeamContribution.objects.get(teamId=team).std_score)*1000
                     TotalTeamData.append(teamScore)
                 else:

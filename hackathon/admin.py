@@ -5,4 +5,5 @@ from .models import *
 admin.site.register(HackathonInformation)
 admin.site.register(HackNotice)
 admin.site.register(HackUsability)
+admin.site.register(Abusing)
 admin.site.register(GitScore)

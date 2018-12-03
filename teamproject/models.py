@@ -11,6 +11,7 @@ class TeamContribution(models.Model):
     comment = models.FloatField(default=0.0)
     code = models.FloatField(default=0.0)
     resource = models.FloatField(default=0.0)
+    std_score = models.FloatField(default=0.0)
 
 class TeamNotice(models.Model):
     teamId = models.ForeignKey('teamproject.Team', on_delete=models.CASCADE)
@@ -38,3 +39,9 @@ class TeamVote(models.Model):
     requestId = models.ForeignKey('teamproject.TeamMergeRequest', on_delete=models.CASCADE)
     memberId = models.ForeignKey('accounts.Member', on_delete=models.CASCADE)
     isAgree = models.BooleanField(default=False)
+
+class Commit(models.Model):
+    commitId = models.CharField(max_length=100, primary_key = True)
+    teamId = models.ForeignKey('teamproject.Team', on_delete=models.CASCADE)
+    code = models.IntegerField()
+    comment = models.IntegerField()

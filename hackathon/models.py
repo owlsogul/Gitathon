@@ -47,7 +47,12 @@ class HackUsability(models.Model):
     branchRate = models.FloatField(default=25.0)
     teamRate = models.FloatField(default=25.0)
 
-
+# Abusing 스키마
+class Abusing(models.Model):
+    teamId = models.ForeignKey('teamproject.Team', on_delete=models.CASCADE)
+    context = models.CharField(max_length=200)
+    commitId = models.CharField(max_length=200)
+    
 # 팀별 gitScore점수
 class GitScore(models.Model):
     name = models.CharField(max_length=255)
