@@ -43,6 +43,8 @@ def listHackathon(request):
     todayDate = datetime.today().date
     todayTime = datetime.today().time
 
+    memberId = request.session['memberId']
+
     # 제목 검색
 
     if request.method == 'GET':
@@ -50,7 +52,8 @@ def listHackathon(request):
         if q:
             contestList = HackathonInformation.objects.filter(title__contains=q)
 
-    return render(request, 'listHackathon.html', {'contestList' : contestList, 'q' : q, 'todayDate' : todayDate, 'todayTime' : todayTime})
+    return render(request, 'listHackathon.html', {'contestList' : contestList, 'q' : q,
+    'todayDate' : todayDate, 'todayTime' : todayTime, 'memberId' : memberId})
 
 # 해커톤 목록 페이지에서 신청 버튼을 눌렀을 때
 def applyHackathon(request, HackathonInformation_id):
