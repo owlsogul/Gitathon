@@ -100,7 +100,10 @@ def mainpageHackathon(request, HackathonInformation_id):
     todayDate = datetime.today().date
     todayTime = datetime.today().time
 
-    return render(request, 'mainpageHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime})
+    memberId = request.session['memberId']
+
+    return render(request, 'mainpageHackathon.html', {'contest' : contest, 'todayDate' : todayDate,
+    'todayTime':todayTime, 'memberId' : memberId})
 
 # 해커톤 팀목록 페이지 눌렀을 때
 def teamlistHackathon(request, HackathonInformation_id):
