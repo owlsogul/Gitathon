@@ -18,5 +18,5 @@ class Member(models.Model):
 
 class Participate(models.Model):
     memberId = models.ForeignKey(Member, on_delete=models.CASCADE)
-    hackId = models.ForeignKey(HackathonInformation, null=True, on_delete=models.CASCADE)
+    hackId = models.ForeignKey(HackathonInformation, null=True, on_delete=models.SET_NULL)
     teamId = models.ForeignKey(Team, null=True, on_delete=models.SET_NULL)

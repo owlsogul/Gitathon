@@ -5,3 +5,6 @@ from .models import *
 admin.site.register(Team)
 admin.site.register(TeamContribution)
 admin.site.register(TeamNotice)
+admin.site.register(TeamChat)
+admin.site.register(TeamMergeRequest)
+admin.site.register(TeamVote)

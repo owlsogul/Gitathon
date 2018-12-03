@@ -4,6 +4,7 @@
 *.log
 *.pot
 *.pyc
+*.swp
 __pycache__/
 local_settings.py
 db.sqlite3
@@ -12,6 +13,7 @@ media
 */migrations/__pycache__
 */static/img/*
 */static/uploads/*
+*.swo
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
