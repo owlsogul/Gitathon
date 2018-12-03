@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'teamproject',
     'hackathon',
     'accounts',
-	'git_parser',
+    'git_parser',
 ]
 
 MIDDLEWARE = [
