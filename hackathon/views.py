@@ -591,6 +591,7 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
 
             # 한 팀의 4가지 항목에 대한 점수 Data ( 나중에 지우기 )
 #            teamRawData = [500, 1000, 10, teamScore]
+#            branchScore=50
             # ( 실제 )
             teamRawData = [commitScore, lineScore, branchScore, teamScore]
 
