@@ -492,6 +492,7 @@ def noticeViewHack(request, HackathonInformation_id, HackNotice_id):
     return render(request, 'noticeView.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost,
     'hackNotice' : hackNotice, 'message' : message, 'memberId' : memberId})
 
+
 # 관리자메뉴 - git 활용도
 def gitHackathon(request, HackathonInformation_id, Team_id = 0):
 
@@ -502,6 +503,7 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
     selectedTeamId = 0
     message = ''
     gitScore = 0.0
+    memberId = request.session['memberId']
 
     # 해커톤 참여 팀 리스트
     teamList = Team.objects.filter(participate__hackId = contest).distinct()
@@ -653,13 +655,16 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
 
     if request.method == 'POST':
 
-        btnMode = request.POST['gitBtn']
+        postList = request.POST
+        teamIdList = []
 
         # 선택된 팀의 깃 활용 점수 보여주기
-        if btnMode == '보기' :
+        if postList.get('teamId') is not None :
 
             try:
+                #teamIdList = request.POST.getlist['teamId']
                 teamId = request.POST['teamId']
+
                 redirect_to = reverse('gitHackathon', kwargs={'HackathonInformation_id':contest.id, 'Team_id' : teamId})
                 return HttpResponseRedirect(redirect_to)
 
@@ -669,7 +674,7 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
                 return HttpResponseRedirect(redirect_to)
 
         # 가중치 비율 정해서 평가하기 눌렀을 때
-        elif btnMode == '평가' :
+        elif postList.get('gitBtn') is not None :
 
             try:
 
@@ -713,7 +718,7 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
     return render(request, 'gitHackathon.html',
     {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'message':message,
     'teamAllData' : teamAllData, 'selectedTeamId' : selectedTeamId, 'gitScore' : gitScore, 'commitRate' : commitRate,
-     'lineRate' : lineRate, 'branchRate' : branchRate ,'teamRate' : teamRate, })
+     'lineRate' : lineRate, 'branchRate' : branchRate ,'teamRate' : teamRate, 'memberId' : memberId })
 
 
 # 관리자메뉴 - abusing 검사

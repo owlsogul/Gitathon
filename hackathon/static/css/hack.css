@@ -22,3 +22,7 @@
   color: #343A40;
   font-size: 13pt;
 }
+
+.smallMenu .nav-item a{
+    color: #343A40;
+}
