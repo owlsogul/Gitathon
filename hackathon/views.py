@@ -29,6 +29,13 @@ def holdHackathon(request):
             post = form.save()
             post.hackathonHost = request.session['memberId']
             post.save()
+
+            # 해커톤 참여자도 해커톤에 참여한 것으로 간주
+            userInformation = Member.objects.get(pk=request.session['memberId'])
+            # 해커톤 ID와 참여자 ID 저장 (참여자 ID는 추후 추가)
+            temp_participate = Participate(memberId = userInformation, hackId = HackathonInformation.objects.filter().latest('id'), teamId = None)
+            temp_participate.save()
+
             return redirect('../../lobby/main')
 
     else:
