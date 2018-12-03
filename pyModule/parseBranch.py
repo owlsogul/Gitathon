@@ -60,7 +60,7 @@ def makeResourceList():
 def changeDirAndGetOldPath(path):
 	old_path = os.getcwd()
 	os.chdir(path)
-    return old_path
+	return old_path
 
 def getAllRemoteBranch():
 	remoteBranch = []
@@ -76,18 +76,18 @@ def getAllRemoteBranch():
 				continue
 
 			if words[0] == "remotes":
-                if(words[2] != 'HEAD'):
+				if (words[2] != 'HEAD'):
 				    remoteBranch.append(words[2])
 
 	except subprocess.CalledProcessError as e:
-        return []
+		return []
 
 	return remoteBranch
 
 def parseGit(branch, resource):
 	try:
-        command = "git checkout " + branch
-        os.system(command)
+		command = "git checkout " + branch
+		os.system(command)
 
 		result = subprocess.check_output('git log --abbrev-commit --name-status', shell=True).decode()
 		newCommit = findNewCommit(result, lastCommit, resource)
