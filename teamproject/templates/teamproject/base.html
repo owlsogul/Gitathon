@@ -2,23 +2,28 @@
 
 {% block content %}
 <div class="main">
+<br/><br/><br/>
+<div class="container">
+    <div class="row">
   <div class="team-name-bar">
-    {{ team.teamName }}
+    <h3>{{ team.teamName }}</h3>
   </div>
+  </div>
+  <div class="row">
+      <div class="col-2">
+    </div>
   <div class="menu-bar">
-    <table>
-      <tr>
-        <td><a href="./main">메인</a></td>
-        <td><a href="./notice">공지사항</a></td>
-        <td><a href="./contribution">기여도</a></td>
-        <td><a href="./chat">채팅</a></td>
-        <td><a href="./member">멤버 관리</a></td>
-      </tr>
-    </table>
+        <div class="col-1"><a href="./main">메인</a></div>
+        <div class="col-1"><a href="./notice">공지사항</a></div>
+        <div class="col-1"><a href="./contribution">기여도</a></div>
+        <div class="col-1"><a href="./chat">채팅</a></div>
+        <div class="col-1"><a href="./member">멤버 관리</a></div>
+  </div>
   </div>
   <div class="team-content-wrapper">
     {% block teamContent %}
     {% endblock %}
   </div>
+</div>
 </div>
 {% endblock %}
