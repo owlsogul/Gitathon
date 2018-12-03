@@ -84,7 +84,7 @@
               <a class="nav-link active" href="/hackathon/admin/git/{{contest.id}}/0">깃활용도</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">어뷰징관리</a>
+              <a class="nav-link" href="/hackathon/admin/abuse/{{contest.id}}/0">어뷰징관리</a>
             </li>
           </ul>
         </div>
@@ -118,10 +118,10 @@
             </thead>
             <tbody>
               <tr>
-                <td><textarea class="gitEval" name="Commit" rows="1" placeholder="25"></textarea></td>
-                <td><textarea class="gitEval" name="Line" rows="1" placeholder="25"></textarea></td>
-                <td><textarea class="gitEval" name="Branch" rows="1" placeholder="25"></textarea></td>
-                <td><textarea class="gitEval" name="Team" rows="1" placeholder="25"></textarea></td>
+                <td><textarea class="gitEval" name="Commit" rows="1" placeholder={{commitRate}}></textarea></td>
+                <td><textarea class="gitEval" name="Line" rows="1" placeholder={{lineRate}}></textarea></td>
+                <td><textarea class="gitEval" name="Branch" rows="1" placeholder={{branchRate}}></textarea></td>
+                <td><textarea class="gitEval" name="Team" rows="1" placeholder={{teamRate}}></textarea></td>
               </tr>
             </tbody>
           </table>
@@ -157,7 +157,7 @@
             </tr>
           </thead>
           <tbody>
-          {% for teamId, teamName, memberNum , gitScore in teamInfo %}
+          {% for teamId, teamName, memberNum, rawData, gitScore in teamAllData %}
             <tr>
               <td> {{teamName}}  </td>
               <td> {{memberNum}} </td>
