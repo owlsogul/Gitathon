@@ -59,7 +59,7 @@ def parseGit(branch, resource):
 		os.system(command)
 
 		result = subprocess.check_output('git log --abbrev-commit --name-status', shell=True).decode()
-		newCommit = findNewCommit(result, lastCommit, resource)
+		newCommit = findNewCommit(result, resource)
 		findCommandAndCode(newCommit)
 
 		if len(newCommit) == 0:
@@ -74,7 +74,7 @@ def parseGit(branch, resource):
 
 
 
-def findNewCommit(output, lastCommit, extens):
+def findNewCommit(output, extens):
 	newCommit = []
 	oneDic = {}
 	isNotFirst = False
@@ -87,8 +87,6 @@ def findNewCommit(output, lastCommit, extens):
 		if len(words) != 0:
 
 			if words[0] == "commit":
-				if lastCommit == words[1]:
-					break
 
 				if isNotFirst:
 					oneDic['resource'] = totalRes
@@ -126,8 +124,6 @@ def findCommandAndCode(newCommit):
 		isCommand = False
 		lines = subprocess.check_output('git show ' + commit['commit'], shell=True)
 
-		print("#####################")
-		print("word start: ")
 		for line in lines.split(b"\n"):
 
 			words = line.split()
@@ -139,8 +135,6 @@ def findCommandAndCode(newCommit):
 					extension = extension.decode()
 
 				elif chr(words[0][0]) == '+' or chr(words[0][0]) == '-':
-
-					print ("extension: ", extension)
 
 					if extension == "c" or extension == "cpp" or extension == "ino":
 						if isCCommand(words, isCommand):
@@ -168,8 +162,6 @@ def findCommandAndCode(newCommit):
 		commit["command"] = command
 		code = 0
 		command = 0
-		print("word end")
-
 
 def isCCommand(words, flag):
 	if "//" in words:
