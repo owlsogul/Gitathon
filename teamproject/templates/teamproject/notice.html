@@ -1,49 +1,69 @@
 {% extends 'teamproject/base.html' %}
 
 {% block teamContent %}
-
+<br/>
+<br/>
 {% if hasHackathon == True %}
-<div class="">
-  해커톤 공지
-  <table>
-    <tr>
-      <td>제목</td>
-      <td>날짜</td>
-    </tr>
-    {% for hackNotice in hackNotices %}
-    <tr>
-      <td><a href="./hack_notice_view/{{ hackNotice.pk }}">{{ hackNotice.title }}</a></td>
-      <td>{{ hackNotice.date }}</td>
-    </tr>
-    {% endfor %}
-  </table>
-  <a href="#">더보기</a>
+<div class = "containter">
+  <div class = "row">
+    <div class = "col-8">
+    </div>
+    <div class = "col-4">
+      <table class="table table-hover text-center">
+      <thead>
+        <tr>
+          <th scope="col">제목</th>
+          <th scope="col">날짜</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for hackNotice in hackNotices %}
+          <tr>
+            <td><a href="./hack_notice_view/{{ hackNotice.pk }}">{{ hackNotice.title }}</a></td>
+            <td>{{ hackNotice.date }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      </table>
+      <a href="#">더보기</a>
+    </div>
+  </div>
 </div>
 {% endif %}
-
-<div class="">
-  팀 공지
-  <table>
-    <tr>
-      <td>제목</td>
-      <td>작성자</td>
-      <td>날짜</td>
-    </tr>
-    {% for teamNotice in teamNotices %}
-    <tr>
-      <td><a href="./team_notice_view/{{ teamNotice.pk }}">{{ teamNotice.title }}</a></td>
-      <td>{{ teamNotice.writer.pk }}</td>
-      <td>{{ teamNotice.writtenDate }}</td>
-    </tr>
-    {% endfor %}
-  </table>
-  <form class="" action="./team_notice_post" method="post">
-    {% csrf_token %}
-    <input type="text" name="title" value="" placeholder="제목을 입력해주세요"><br>
-    <textarea name="content" rows="8" cols="80"></textarea><br>
-    <input type="hidden" name="teamId" value="{{ teamId }}">
-    <input type="submit" name="" value="작성">
-  </form>
+<br/>
+<br/>
+<div class = "containter">
+  <div class = "row">
+    <div class = "col-8">
+    </div>
+    <div class = "col-4">
+      <table class="table table-hover text-center">
+      <thead>
+        <tr>
+          <th scope="col">제목</th>
+          <th scope="col">작성자</th>
+          <th scope="col">날짜</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for teamNotice in teamNotices %}
+        <tr>
+          <td><a href="./team_notice_view/{{ teamNotice.pk }}">{{ teamNotice.title }}</a></td>
+          <td>{{ teamNotice.writer.pk }}</td>
+          <td>{{ teamNotice.writtenDate }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      </table>
+      <form class="" action="./team_notice_post" method="post">
+        {% csrf_token %}
+        <input type="text" name="title" value="" placeholder="제목을 입력해주세요"><br>
+        <textarea name="content" rows="8" cols="80"></textarea><br>
+        <input type="hidden" name="teamId" value="{{ teamId }}">
+        <input type="submit" name="" value="작성">
+      </form>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

@@ -33,5 +33,5 @@ def startTasks(request):
 def catchAbusing(request):
     message = request.POST['message']
     setLookCommit()
-    lookCommit(message, repeat=30)
+    lookCommit(message, repeat=60)
     return JsonResponse({}, status=302)

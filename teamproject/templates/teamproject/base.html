@@ -1,24 +1,64 @@
 {% extends 'lobby/base.html' %}
-
 {% block content %}
+
+{% load static %}
+<link href="{% static 'css/hack.css' %}" rel="stylesheet">
+
 <div class="main">
+  <div class="container">
+  <div class="row">
   <div class="team-name-bar">
     {{ team.teamName }}
   </div>
-  <div class="menu-bar">
-    <table>
-      <tr>
-        <td><a href="./main">메인</a></td>
-        <td><a href="./notice">공지사항</a></td>
-        <td><a href="./contribution">기여도</a></td>
-        <td><a href="./chat">채팅</a></td>
-        <td><a href="./member">멤버 관리</a></td>
-      </tr>
-    </table>
+  </div>
+  <br/><br/><br/>
+  <div class="row">
+    <div class="col-3">
+    </div>
+    <div class="col-6">
+      <ul class="nav justify-content-center nav-pills nav-justified hackMenu">
+    {% if name == "main" %}
+      <li class="nav-item active">
+    {% else %}
+            <li class="nav-item">
+    {% endif %}
+                <a class="nav-link" href="/team/{{teamId}}/main">메인</a>
+            </li>
+    {% if name == "notice" %}
+            <li class="nav-item active">
+    {% else %}
+            <li class="nav-item">
+    {% endif %}
+                <a class="nav-link" href="/team/{{teamId}}/notice">공지사항</a>
+            </li>
+    {% if name == "contribution" %}
+            <li class="nav-item active">
+    {% else %}
+            <li class="nav-item">
+    {% endif %}
+                <a class="nav-link" href="/team/{{teamId}}/contribution">기여도</a>
+            </li>
+    {% if name == "chat" %}
+            <li class="nav-item active">
+    {% else %}
+            <li class="nav-item">
+    {% endif %}
+                <a class="nav-link" href="/team/{{teamId}}/chat">채팅</a>
+            </li>
+    {% if name == "chat" %}
+            <li class="nav-item active">
+    {% else %}
+            <li class="nav-item">
+    {% endif %}
+                <a class="nav-link" href="/team/{{teamId}}/main">멤버 관리</a>
+            </li>
+  </ul>
   </div>
   <div class="team-content-wrapper">
     {% block teamContent %}
     {% endblock %}
   </div>
+  </div>
+ </div>
 </div>
 {% endblock %}

@@ -14,6 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -27,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
+    '192.168.0.10',
     'localhost',
     'owlsogul.iptime.org',
     'gitathon.ddns.net'
@@ -51,9 +53,9 @@ INSTALLED_APPS = [
     'teamproject',
     'hackathon',
     'accounts',
-    'pyModule',
     'git_parser',
-    'background_task',
+    'channels',
+    'chat',
 ]
 
 
@@ -85,6 +87,17 @@ TEMPLATES = [
         },
     },
 ]
+
+# Channels
+ASGI_APPLICATION = 'gitathon.routing.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 WSGI_APPLICATION = 'gitathon.wsgi.application'
 
@@ -141,3 +154,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/upload_files/'
 MEDIA_ROOT = os.path.join(BASE_DIR, './hackathon/static')
+
+TEMPLATE_DIRS = (
+    os.path.join(SETTINGS_PATH, 'templates'),
+)

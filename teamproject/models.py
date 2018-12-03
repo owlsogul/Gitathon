@@ -29,3 +29,19 @@ class TeamChat(models.Model):
     sender = models.ForeignKey('accounts.Member', on_delete=models.SET_NULL, null=True)
     sendedDate = models.DateTimeField('data sended', default=timezone.now())
     chatMsg = models.TextField()
+
+class TeamMergeRequest(models.Model):
+    teamId = models.ForeignKey('teamproject.Team', on_delete=models.CASCADE)
+    fromBranch = models.CharField(max_length=100)
+    toBranch = models.CharField(max_length=100)
+
+class TeamVote(models.Model):
+    requestId = models.ForeignKey('teamproject.TeamMergeRequest', on_delete=models.CASCADE)
+    memberId = models.ForeignKey('accounts.Member', on_delete=models.CASCADE)
+    isAgree = models.BooleanField(default=False)
+
+class Commit(models.Model):
+    commitId = models.CharField(max_length=100, primary_key = True)
+    teamId = models.ForeignKey('teamproject.Team', on_delete=models.CASCADE)
+    code = models.IntegerField()
+    comment = models.IntegerField()

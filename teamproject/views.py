@@ -13,10 +13,39 @@ def main(request, teamId):
     if not 'memberId' in request.session:
         return redirect('/lobby')
     else:
+
+        memberId = request.session['memberId']
+        team = Team.objects.get(pk=teamId)
+        teamMembers = Participate.objects.filter(teamId = team)
+
+        # merge request part
+        mergeResponse = []
+        teamMergeRequests = TeamMergeRequest.objects.filter(teamId = team)
+        for teamMergeRequest in teamMergeRequests:
+            mergeData = {}
+            mergeData['requestId'] = teamMergeRequest.pk
+            mergeData['fromBranch'] = teamMergeRequest.fromBranch
+            mergeData['toBranch'] = teamMergeRequest.toBranch
+            mergeData['agree'] = 0
+            mergeData['disagree'] = 0
+            mergeData['canMerge'] = False
+            teamVotes = TeamVote.objects.filter(requestId = teamMergeRequest)
+            for teamVote in teamVotes:
+                if teamVote.isAgree == True:
+                    mergeData['agree'] += 1
+                else:
+                    mergeData['disagree'] += 1
+            if mergeData['agree'] >= len(teamMembers)/2:
+                mergeData['canMerge'] = True
+            mergeResponse.append(mergeData)
+
+
         return render(request, 'teamproject/main.html', {
             'memberId':request.session['memberId'],
             'teamId':teamId,
             'team':Team.objects.get(pk=teamId),
+            'mergeData':mergeResponse,
+            'name': 'main',
         })
 
 def notice(request, teamId):
@@ -44,6 +73,7 @@ def notice(request, teamId):
             'hasHackathon':hasHackathon,
             'teamNotices':teamNotices,
             'hackNotices':hackNotices,
+            'name': 'notice',
         })
 
 def contribution(request, teamId):
@@ -105,6 +135,7 @@ def contribution(request, teamId):
             'resource':teamContribution.resource,
             'contributions':contributions.values(),
             'test': contributions,
+            'name': "contribution",
         })
 
 def contribution_save(request, teamId):
@@ -141,6 +172,7 @@ def chat(request, teamId):
             'teamId':teamId,
             'team':team,
             'chatMsgs':chatMsgs,
+            'name': 'chat',
         })
 
 def member(request, teamId):
@@ -151,6 +183,7 @@ def member(request, teamId):
             'memberId':request.session['memberId'],
             'teamId':teamId,
             'team':Team.objects.get(pk=teamId),
+            'name': 'member',
         })
 
 # TODO: create view에서 해커톤 아이디랑 이름 받아와서 해커톤 가능하게 할 수 있겠다.
@@ -252,3 +285,76 @@ def hack_notice_view(request, teamId, noticeId):
         'noticeType':noticeType,
         'notice':notice,
     })
+<<<<<<< HEAD
+=======
+
+def merge_request(request, teamId):
+
+    # exception
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+
+    memberId = request.session['memberId']
+    fromBranch = request.POST['fromBranch']
+    toBranch = request.POST['toBranch']
+    print(fromBranch)
+    print(toBranch)
+
+    team = Team.objects.get(pk=teamId)
+    teamMergeRequest = TeamMergeRequest.objects.create(teamId = team, fromBranch = fromBranch, toBranch = toBranch)
+    teamMergeRequest.save()
+    return redirect('./main')
+
+def vote_agree(request, teamId):
+
+    # exception
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+
+    memberId = request.session['memberId']
+    requestId = request.POST['requestId']
+
+    member = Member.objects.get(memberId=memberId)
+    teamMergeRequest = TeamMergeRequest.objects.get(pk=requestId)
+    teamVote = TeamVote.objects.filter(requestId = teamMergeRequest, memberId=member)
+    if len(teamVote) == 0:
+        teamVote = TeamVote.objects.create(requestId = teamMergeRequest, memberId = member)
+        teamVote.save()
+    else:
+        teamVote[0].isAgree = True
+        teamVote[0].save()
+    return redirect('./main')
+
+def vote_disagree(request, teamId):
+
+    # exception
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+
+    memberId = request.session['memberId']
+    requestId = request.POST['requestId']
+
+    member = Member.objects.get(memberId=memberId)
+    teamMergeRequest = TeamMergeRequest.objects.get(pk=requestId)
+    teamVote = TeamVote.objects.filter(requestId = teamMergeRequest, memberId=member)
+    if len(teamVote) == 0:
+        teamVote = TeamVote.objects.create(requestId = teamMergeRequest, memberId = member)
+        teamVote.save()
+    else:
+        teamVote[0].isAgree = False
+        teamVote[0].save()
+    return redirect('./main')
+
+def merge(request, teamId):
+
+    # exception
+    if not 'memberId' in request.session:
+        return redirect('/lobby')
+
+    memberId = request.session['memberId']
+    requestId = request.POST['requestId']
+
+    teamMergeRequest = TeamMergeRequest.objects.get(pk=requestId)
+    teamMergeRequest.delete()
+    return redirect('./main')
+>>>>>>> hack_front
