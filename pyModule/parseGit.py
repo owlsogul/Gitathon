@@ -125,8 +125,13 @@ def findCommandAndCode(newCommit):
 		command = 0
 
 
-def showAllRemoteBranch(path):
-        os.chdir(path)
+def showAllRemoteBranch():
+    if len(sys.argv) != 2 or :
+        print ("Wrong arugment!!")
+        print ("Must input 'python(3) parseGit path'")
+        return 0
+
+    os.chdir(sys.argv[1])
 	remoteBranch = []
 
 	try:
@@ -215,8 +220,27 @@ def getCurrentBranch():
 
 
 def countAllRemoteBranch(hackName, teamName):
-	rm = showAllRemoteBranch(hackName, teamName)
-	return len(rm)
+    changeDir(hackName, teamName)
+	remoteBranch = []
+
+	try:
+		result = subprocess.check_output('git branch -r -a', shell=True).decode()
+		result.encode()
+
+		for line in result.split("\n"):
+			words = line.replace("->", "/").replace(" ", "").split("/")
+
+			if len(words) == 0:
+				continue
+
+			if words[0] == "remotes":
+				remoteBranch.append(words[2])
+
+	except subprocess.CalledProcessError as e:
+		print ("Error //  ", e.output)
+		os.chdir(old_path)
+
+	return len(remoteBranch)
 
 def isCCommand(words, flag):
 	if "//" in words:
