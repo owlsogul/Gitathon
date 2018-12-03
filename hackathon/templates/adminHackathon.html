@@ -108,7 +108,7 @@
       <div class = "row">
         <div class = "col-2">
         </div>
-        <div class = "col-7">
+        <div class = "col-8">
           <div class="btn-group">
           <button type="button" class="btn btn-waring teamDrop">{{team.teamName}}</button>
           <button type="button" class="btn btn-waring dropdown-toggle teamDrop" data-toggle="dropdown" aria-expanded="false">
@@ -123,16 +123,23 @@
         </div>
         </div>
         <div class = "col-1">
-          {% if random %}
-            <button type="submit" name = "randomTeam" value = "RANDOM" class="btn btn-outline-warning">랜덤매칭</a></button>
-            <button type="submit" name = "resetTeam" value = "RESET" class="btn btn-outline-warning">초기화</a></button>
-          {% else %}
-          {% endif %}
-        </div>
-        <div class = "col-2">
             <button type="submit" class="btn btn-outline-warning">추가</button>
         </div>
       </div>
+      <br/>
+      <div class = "row">
+        <div class = "col-2">
+        </div>
+        <div class = "col-7">
+        </div>
+        <div class = "col-3">
+          {% if random %}
+            <button type="submit" name = "randomTeam" value = "RANDOM" class="btn btn-outline-warning">랜덤매칭</a></button>
+            <button type="submit" name = "resetTeam" value = "RESET" class="btn btn-outline-warning">원점</a></button>
+          {% else %}
+          {% endif %}
+        </div>
+      </row>
     </div>
     <br/>
     <br/>
