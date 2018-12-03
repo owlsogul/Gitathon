@@ -64,6 +64,7 @@ def applyHackathon(request, HackathonInformation_id):
     message = ''
     todayDate = datetime.today().date
     todayTime = datetime.today().time
+    memberId = request.session['memberId']
 
     # 신청 버튼 클릭
     if request.method == 'POST':
@@ -92,7 +93,8 @@ def applyHackathon(request, HackathonInformation_id):
         else :
             message = '신청 인원을 초과하였습니다.'
 
-    return render(request, 'listHackathon.html', {'contestList' : contestList, 'q' : q, 'message' : message, 'todayDate' : todayDate, 'todayTime' : todayTime})
+    return render(request, 'listHackathon.html', {'contestList' : contestList, 'q' : q, 'message' : message, 'todayDate' : todayDate,
+    'todayTime' : todayTime, 'memberId' : memberId})
 
 # 해커톤 목록 페이지에서 해커톤 제목을 눌렀을 때
 def mainpageHackathon(request, HackathonInformation_id):
@@ -730,6 +732,7 @@ def abuseHackathon(request, HackathonInformation_id, Team_id = 0):
     todayTime = datetime.today().time
     selectedTeamId = 0
     message = ''
+    memberId = request.session['memberId']
 
     # 해커톤 참여 팀 리스트
     teamList = Team.objects.filter(participate__hackId = contest).distinct()
@@ -798,4 +801,4 @@ def abuseHackathon(request, HackathonInformation_id, Team_id = 0):
 
     return render(request, 'abuseHackathon.html',
     {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'message':message,
-    'abuseMessage' : abuseMessage, 'selectedTeamId' : selectedTeamId, 'teamAbusing':teamAbusing, 'commitInfo': commitInfo})
+    'abuseMessage' : abuseMessage, 'selectedTeamId' : selectedTeamId, 'teamAbusing':teamAbusing, 'commitInfo': commitInfo, 'memberId' : memberId})
