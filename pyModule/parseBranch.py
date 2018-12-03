@@ -2,37 +2,6 @@ import subprocess
 import os
 import sys
 
-if __name__ == "__main__":
-
-    if isNotVaildArguments():
-        sys.exit(1)
-
-    resouce = []
-    path = sys.argv[1]
-    old_path = changeDirAndGetOldPath(path)
-    remote_branch = getAllRemoteBranch()
-    result = {}
-    branchData = {}
-
-    if isNotVaildRemoteBranchs(remote_branch):
-        sys.exit(1)
-
-    result['branchList'] = remote_branch
-
-    if isResource():
-        resource = makeResourceList()
-
-    for branch in remote_branch:
-        branchData[branch] = parseGit(branch, resource)
-
-    result['branchData'] = branchData
-
-    print(result)
-
-
-
-
-
 def isNotVaildArguments():
     if len(sys.argv) < 2:
         return True
@@ -236,3 +205,31 @@ def isPyCommand(words):
 		return True
 
 	return False
+
+
+if __name__ == "__main__":
+
+    if isNotVaildArguments():
+        sys.exit(1)
+
+    resouce = []
+    path = sys.argv[1]
+    old_path = changeDirAndGetOldPath(path)
+    remote_branch = getAllRemoteBranch()
+    result = {}
+    branchData = {}
+
+    if isNotVaildRemoteBranchs(remote_branch):
+        sys.exit(1)
+
+    result['branchList'] = remote_branch
+
+    if isResource():
+        resource = makeResourceList()
+
+    for branch in remote_branch:
+        branchData[branch] = parseGit(branch, resource)
+
+    result['branchData'] = branchData
+
+    print(result)
