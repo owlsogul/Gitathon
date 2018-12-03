@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'git_parser',
     'channels',
     'chat',
+    'background_task',
 ]
 
 

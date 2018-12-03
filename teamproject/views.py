@@ -285,8 +285,6 @@ def hack_notice_view(request, teamId, noticeId):
         'noticeType':noticeType,
         'notice':notice,
     })
-<<<<<<< HEAD
-=======
 
 def merge_request(request, teamId):
 
@@ -357,4 +355,3 @@ def merge(request, teamId):
     teamMergeRequest = TeamMergeRequest.objects.get(pk=requestId)
     teamMergeRequest.delete()
     return redirect('./main')
->>>>>>> hack_front

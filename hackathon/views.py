@@ -5,7 +5,6 @@ from hackathon.models import *
 from django.contrib import messages
 from accounts.models import *
 from teamproject.models import *
-from git_parser.models import *
 from django.db.models import Count
 from hackathon.viewHackFunction import *
 import random

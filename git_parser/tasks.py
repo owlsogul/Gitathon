@@ -3,7 +3,6 @@ from logging import getLogger
 from teamproject.models import *
 from hackathon.models import *
 from accounts.models import *
-from git_parser.models import *
 from pyModule.abuse import *
 from collections import Counter
 
