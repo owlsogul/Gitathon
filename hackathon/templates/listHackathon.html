@@ -1,4 +1,6 @@
+{% extends 'lobby/base.html' %}
 <!DOCTYPE html>
+{% block content %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -9,21 +11,30 @@
     alert('{{ message }}');
     {% endif %}
     </script>
+    {% load static %}
+    <link href="{% static 'lobby/css/blog-home.css' %}" rel="stylesheet">
+    <title>{% block customTitle %}{% endblock %}</title>
+    {% block customStyle %}{% endblock %}
   </head>
   <body>
+    <br/>
+    <br/>
+    <br/>
     <div class = "container">
     <div class ="row justify-content-between">
-      <div class = "col-md-8">
-      <h3><a href = "/hackathon/list/">해커톤 대회 목록</a></h3>
+      <div class = "col-9">
+        <div class="alert alert-light" role="alert">
+          <h3><a href="/hackathon/list/" class="alert-link">해커톤 대회 목록</a></h3>
+        </div>
       </div>
-      <div class = "col-md-4">
+      <div class = "col-3">
         <form method="GET" class="get-form">
           <input type="text" name="q" value="{{q}}">
-          <button type="submit" class="btn btn-primary">검색</button>
+          <button type="submit" class="btn btn-secondary">검색</button>
         </form>
       </div>
     </div>
-    <br>
+    <br/>
     <div class = "row">
       <table class="table table-hover">
       <thead>
@@ -39,16 +50,16 @@
       {% for HackathonInformation in contestList %}
         <form method = "POST" action="/hackathon/list/{{HackathonInformation.id}}/">
         <tr>
-          <th scope="row"><a href="/hackathon/page/main/{{HackathonInformation.id}}">{{HackathonInformation.title}}</a></th>
+          <th scope="row"><a class = "text-dark" href="/hackathon/page/main/{{HackathonInformation.id}}">{{HackathonInformation.title}}</a></th>
           <td>{{HackathonInformation.applyNum}} / {{HackathonInformation.peopleNum}}</td>
           <td>{{HackathonInformation.contestDate_start}} {{HackathonInformation.contestTime_start}} ~ {{HackathonInformation.contestDate_end}} {{HackathonInformation.contestTime_end}}</td>
           <td>{{HackathonInformation.applyDate_end}} {{HackathonInformation.applyTime_end}} </td>
           {% if HackathonInformation.applyDate_end >= todayDate %}
             {% if HackathonInformation.applyDate_end != todayDate %}
-            <td><button type="submit" name="choice" value = {{HackathonInformation.id}} class="btn btn-primary">신청</button></td>
+            <td><button type="submit" name="choice" value = {{HackathonInformation.id}} class="btn btn-outline-secondary">신청</button></td>
             {% else %}
               {% if HackathonInformation.applyTime_end >= todayTime %}
-              <td><button type="submit" name="choice" value = {{HackathonInformation.id}} class="btn btn-primary">신청</button></td>
+              <td><button type="submit" name="choice" value = {{HackathonInformation.id}} class="btn btn-outline-secondary">신청</button></td>
               {% else %}
               <td>마감</td>
               {% endif %}
@@ -69,3 +80,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </body>
 </html>
+{% endblock%}
