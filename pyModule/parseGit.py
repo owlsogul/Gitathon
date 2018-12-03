@@ -12,7 +12,6 @@ def parseGit(hackName, teamName, lastCommit, resource):
 		result = subprocess.check_output('git log --abbrev-commit --name-status --all', shell=True).decode()
 		newCommit = findNewCommit(result, lastCommit, resource)
 		findCommandAndCode(newCommit)
-		print("command finish")
 		if len(newCommit) == 0:
 			print("Parse Fail!")
 			os.chdir(old_path)
@@ -83,8 +82,6 @@ def findCommandAndCode(newCommit):
 		isCommand = False
 		lines = subprocess.check_output('git show ' + commit['commit'], shell=True)
 
-		print("#####################")
-		print("word start: ")
 		for line in lines.split(b"\n"):
 
 			words = line.split()
@@ -97,7 +94,6 @@ def findCommandAndCode(newCommit):
 
 				elif chr(words[0][0]) == '+' or chr(words[0][0]) == '-':
 
-					print ("extension: ", extension)
 
 					if extension == "c" or extension == "cpp" or extension == "ino":
 						if isCCommand(words, isCommand):
@@ -125,8 +121,6 @@ def findCommandAndCode(newCommit):
 		commit["command"] = command
 		code = 0
 		command = 0
-		print("word end")
-
 
 def isCCommand(words, flag):
 	if "//" in words:
@@ -155,7 +149,7 @@ def isJavaCommand(words, flag):
 		flag = False
 		return True
 	else:
-		return False
+		return Falsde
 
 def isPyCommand(words):
 	if words[1][0:1] == "#":
