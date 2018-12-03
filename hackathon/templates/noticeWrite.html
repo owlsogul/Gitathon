@@ -1,48 +1,51 @@
 <!DOCTYPE html>
+{% extends 'lobby/base.html' %}
+{% block content %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <title></title>
+    <title>Hackathon Main Page</title>
     <script>
     {% if message %}
     alert('{{ message }}');
     {% endif %}
     </script>
+    {% load static %}
+    <link href="{% static 'css/hack.css' %}" rel="stylesheet">
+    <title>{% block customTitle %}{% endblock %}</title>
+    {% block customStyle %}{% endblock %}
   </head>
   <body>
+    <br/>
+    <br/>
+    <br/>
     <div class = "containter">
-      <div class = "row">
-        <div class ="col">
-        header
-        <br/>
-        </div>
-      </div>
       <div class ="row">
-      <div class = "col-2">
+      <div class = "col-3">
       </div>
       <div class = "col-8">
-        <div class = "alert alert-dark" role="alert">
+        <div class="hackTitle" role="alert">
           {% if contest.contestDate_end > todayDate %}
             {% if contest.contestDate_start > todayDate %}
-              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회 시작전</span>
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a>( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회 시작전</span>
             {% elif contestDate_start == todayDate %}
               {% if contestTime_start <= todayTime %}
-              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회 중</span>
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회 중</span>
               {% else %}
-              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회 시작 전</span>
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회 시작 전</span>
               {% endif %}
             {% else %}
-              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회 중</span>
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회 중</span>
              {% endif %}
           {% elif contest.contestDate_end == todayDate %}
             {% if contest.contestTime_end < todayTime %}
-            <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회종료</span>
+            <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회종료</span>
             {% else %}
-              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회중</span>
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회중</span>
             {% endif %}
           {% else %}
-          <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회종료</span>
+          <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회종료</span>
           {% endif %}
         </div>
       </div>
@@ -51,24 +54,31 @@
       </div>
     </div>
     <br/>
+    <br/>
+    <br/>
     <div class = "containter">
       <div class = "row">
-        <div class = "col">
-          <ul class="nav justify-content-center nav-pills">
+        <div class = "col-3">
+        </div>
+        <div class = "col-6">
+          <ul class="nav justify-content-center nav-pills nav-justified hackMenu">
             <li class="nav-item">
               <a class="nav-link" href="/hackathon/page/main/{{contest.id}}">메인</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/hackathon/page/teamlist/{{contest.id}}">팀목록</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="/hackathon/page/notice/list/{{contest.id}}">공지사항</a>
+            <li class="nav-item active">
+              <a class="nav-link" href="/hackathon/page/notice/list/{{contest.id}}">공지사항</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/hackathon/admin/{{contest.id}}">관리자메뉴</a>
             </li>
           </ul>
         </div>
+        <div class = "col-2">
+        </div>
+      </div>
       </div>
       <br/>
       <br/>
@@ -105,17 +115,18 @@
           </div>
         </div>
         <br/>
+        <br/>
         <div class = "row">
           <div class = "col-9">
           </div>
           <div class = "col-2">
             {% if writeMode == 0 %}
-            <button type="submit" name="write" value="작성" class="btn btn-primary">작성</button>
+            <button type="submit" name="write" value="작성" class="btn btn-outline-secondary">작성</button>
             {% else %}
-            <button type="submit" name="write" value="수정완료" class="btn btn-primary">저장</button>
+            <button type="submit" name="write" value="수정완료" class="btn btn-outline-secondary">저장</button>
             <input type="hidden" name="hackNoticeId" value="{{ hackNoticeId }}">
             {% endif %}
-            <button type="submit" name="write" value="취소" class="btn btn-primary">취소</button>
+            <button type="submit" name="write" value="취소" class="btn btn-outline-info">취소</button>
           </div>
           <div class = "col-1">
           </div>
@@ -129,3 +140,4 @@
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </body>
 </html>
+{% endblock %}

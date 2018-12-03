@@ -1,9 +1,15 @@
 <!DOCTYPE html>
+{% extends 'lobby/base.html' %}
+{% block content %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <title>admin page hackathon</title>
+    <title>Hackathon Main Page</title>
+    {% load static %}
+    <link href="{% static 'css/hack.css' %}" rel="stylesheet">
+    <title>{% block customTitle %}{% endblock %}</title>
+    {% block customStyle %}{% endblock %}
     <script>
     {% if message %}
     alert('{{ message }}');
@@ -11,38 +17,35 @@
     </script>
   </head>
   <body>
+    <br/>
+    <br/>
+    <br/>
     <div class = "containter">
-      <div class = "row">
-        <div class ="col">
-        header
-        <br/>
-        </div>
-      </div>
       <div class ="row">
-      <div class = "col-2">
+      <div class = "col-3">
       </div>
       <div class = "col-8">
-        <div class = "alert alert-dark" role="alert">
+        <div class="hackTitle" role="alert">
           {% if contest.contestDate_end > todayDate %}
             {% if contest.contestDate_start > todayDate %}
-              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회 시작전</span>
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a>( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회 시작전</span>
             {% elif contestDate_start == todayDate %}
               {% if contestTime_start <= todayTime %}
-              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회 중</span>
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회 중</span>
               {% else %}
-              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회 시작 전</span>
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회 시작 전</span>
               {% endif %}
             {% else %}
-              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회 중</span>
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회 중</span>
              {% endif %}
           {% elif contest.contestDate_end == todayDate %}
             {% if contest.contestTime_end < todayTime %}
-            <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회종료</span>
+            <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회종료</span>
             {% else %}
-              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회중</span>
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회중</span>
             {% endif %}
           {% else %}
-          <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회종료</span>
+          <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회종료</span>
           {% endif %}
         </div>
       </div>
@@ -50,12 +53,15 @@
       </div>
       </div>
     </div>
-    </div>
+    <br/>
+    <br/>
     <br/>
     <div class = "containter">
       <div class = "row">
-        <div class = "col">
-          <ul class="nav justify-content-center nav-pills">
+        <div class = "col-3">
+        </div>
+        <div class = "col-6">
+          <ul class="nav justify-content-center nav-pills nav-justified hackMenu">
             <li class="nav-item">
               <a class="nav-link" href="/hackathon/page/main/{{contest.id}}">메인</a>
             </li>
@@ -65,18 +71,21 @@
             <li class="nav-item">
               <a class="nav-link" href="/hackathon/page/notice/list/{{contest.id}}">공지사항</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="/hackathon/admin/{{contest.id}}">관리자메뉴</a>
+            <li class="nav-item active">
+              <a class="nav-link" href="/hackathon/admin/{{contest.id}}">관리자메뉴</a>
             </li>
           </ul>
         </div>
+        <div class = "col-2">
+        </div>
       </div>
-    </div>
+      </div>
+    <br/>
     <br/>
     <div class = "containter">
       <div class = "row">
         <div class = "col">
-          <ul class="nav justify-content-center nav-pills">
+          <ul class="nav justify-content-center nav-tabs smallMenu">
             <li class="nav-item">
               <a class="nav-link active" href="/hackathon/admin/{{contest.id}}">팀정보</a>
             </li>
@@ -91,19 +100,22 @@
       </div>
     </div>
     <br/>
+    <br/>
+    <br/>
+    <br/>
     <form method="GET" class="get-form">
     <div class = "container">
       <div class = "row">
-        <div class = "col-1">
+        <div class = "col-2">
         </div>
-        <div class = "col-7">
+        <div class = "col-8">
           <div class="btn-group">
-          <button type="button" class="btn btn-danger">{{team.teamName}}</button>
-          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          <button type="button" class="btn btn-waring teamDrop">{{team.teamName}}</button>
+          <button type="button" class="btn btn-waring dropdown-toggle teamDrop" data-toggle="dropdown" aria-expanded="false">
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
           </button>
-          <ul class="dropdown-menu" role="menu">
+          <ul class="dropdown-menu team" role="menu">
             {% for Team in teamList %}
               <li><a href="/hackathon/admin/{{contest.id}}/{{Team.id}}">{{Team.teamName}}</a></li>
             {% endfor %}
@@ -111,22 +123,29 @@
         </div>
         </div>
         <div class = "col-1">
+            <button type="submit" class="btn btn-outline-warning">추가</button>
+        </div>
+      </div>
+      <br/>
+      <div class = "row">
+        <div class = "col-2">
+        </div>
+        <div class = "col-7">
+        </div>
+        <div class = "col-3">
           {% if random %}
-            <button type="submit" name = "randomTeam" value = "RANDOM" class="btn btn-primary">랜덤매칭</a></button>
-            <button type="submit" name = "resetTeam" value = "RESET" class="btn btn-primary">초기화</a></button>
+            <button type="submit" name = "randomTeam" value = "RANDOM" class="btn btn-outline-warning">랜덤매칭</a></button>
+            <button type="submit" name = "resetTeam" value = "RESET" class="btn btn-outline-warning">원점</a></button>
           {% else %}
           {% endif %}
         </div>
-        <div class = "col-2">
-            <button type="submit" class="btn btn-primary">추가</button>
-        </div>
-      </div>
+      </row>
     </div>
     <br/>
     <br/>
     <div class = "container">
       <div class = "row">
-        <div class = "col-1">
+        <div class = "col-2">
         </div>
         <div class = "col-9">
           <table class="table table-hover">
@@ -146,14 +165,16 @@
           </tbody>
           </table>
         </div>
-        <div class = "col -6">
+        <div class = "col-2">
         </div>
       </div>
     </div>
     <br/>
+    <br/>
+    <br/>
     <div class = "container">
       <div class = "row">
-        <div class = "col-1">
+        <div class = "col-2">
         </div>
         <div class = "col-9">
           <table class="table table-hover">
@@ -173,13 +194,16 @@
           </tbody>
           </table>
         </div>
-        <div class = "col -6">
+        <div class = "col-2">
         </div>
       </div>
     </div>
+    <br/>
+    <br/>
     </form>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </body>
 </html>
+{% endblock %}

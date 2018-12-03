@@ -6,6 +6,11 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <title>Hackathon Main Page</title>
+    <script>
+    {% if message %}
+    alert('{{ message }}');
+    {% endif %}
+    </script>
     {% load static %}
     <link href="{% static 'css/hack.css' %}" rel="stylesheet">
     <title>{% block customTitle %}{% endblock %}</title>

@@ -64,6 +64,7 @@ def applyHackathon(request, HackathonInformation_id):
     message = ''
     todayDate = datetime.today().date
     todayTime = datetime.today().time
+    memberId = request.session['memberId']
 
     # 신청 버튼 클릭
     if request.method == 'POST':
@@ -92,7 +93,8 @@ def applyHackathon(request, HackathonInformation_id):
         else :
             message = '신청 인원을 초과하였습니다.'
 
-    return render(request, 'listHackathon.html', {'contestList' : contestList, 'q' : q, 'message' : message, 'todayDate' : todayDate, 'todayTime' : todayTime})
+    return render(request, 'listHackathon.html', {'contestList' : contestList, 'q' : q, 'message' : message, 'todayDate' : todayDate,
+    'todayTime' : todayTime, 'memberId' : memberId})
 
 # 해커톤 목록 페이지에서 해커톤 제목을 눌렀을 때
 def mainpageHackathon(request, HackathonInformation_id):
@@ -216,6 +218,7 @@ def adminHackathon(request, HackathonInformation_id, Team_id=0):
     # 해커톤 참여 팀과 멤버 쿼리셋
     teamList = Team.objects.filter(participate__hackId = contest).distinct()
     message = ''
+    memberId = request.session['memberId']
 
     # 해커톤 관리자만이 접근 가능
     if contest.hackathonHost == request.session['memberId'] :
@@ -323,7 +326,8 @@ def adminHackathon(request, HackathonInformation_id, Team_id=0):
         else :
             randomMessage = 'True'
 
-        return render(request, 'adminHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime': todayTime, 'teamList' : teamList, 'team' : team, 'message':message, 'memberList':memberList, 'nomemberList':nomemberList, 'random':randomMessage})
+        return render(request, 'adminHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime': todayTime, 'teamList' : teamList,
+        'team' : team, 'message':message, 'memberList':memberList, 'nomemberList':nomemberList, 'random':randomMessage, 'memberId' : memberId})
 
     # 해커톤 관리자가 아니라면
     else:
@@ -490,6 +494,7 @@ def noticeViewHack(request, HackathonInformation_id, HackNotice_id):
     return render(request, 'noticeView.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'contestHost':contestHost,
     'hackNotice' : hackNotice, 'message' : message, 'memberId' : memberId})
 
+
 # 관리자메뉴 - git 활용도
 def gitHackathon(request, HackathonInformation_id, Team_id = 0):
 
@@ -500,6 +505,7 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
     selectedTeamId = 0
     message = ''
     gitScore = 0.0
+    memberId = request.session['memberId']
 
     # 해커톤 참여 팀 리스트
     teamList = Team.objects.filter(participate__hackId = contest).distinct()
@@ -651,13 +657,16 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
 
     if request.method == 'POST':
 
-        btnMode = request.POST['gitBtn']
+        postList = request.POST
+        teamIdList = []
 
         # 선택된 팀의 깃 활용 점수 보여주기
-        if btnMode == '보기' :
+        if postList.get('teamId') is not None :
 
             try:
+                #teamIdList = request.POST.getlist['teamId']
                 teamId = request.POST['teamId']
+
                 redirect_to = reverse('gitHackathon', kwargs={'HackathonInformation_id':contest.id, 'Team_id' : teamId})
                 return HttpResponseRedirect(redirect_to)
 
@@ -667,7 +676,7 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
                 return HttpResponseRedirect(redirect_to)
 
         # 가중치 비율 정해서 평가하기 눌렀을 때
-        elif btnMode == '평가' :
+        elif postList.get('gitBtn') is not None :
 
             try:
 
@@ -711,7 +720,7 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
     return render(request, 'gitHackathon.html',
     {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'message':message,
     'teamAllData' : teamAllData, 'selectedTeamId' : selectedTeamId, 'gitScore' : gitScore, 'commitRate' : commitRate,
-     'lineRate' : lineRate, 'branchRate' : branchRate ,'teamRate' : teamRate, })
+     'lineRate' : lineRate, 'branchRate' : branchRate ,'teamRate' : teamRate, 'memberId' : memberId })
 
 
 # 관리자메뉴 - abusing 검사
@@ -723,6 +732,7 @@ def abuseHackathon(request, HackathonInformation_id, Team_id = 0):
     todayTime = datetime.today().time
     selectedTeamId = 0
     message = ''
+    memberId = request.session['memberId']
 
     # 해커톤 참여 팀 리스트
     teamList = Team.objects.filter(participate__hackId = contest).distinct()
@@ -791,4 +801,4 @@ def abuseHackathon(request, HackathonInformation_id, Team_id = 0):
 
     return render(request, 'abuseHackathon.html',
     {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'message':message,
-    'abuseMessage' : abuseMessage, 'selectedTeamId' : selectedTeamId, 'teamAbusing':teamAbusing, 'commitInfo': commitInfo})
+    'abuseMessage' : abuseMessage, 'selectedTeamId' : selectedTeamId, 'teamAbusing':teamAbusing, 'commitInfo': commitInfo, 'memberId' : memberId})

@@ -11,6 +11,8 @@ db.sqlite3
 media
 */migrations/00*
 */migrations/__pycache__
+*/static/img/*
+*/static/uploads/*
 *.swo
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
