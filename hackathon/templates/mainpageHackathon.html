@@ -10,6 +10,11 @@
     <link href="{% static 'css/hack.css' %}" rel="stylesheet">
     <title>{% block customTitle %}{% endblock %}</title>
     {% block customStyle %}{% endblock %}
+    <script>
+    {% if message %}
+    alert('{{ message }}');
+    {% endif %}
+    </script>
   </head>
   <body>
     <br/>
