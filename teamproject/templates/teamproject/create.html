@@ -4,23 +4,44 @@
 <div class="side-bar">
 </div>
 <div class="main">
+<br/><br/><br/>
+<div class="container">
   <div class="input-box">
     <form class="" action="/team/process_create" method="POST">
       {% csrf_token %}
-      <table>
-        <tr>
-          <td>팀 프로젝트 명</td>
+      <div class="row">
+      <div class="col-2">
+      </div>
+      <div class = "col-2">
+          팀 프로젝트 명
+    </div>
+    <div class ="col-1">
           <td><input type="text" name="teamName" placeholder="팀 이름을 입력해주세요"></td>
-        </tr>
-        <tr>
-          <td>소속 해커톤</td>
+        </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+            </div>
+            <div class = "col-2">
+          소속 해커톤
+          </div>
+          <div class="col-1">
           <td><input type="text" name="hackName" placeholder="소속된 해커톤이 없습니다" value= "{{ hackTitle }}"readonly></td>
-        </tr>
-      </table>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-5">
+        </div>
+        <div class = "col-2">
       <input type="hidden" name="hackId" value="{{ hackId }}">
       <input type="submit" name="" value="개설">
       <input type="button" name="" value="취소">
+      </div>
     </form>
+    </div>
+    </div>
   </div>
+</div>
 </div>
 {% endblock %}

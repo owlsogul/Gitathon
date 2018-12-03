@@ -1,0 +1,18 @@
+/* hackathon 제목이랑 메뉴바 */
+.hackTitle a {
+  color: #343A40;
+  font-size: 18pt;
+  margin-right: 5px;
+}
+
+.hackMenu .nav-item a:hover {
+    background-color: #FFC107;
+}
+
+.hackMenu .nav-item a {
+    color: #343A40;
+}
+
+.hackMenu > .active > a, .hackMenu > .active > a:hover {
+    background-color: #FFC107;
+}
