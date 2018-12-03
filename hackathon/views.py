@@ -30,12 +30,6 @@ def holdHackathon(request):
             post.hackathonHost = request.session['memberId']
             post.save()
 
-            # 해커톤 참여자도 해커톤에 참여한 것으로 간주
-            userInformation = Member.objects.get(pk=request.session['memberId'])
-            # 해커톤 ID와 참여자 ID 저장 (참여자 ID는 추후 추가)
-            temp_participate = Participate(memberId = userInformation, hackId = HackathonInformation.objects.filter().latest('id'), teamId = None)
-            temp_participate.save()
-
             return redirect('../../lobby/main')
 
     else:
@@ -59,17 +53,8 @@ def listHackathon(request):
         if q:
             contestList = HackathonInformation.objects.filter(title__contains=q)
 
-<<<<<<< HEAD
     return render(request, 'listHackathon.html', {'contestList' : contestList, 'q' : q,
     'todayDate' : todayDate, 'todayTime' : todayTime, 'memberId' : memberId})
-=======
-    return render(request, 'listHackathon.html',
-    {'contestList' : contestList,
-    'q' : q, 'todayDate' : todayDate,
-    'todayTime' : todayTime,
-    'memberId':request.session['memberId'],
-    })
->>>>>>> 878a559d160e670c714184606f2daaae333990ef
 
 # 해커톤 목록 페이지에서 신청 버튼을 눌렀을 때
 def applyHackathon(request, HackathonInformation_id):
@@ -134,6 +119,7 @@ def teamlistHackathon(request, HackathonInformation_id):
     participateList = Participate.objects.filter(hackId = contest)
     # nomemberList = Member.objects.filter(participate__teamId__isnull=True).filter(participate__hackId = contest)
     nomemberList = Member.objects.filter(participate__teamId__isnull=True, participate__hackId = contest)
+    memberId = request.session['memberId']
 
     # 자율매칭
     if contest.selectMatching == 0:
@@ -152,7 +138,8 @@ def teamlistHackathon(request, HackathonInformation_id):
             return HttpResponseRedirect(redirect_to)
 
 
-    return render(request, 'teamlistHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime ,'teamList' : teamList , 'participateList' : participateList, 'nomemberList':nomemberList, 'random' : random})
+    return render(request, 'teamlistHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime ,'teamList' : teamList ,
+    'participateList' : participateList, 'nomemberList':nomemberList, 'random' : random, 'memberId':memberId})
 
 
 # 해커톤 팀목록 페이지 팀 참가 신청 시
@@ -172,6 +159,7 @@ def applyTeam(request, HackathonInformation_id, Team_id):
     participateList = Participate.objects.filter(hackId = contest)
     userInformation = Member.objects.get(pk=request.session['memberId'])
     nomemberList = Member.objects.filter(participate__teamId__isnull=True, participate__hackId = contest)
+    memberId = request.session['memberId']
 
     # 신청 버튼 클릭
     if request.method == 'POST':
@@ -215,7 +203,8 @@ def applyTeam(request, HackathonInformation_id, Team_id):
             return HttpResponseRedirect(redirect_to)
 
 
-    return render(request, 'teamlistHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime ,'teamList' : teamList , 'participateList' : participateList, 'message' : message, 'nomemberList':nomemberList})
+    return render(request, 'teamlistHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime ,'teamList' : teamList ,
+    'participateList' : participateList, 'message' : message, 'nomemberList':nomemberList, 'memberId' : memberId})
 
 
 def adminHackathon(request, HackathonInformation_id, Team_id=0):
