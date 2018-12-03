@@ -125,8 +125,8 @@ def findCommandAndCode(newCommit):
 		command = 0
 
 
-def showAllRemoteBranch(hackName, teamName):
-	changeDir(hackName, teamName)
+def showAllRemoteBranch(path):
+        os.chdir(path)
 	remoteBranch = []
 
 	try:
@@ -146,7 +146,7 @@ def showAllRemoteBranch(hackName, teamName):
 		print ("Error //  ", e.output)
 		os.chdir(old_path)
 
-	return remoteBranch
+	print (remoteBranch)
 
 def countMergedBranch(hackName, teamName):
 	changeDir(hackName, teamName)
