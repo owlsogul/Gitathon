@@ -159,7 +159,7 @@ def findCommandAndCode(newCommit):
 
 
 		commit["code"] = code
-		commit["command"] = command
+		commit["comment"] = command
 		code = 0
 		command = 0
 
