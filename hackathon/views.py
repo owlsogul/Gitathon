@@ -13,7 +13,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from pyModule.abuse import *
 from pyModule.gitBranch import *
 import numpy
-
+from django.views.generic import TemplateView
+from pygal.style import DarkStyle
+from .charts import gitScoreChart
 # Create your views here.
 
 # 대회방 개설
@@ -646,6 +648,8 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
     stdTotalData[2] = numpy.std(TotalBranchData)
     stdTotalData[3] = numpy.std(TotalTeamData)
 
+    cht_data = GitScore.objects.all()
+    cht_data.delete()
 
     # git score 계산
     for teamData in teamAllData :
@@ -653,7 +657,11 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
         gitScore = gitEval(commitRate,lineRate,branchRate,teamRate, avgTotalData, stdTotalData, teamData[3])
         teamData[4] = gitScore
 
+        # GitScore 저장
+        GitScore(name=teamData[0],amt=gitScore).save()
 
+
+    cht_gitScore = IndexView().get_context_data()
 
     if request.method == 'POST':
 
@@ -664,9 +672,7 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
         if postList.get('teamId') is not None :
 
             try:
-                #teamIdList = request.POST.getlist['teamId']
                 teamId = request.POST['teamId']
-
                 redirect_to = reverse('gitHackathon', kwargs={'HackathonInformation_id':contest.id, 'Team_id' : teamId})
                 return HttpResponseRedirect(redirect_to)
 
@@ -720,7 +726,30 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
     return render(request, 'gitHackathon.html',
     {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime, 'message':message,
     'teamAllData' : teamAllData, 'selectedTeamId' : selectedTeamId, 'gitScore' : gitScore, 'commitRate' : commitRate,
-     'lineRate' : lineRate, 'branchRate' : branchRate ,'teamRate' : teamRate, 'memberId' : memberId })
+     'lineRate' : lineRate, 'branchRate' : branchRate ,'teamRate' : teamRate, 'memberId' : memberId, 'cht_gitScore' : cht_gitScore})
+
+
+class IndexView(TemplateView):
+    template_name = 'gitHackathon.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+
+        # Instantiate our chart. We'll keep the size/style/etc.
+        # config here in the view instead of `charts.py`.
+        cht_gitScore = gitScoreChart(
+            height=600,
+            width=800,
+            explicit_size=True,
+            style=DarkStyle
+        )
+
+        print("hi")
+
+        # Call the `.generate()` method on our chart object
+        # and pass it to template context.
+        context['cht_gitScore'] = cht_gitScore.generate()
+        return context
 
 
 # 관리자메뉴 - abusing 검사

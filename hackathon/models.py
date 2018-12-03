@@ -2,6 +2,9 @@ from django.db import models
 from datetime import *
 from time import strftime
 from django.utils import timezone
+import pygal
+from pygal.style import DarkStyle
+from django.views.generic import TemplateView
 
 # Create your models here.
 
@@ -43,3 +46,12 @@ class HackUsability(models.Model):
     lineRate = models.FloatField(default=25.0)
     branchRate = models.FloatField(default=25.0)
     teamRate = models.FloatField(default=25.0)
+
+
+# 팀별 gitScore점수
+class GitScore(models.Model):
+    name = models.CharField(max_length=255)
+    amt = models.IntegerField()
+
+    def __str__(self):
+        return self.name
