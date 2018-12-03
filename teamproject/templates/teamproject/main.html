@@ -8,4 +8,62 @@
     <td>commit name</td>
   </tr>
 </table>
+
+<div class="">
+머지 투표 만들기
+  <form class="" action="./merge_request" method="post">
+  {% csrf_token %}
+    <input type="text" name="fromBranch" value="" placeholder="from Branch">
+    <input type="text" name="toBranch" value="" placeholder="to Branch">
+    <input type="submit" name="" value="Merge Request!">
+  </form>
+</div>
+
+<div class="">
+현재 진행중인 머지 투표 목록
+<table>
+  <tr>
+    <td>Merge Request Id</td>
+    <td>from Branch</td>
+    <td>to Branch</td>
+    <td>찬성</td>
+    <td>반대</td>
+    <td>Merge</td>
+  </tr>
+  {% for data in mergeData %}
+    <tr>
+      <td>{{ data.requestId }}</td>
+      <td>{{ data.fromBranch }}</td>
+      <td>{{ data.toBranch }}</td>
+      <td>
+        {{ data.agree }}
+        <form class="" action="./vote_agree" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="requestId" value="{{ data.requestId }}">
+          <input type="submit" name="" value="agree">
+        </form>
+      </td>
+      <td>
+        {{ data.disagree }}
+        <form class="" action="./vote_disagree" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="requestId" value="{{ data.requestId }}">
+          <input type="submit" name="" value="disagree">
+        </form>
+      </td>
+      <td>
+      {% if data.canMerge == True %}
+      <form class="" action="./merge" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="requestId" value="{{ data.requestId }}">
+        <input type="submit" name="" value="Merge">
+      </form>
+      {% else %}
+      Merge 불가
+      {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+</div>
 {% endblock %}

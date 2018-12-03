@@ -1,0 +1,6 @@
+/* hackathon 제목이랑 메뉴바 */
+.team-name-bar a {
+  color: #343A40;
+  font-size: 18pt;
+  margin-right: 5px;
+}

@@ -18,3 +18,23 @@ class TeamNotice(models.Model):
     content = models.TextField()
     writer = models.ForeignKey('accounts.Member', on_delete=models.CASCADE)
     writtenDate = models.DateTimeField('date registered', default=timezone.now())
+
+    def post(self):
+        self.writtenDate = timezone.now()
+        self.save()
+
+class TeamChat(models.Model):
+    teamId = models.ForeignKey('teamproject.Team', on_delete=models.CASCADE)
+    sender = models.ForeignKey('accounts.Member', on_delete=models.SET_NULL, null=True)
+    sendedDate = models.DateTimeField('data sended', default=timezone.now())
+    chatMsg = models.TextField()
+
+class TeamMergeRequest(models.Model):
+    teamId = models.ForeignKey('teamproject.Team', on_delete=models.CASCADE)
+    fromBranch = models.CharField(max_length=100)
+    toBranch = models.CharField(max_length=100)
+
+class TeamVote(models.Model):
+    requestId = models.ForeignKey('teamproject.TeamMergeRequest', on_delete=models.CASCADE)
+    memberId = models.ForeignKey('accounts.Member', on_delete=models.CASCADE)
+    isAgree = models.BooleanField(default=False)
