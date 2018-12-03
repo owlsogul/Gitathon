@@ -23,7 +23,7 @@ class HackathonInformation(models.Model):
     memberNum_max = models.IntegerField()
     memberNum_min = models.IntegerField()
     selectMatching = models.IntegerField(choices = matching)
-    Images = models.ImageField(upload_to='uploads/%Y/%m/%d')
+    Images = models.ImageField(upload_to='img')
     text = models.TextField(blank=True)
     created_date = models.DateTimeField(auto_now = True)
     hackathonHost = models.CharField(max_length = 100, default = "none")

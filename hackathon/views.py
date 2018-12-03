@@ -43,6 +43,8 @@ def listHackathon(request):
     todayDate = datetime.today().date
     todayTime = datetime.today().time
 
+    memberId = request.session['memberId']
+
     # 제목 검색
 
     if request.method == 'GET':
@@ -50,7 +52,8 @@ def listHackathon(request):
         if q:
             contestList = HackathonInformation.objects.filter(title__contains=q)
 
-    return render(request, 'listHackathon.html', {'contestList' : contestList, 'q' : q, 'todayDate' : todayDate, 'todayTime' : todayTime})
+    return render(request, 'listHackathon.html', {'contestList' : contestList, 'q' : q,
+    'todayDate' : todayDate, 'todayTime' : todayTime, 'memberId' : memberId})
 
 # 해커톤 목록 페이지에서 신청 버튼을 눌렀을 때
 def applyHackathon(request, HackathonInformation_id):
@@ -97,7 +100,10 @@ def mainpageHackathon(request, HackathonInformation_id):
     todayDate = datetime.today().date
     todayTime = datetime.today().time
 
-    return render(request, 'mainpageHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime':todayTime})
+    memberId = request.session['memberId']
+
+    return render(request, 'mainpageHackathon.html', {'contest' : contest, 'todayDate' : todayDate,
+    'todayTime':todayTime, 'memberId' : memberId})
 
 # 해커톤 팀목록 페이지 눌렀을 때
 def teamlistHackathon(request, HackathonInformation_id):
@@ -553,16 +559,16 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
 
 
                 # 3. 한 팀의 master로 merge된 branch 수
-                allbranch = countAllRemoteBranch(hackId, teamId)
-                mergebranch = countMergedBranch(hackId, teamId)
+#                allbranch = countAllRemoteBranch(hackId, teamId)
+#                mergebranch = countMergedBranch(hackId, teamId)
 
-                if allbranch != 0 :
-                    branchScore = mergebranch/allbranch
-                    branchScore = float(format(branchScore), '.2f')
-                    TotalBranchData.append(branchScore)
-                else:
-                    branchScore = 0
-                    TotalBranchData.append(branchScore)
+#                if allbranch != 0 :
+#                    branchScore = mergebranch/allbranch
+#                    branchScore = float(format(branchScore), '.2f')
+#                    TotalBranchData.append(branchScore)
+#                else:
+#                    branchScore = 0
+#                    TotalBranchData.append(branchScore)
 
                 # 4. 한 팀의 팀원 기여도 점수(표준편차) -> 역수 취하고 *1000
                 if TeamContribution.objects.get(teamId=team).std_score != 0 :
@@ -591,7 +597,7 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
 
             # 한 팀의 4가지 항목에 대한 점수 Data ( 나중에 지우기 )
 #            teamRawData = [500, 1000, 10, teamScore]
-#            branchScore=50
+            branchScore=50
             # ( 실제 )
             teamRawData = [commitScore, lineScore, branchScore, teamScore]
 
