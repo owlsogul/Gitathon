@@ -16,3 +16,9 @@
 .hackMenu > .active > a, .hackMenu > .active > a:hover {
     background-color: #FFC107;
 }
+
+.teamDrop, .teamDrop:hover{
+  background-color: #FFFF;
+  color: #343A40;
+  font-size: 13pt;
+}

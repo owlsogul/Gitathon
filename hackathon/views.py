@@ -216,6 +216,7 @@ def adminHackathon(request, HackathonInformation_id, Team_id=0):
     # 해커톤 참여 팀과 멤버 쿼리셋
     teamList = Team.objects.filter(participate__hackId = contest).distinct()
     message = ''
+    memberId = request.session['memberId']
 
     # 해커톤 관리자만이 접근 가능
     if contest.hackathonHost == request.session['memberId'] :
@@ -323,7 +324,8 @@ def adminHackathon(request, HackathonInformation_id, Team_id=0):
         else :
             randomMessage = 'True'
 
-        return render(request, 'adminHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime': todayTime, 'teamList' : teamList, 'team' : team, 'message':message, 'memberList':memberList, 'nomemberList':nomemberList, 'random':randomMessage})
+        return render(request, 'adminHackathon.html', {'contest' : contest, 'todayDate' : todayDate, 'todayTime': todayTime, 'teamList' : teamList,
+        'team' : team, 'message':message, 'memberList':memberList, 'nomemberList':nomemberList, 'random':randomMessage, 'memberId' : memberId})
 
     # 해커톤 관리자가 아니라면
     else:
