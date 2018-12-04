@@ -5,7 +5,7 @@
   <br/><br/><br/>
   <div classs="row">
     <div class="col-8">
-        <table>
+        <table class="table table-hover text-center">
             <thead>
                 <th scope="col">branch</th>
                 <th scope="col">commit tree</th>
@@ -16,8 +16,8 @@
   </div>
 
   <div class="row">
-    <div class="col-3"> </div>
-    <div class="col-3">
+    <div class="col-2"> </div>
+    <div class="col-6">
   머지 투표 만들기
   <form class="" action="./merge_request" method="post">
   {% csrf_token %}
@@ -26,10 +26,10 @@
     <input type="submit" name="" value="Merge Request!">
   </form>
   </div>
-  <div class="col-3">
+  <div class="col-2">
   현재 진행중인 머지 투표 목록
   </div>
-  <div class="col-3" />
+  <div class="col-2" />
   </div>
 
   <table>
