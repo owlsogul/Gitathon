@@ -11,13 +11,16 @@
     <body>
         <div class="container">
         <div class="row">
+            <div class="col-3"> </div>
         {% load static %}
         <img src="{% static 'img/gitathonLogo.png' %}">
         </div>
         <div class="row">
+            <div class="col-3"> </div>
         <div class="welcome-msg">현재 {{ numHackathon }}개의 해커톤과 {{ numTeamproject }}개의 팀프로젝트가 진행중입니다.</div>
         </div>
         <div class="row">
+            <div class="col-3"> </div>
         <div class="login-form">
             <form class="" action="/accounts/login" method="POST">
                 {% csrf_token %}
