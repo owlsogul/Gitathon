@@ -1,6 +1,4 @@
 from django.shortcuts import render
-from django.http import JsonResponse
-
 from teamproject.models import *
 from accounts.models import *
 
