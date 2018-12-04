@@ -1,25 +1,53 @@
 {% extends 'teamproject/base.html' %}
 
 {% block teamContent %}
-<table class="ChatTable">
-<tr>
-  <td>아이디</td>
-  <td>내용</td>
-  <td>날짜</td>
-</tr>
-<tbody>
-  {% for chat in chatMsgs %}
-  <tr class="RowOfChat">
-      <td>{{ chat.sender.memberId }}</td>
-      <td>{{ chat.chatMsg }}</td>
-      <td>{{ chat.sendedDate|date:"Y-m-d H:i:s" }}</td>
-  </tr>
-  {% endfor %}
-</tbody>
-</table>
 
-<input type="text"   id="chat-message-input" name="" value="" placeholder="내용을 입력하세요">
-<input type="button" id="chat-message-submit" name="" value="전송">
+<div class = "container">
+  <div class = "row">
+    <div class = "col-3">
+    </div>
+    <div class = "col-6">
+      <table class="table table-hover text-center">
+      <thead>
+        <tr>
+          <th scope="col">아이디</th>
+          <th scope="col">내용</th>
+          <th scope="col">날짜</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for chat in chatMsgs %}
+        <tr class="RowOfChat">
+            <td>{{ chat.sender.memberId }}</td>
+            <td>{{ chat.chatMsg }}</td>
+            <td>{{ chat.sendedDate|date:"Y-m-d H:i:s" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      </table>
+    </div>
+    <div class = "col-2">
+    </div>
+  </div>
+</div>
+<br/>
+<br/>
+<br/>
+<div class = "container">
+  <div class = "row">
+    <div class = "col-4">
+    </div>
+    <div class = "col-3">
+      <input type="text" class="chat-message-input" name="" value="" placeholder="내용을 입력하세요">
+    </div>
+    <div class = "col-1">
+      <input type="button" id="chat-message-submit" name="" value="전송">
+    </div>
+    <div class = "col-2">
+    </div>
+  </div>
+</div>
+
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script type="text/javascript">
