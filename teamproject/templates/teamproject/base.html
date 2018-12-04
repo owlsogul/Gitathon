@@ -45,20 +45,21 @@
     {% endif %}
                 <a class="nav-link" href="/team/{{teamId}}/chat">채팅</a>
             </li>
-    {% if name == "chat" %}
+    {% if name == "member" %}
             <li class="nav-item active">
     {% else %}
             <li class="nav-item">
     {% endif %}
-                <a class="nav-link" href="/team/{{teamId}}/main">멤버 관리</a>
+                <a class="nav-link" href="/team/{{teamId}}/member">멤버 관리</a>
             </li>
   </ul>
   </div>
+   </div>
+  <br/><br/><br/>
   <div class="team-content-wrapper">
     {% block teamContent %}
     {% endblock %}
   </div>
   </div>
- </div>
 </div>
 {% endblock %}

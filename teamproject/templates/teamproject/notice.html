@@ -6,9 +6,10 @@
 {% if hasHackathon == True %}
 <div class = "containter">
   <div class = "row">
-    <div class = "col-8">
+    <div class = "col-3">
     </div>
-    <div class = "col-4">
+    <div class = "col-6">
+      <h5>해커톤 공지사항</h5>
       <table class="table table-hover text-center">
       <thead>
         <tr>
@@ -19,7 +20,7 @@
       <tbody>
         {% for hackNotice in hackNotices %}
           <tr>
-            <td><a href="./hack_notice_view/{{ hackNotice.pk }}">{{ hackNotice.title }}</a></td>
+            <td><a  class = "text-dark" href="./hack_notice_view/{{ hackNotice.pk }}">{{ hackNotice.title }}</a></td>
             <td>{{ hackNotice.date }}</td>
           </tr>
         {% endfor %}
@@ -34,9 +35,10 @@
 <br/>
 <div class = "containter">
   <div class = "row">
-    <div class = "col-8">
+    <div class = "col-3">
     </div>
-    <div class = "col-4">
+    <div class = "col-6">
+      <h5>팀 공지사항</h5>
       <table class="table table-hover text-center">
       <thead>
         <tr>
@@ -48,13 +50,15 @@
       <tbody>
         {% for teamNotice in teamNotices %}
         <tr>
-          <td><a href="./team_notice_view/{{ teamNotice.pk }}">{{ teamNotice.title }}</a></td>
+          <td><a class = "text-dark" href="./team_notice_view/{{ teamNotice.pk }}">{{ teamNotice.title }}</a></td>
           <td>{{ teamNotice.writer.pk }}</td>
           <td>{{ teamNotice.writtenDate }}</td>
         </tr>
         {% endfor %}
       </tbody>
       </table>
+      <br/>
+      <br/>
       <form class="" action="./team_notice_post" method="post">
         {% csrf_token %}
         <input type="text" name="title" value="" placeholder="제목을 입력해주세요"><br>
@@ -65,5 +69,7 @@
     </div>
   </div>
 </div>
+<br/>
+<br/>
 
 {% endblock %}

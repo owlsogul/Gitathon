@@ -1,21 +1,23 @@
 {% extends 'teamproject/base.html' %}
 
 {% block teamContent %}
+<br/><br/><br/>
 기여도 평가 목록
 <div class="">
 그래프 부분
 </div>
-<table>
-  <tr>
+<div class="container">
+  <div class="row">
+  <div class="col-3"></div>
     <form class="" action="./contribution_save" method="post">
       {% csrf_token %}
-      <td>이름</td>
-      <td>주석 수정 줄 수<br><input type="number" name="comment" value="{{ comment }}"></td>
-      <td>코드 수정 줄 수<br><input type="number" name="code" value="{{ code }}"></td>
-      <td>리소스 추가 수<br><input type="number" name="resource" value="{{ resource }}"></td>
-      <td>총점<br><input type="submit" name="" value="비율 저장"></td>
+      <div class="col-2">이름</div>
+      <div class="col-2">주석 수정 줄 수<br><input type="number" name="comment" value="{{ comment }}"></div>
+      <div class="col-2">코드 수정 줄 수<br><input type="number" name="code" value="{{ code }}"></div>
+      <div class="col-2">리소스 추가 수<br><input type="number" name="resource" value="{{ resource }}"></div>
+      <div class="col-2">총점<br><input type="submit" name="" value="비율 저장"></div>
     </form>
-  </tr>
+  </div>
   {% for con in contributions  %}
   <tr>
     <td>{{ con.memberId }}</td>
@@ -26,4 +28,5 @@
   </tr>
   {% endfor %}
 </table>
+</div>
 {% endblock %}
