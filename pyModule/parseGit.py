@@ -4,7 +4,7 @@ import sys
 
 def parseGit(hackName, teamName, lastCommit, resource):
 	old_path = os.getcwd()
-	path = "/home/pi/remote/" + hackName + "/" + teamName
+	path = "/home/pi/remote/" + str(hackName) + "/" + str(teamName)
 	os.chdir(path)
 
 	try:

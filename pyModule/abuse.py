@@ -42,3 +42,9 @@ def makeFileList(hackName, teamName, commitId):
 	except subprocess.CalledProcessError as e:
 		print("Error //" , e.output)
 	return fileList
+
+def changeDir(hackName, teamName):
+	old_path = os.getcwd()
+	path = "/home/pi/remote" + str(hackName) + "/" + str(teamName)
+	os.chdir(path)
+

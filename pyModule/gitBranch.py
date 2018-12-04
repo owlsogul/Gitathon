@@ -71,7 +71,7 @@ def countMergedBranch(hackName, teamName):
 
 def changeDir(hackName, teamName):
 	old_path = os.getcwd()
-	path = "/home/pi/remote/" + hackName + "/" + teamName
+	path = "/home/pi/remote/" + str(hackName) + "/" + str(teamName)
 	os.chdir(path)
 
 
