@@ -265,11 +265,15 @@ def process_create(request):
         Participate.objects.get(memberId = leader, hackId = hackathon).delete()
         participate = Participate.objects.create(memberId=leader, teamId=team, hackId=hackathon)
         participate.save()
+        old_path = os.getcwd()
         subprocess.call ('/home/pi/remote/remote.sh ' + hackId + ' ' + teamName, shell=True)
+        os.chdir(old_path)
     else:
         participate = Participate.objects.create(memberId=leader, teamId=team)
         participate.save()
+        old_path = os.getcwd()
         subprocess.call ('/home/pi/remote/remote.sh ' + leaderId + ' ' + teamName, shell=True)
+        os.chdir(old_path)
     return redirect('/lobby')
 
 def team_notice_post(request, teamId):
