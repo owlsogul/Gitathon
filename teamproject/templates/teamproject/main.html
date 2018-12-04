@@ -30,25 +30,28 @@
     <input type="submit" name="" value="Merge Request!">
   </form>
   </div>
-  <div class="col-2">
+  <div class="col-3">
   현재 진행중인 머지 투표 목록
   </div>
-  <div class="col-2">
+  <div class="col-1">
   </div>
   </div>
 
   <br/><br/>
   <div class='row'>
-  <table>
-  <tr>
-    <td>Merge Request Id</td>
-    <td>from Branch</td>
-    <td>to Branch</td>
-    <td>찬성</td>
-    <td>반대</td>
-    <td>Merge</td>
-  </tr>
-  {% for data in mergeData %}
+  <table class="table table-hover text-center">
+    <thead>
+        <tr>
+            <th scope="col">Merge Request Id</th>
+            <th scope="col"><th scope="col">from Branch</th>
+            <th scope="col">to Branch</th>
+            <th scope="col">찬성</th>
+            <th scope="col">반대</th>
+            <th scope="col">Merge</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for data in mergeData %}
     <tr>
       <td>{{ data.requestId }}</td>
       <td>{{ data.fromBranch }}</td>
@@ -82,6 +85,7 @@
       </td>
     </tr>
   {% endfor %}
+  </tbody>
 </table>
 </div>
 </div>
