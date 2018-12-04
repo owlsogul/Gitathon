@@ -36,5 +36,24 @@ def get_commit_with_hack(request):
         return JsonResponse(commitIdArrDic)
 
 def add_commit_with_member(request):
-    received_json_data = json.loads(request.body.decode("utf-8"))
+
+    received_json_data = json.loads(request.POST['data'].decode("utf-8"))
+    memberId = request.POST['memberId']
+    teamName = request.POST['teamName']
+
+    team = Team.objects.filter(participate__memberId = memberId, teamName=teamName).distinct()
+    git = Git.objects.get(teamId=team)
+
+    branchList = received_json_data['branchList']
+    branchData = received_json_data['branchData']
+    for branchName in branchList:
+        branch = Branch.objects.filter(commit_teamId = team.pk(), branchName=branchName).distinct()
+        if branch is None:
+            branch = Branch.objects.create(branchName=branchName)
+            branch.save()
+        for commitData in brachData['branchName']:
+            commit = Commit.objects.create(containedGit = git, author=commitData['author'], comment=commitData['comment'], code=commitData['code'], resource=commitData['resource'])
+
+
+
     return JsonResponse(received_json_data)
