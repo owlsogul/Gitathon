@@ -196,7 +196,7 @@ def member(request, teamId):
                 if selectedMember == leader:
                     redirect_to = reverse('main', kwargs={'teamId':teamId})
                     return HttpResponseRedirect(redirect_to)
-                else:        
+                else:
                     teamId = request.POST['teamId']
                     team = Team.objects.get(pk=teamId)
                     participate = Participate.objects.filter(memberId = selectedMember, teamId = team)
@@ -297,6 +297,7 @@ def team_notice_view(request, teamId, noticeId):
         'noticeType':noticeType,
         'notice':notice,
         'teamId':teamId,
+        'name': 'notice',
     })
 def hack_notice_view(request, teamId, noticeId):
     # exception
@@ -311,6 +312,7 @@ def hack_notice_view(request, teamId, noticeId):
         'memberId':memberId,
         'noticeType':noticeType,
         'notice':notice,
+        'name': 'notice',
     })
 
 def merge_request(request, teamId):
