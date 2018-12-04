@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'accounts',
     'channels',
     'chat',
+    'git_parser',
 ]
 
 MIDDLEWARE = [
