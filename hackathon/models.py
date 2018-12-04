@@ -30,6 +30,7 @@ class HackathonInformation(models.Model):
     text = models.TextField(blank=True)
     created_date = models.DateTimeField(auto_now = True)
     hackathonHost = models.CharField(max_length = 100, default = "none")
+    id = models.AutoField(primary_key=True)
 
 # 해커톤 공지사항
 class HackNotice(models.Model):
