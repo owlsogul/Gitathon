@@ -265,11 +265,13 @@ def team_notice_view(request, teamId, noticeId):
     memberId = request.session['memberId']
     noticeType = 'team'
     notice = TeamNotice.objects.get(pk=noticeId)
+    teamId = teamId
 
     return render(request, 'teamproject/notice_view.html', {
         'memberId':memberId,
         'noticeType':noticeType,
         'notice':notice,
+        'teamId':teamId,
     })
 def hack_notice_view(request, teamId, noticeId):
     # exception
