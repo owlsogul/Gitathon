@@ -4,7 +4,7 @@ import sys
 
 def parseGit(hackName, teamName, lastCommit, resource):
 	old_path = os.getcwd()
-	path = "/home/pi/remote/" + hackName + "/" + teamName
+	path = "/home/pi/remote/" + str(hackName) + "/" + str(teamName)
 	#path  = "C:\\Users\\owlsogul\\Documents\\GitHub\\AI_Project1"
 	os.chdir(path)
 
