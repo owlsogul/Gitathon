@@ -6,19 +6,37 @@
         <title>Gitathon!</title>
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        {% load static %}
-        <link href="{% static 'css/blog-home.css' %}" rel="stylesheet">
+
     </head>
     <body>
+        <br/><br/>
+        <div class="container">
+        <div class="row">
+            <div class="col-3"> </div>
+        {% load static %}
+        <pre>      </pre><img src="{% static 'img/gitathonLogo.png' %}">
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-4"> </div>
         <div class="welcome-msg">현재 {{ numHackathon }}개의 해커톤과 {{ numTeamproject }}개의 팀프로젝트가 진행중입니다.</div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-5"> </div>
+        <div class="col-4">
         <div class="login-form">
             <form class="" action="/accounts/login" method="POST">
                 {% csrf_token %}
                 <input type="text" name="memberId" placeholder="아이디를 입력해주세요"><br />
                 <input type="password" name="password" placeholder="비밀번호를 입력해주세요"><br />
                 <input type="submit" name="" value="함께하기">
-                <a href="/lobby/join"><input type="submit" name-"" value="회원가입"></a>
+                <a href="{% url 'join' %}"><input type="submit" name-"" value="회원가입"></a>
             </form>
         </div>
+        <div class="col-4"></div>
+        </div>
+        </div>
+    </div>
     </body>
 </html>
