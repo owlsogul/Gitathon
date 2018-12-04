@@ -581,16 +581,16 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
 
 
                 # 3. 한 팀의 master로 merge된 branch 수
-#                allbranch = countAllRemoteBranch(hackId, teamId)
-#                mergebranch = countMergedBranch(hackId, teamId)
+                allbranch = countAllRemoteBranch(hackId, teamId)
+                mergebranch = countMergedBranch(hackId, teamId)
 
-#                if allbranch != 0 :
-#                    branchScore = mergebranch/allbranch
-#                    branchScore = float(format(branchScore), '.2f')
-#                    TotalBranchData.append(branchScore)
-#                else:
-#                    branchScore = 0
-#                    TotalBranchData.append(branchScore)
+                if allbranch != 0 :
+                    branchScore = mergebranch/allbranch
+                    branchScore = float(format(branchScore), '.2f')
+                    TotalBranchData.append(branchScore)
+                else:
+                    branchScore = 0
+                    TotalBranchData.append(branchScore)
 
                 # 4. 한 팀의 팀원 기여도 점수(표준편차) -> 역수 취하고 *1000
                 if TeamContribution.objects.get(teamId=team).std_score != 0.0 :
@@ -619,7 +619,7 @@ def gitHackathon(request, HackathonInformation_id, Team_id = 0):
 
             # 한 팀의 4가지 항목에 대한 점수 Data ( 나중에 지우기 )
 #            teamRawData = [500, 1000, 10, teamScore]
-            branchScore=50
+#            branchScore=50
             # ( 실제 )
             teamRawData = [commitScore, lineScore, branchScore, teamScore]
 

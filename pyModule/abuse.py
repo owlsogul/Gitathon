@@ -6,9 +6,9 @@ old_path = ""
 
 def showDiffCommit(hackName, teamName, commitId):
 
-    path = "C:\\Users\\장예솔\\Desktop\\Yedori\\중앙대\\3학년\\2학기\\캡스톤\\Source\\Source\\capstone\\Gitathon"
-    os.chdir(path)
-	# changeDir(hackName, teamName)
+    #path = "C:\\Users\\장예솔\\Desktop\\Yedori\\중앙대\\3학년\\2학기\\캡스톤\\Source\\Source\\capstone\\Gitathon"
+    #os.chdir(path)
+	changeDir(hackName, teamName)
     print('실행')
     try:
         output = subprocess.check_output('git show ' + commitId, shell=True).decode()
@@ -25,9 +25,9 @@ def showDiffCommit(hackName, teamName, commitId):
 
 def makeFileList(hackName, teamName, commitId):
 
-	path = "C:\\Users\\장예솔\\Desktop\\Yedori\\중앙대\\3학년\\2학기\\캡스톤\\Source\\Source\\capstone\\Gitathon"
-	os.chdir(path)
-	# changeDir(hackName, teamName)
+	#path = "C:\\Users\\장예솔\\Desktop\\Yedori\\중앙대\\3학년\\2학기\\캡스톤\\Source\\Source\\capstone\\Gitathon"
+	#os.chdir(path)
+	changeDir(hackName, teamName)
 	print('파일리스트 만들기 실행')
 
 	fileList = []
