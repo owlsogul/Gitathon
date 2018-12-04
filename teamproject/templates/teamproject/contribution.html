@@ -9,15 +9,19 @@
 <div class="container">
   <div class="row">
   <div class="col-3"></div>
+    <table  class="table table-hover text-center">
     <form class="" action="./contribution_save" method="post">
       {% csrf_token %}
-      <div class="col-2">이름</div>
-      <div class="col-2">주석 수정 줄 수<br><input type="number" name="comment" value="{{ comment }}"></div>
-      <div class="col-2">코드 수정 줄 수<br><input type="number" name="code" value="{{ code }}"></div>
-      <div class="col-2">리소스 추가 수<br><input type="number" name="resource" value="{{ resource }}"></div>
-      <div class="col-2">총점<br><input type="submit" name="" value="비율 저장"></div>
+      <thead>
+        <tr>
+          <th scope="col">이름</th>
+          <th scope="col">주석 수정 줄 수<br><input type="number" name="comment" value="{{ comment }}"></th>
+          <th scope="col">코드 수정 줄 수<br><input type="number" name="code" value="{{ code }}"></th>
+          <th scope="col">리소스 추가 수<br><input type="number" name="resource" value="{{ resource }}"></th>
+          <th scope="col">총점<br><input type="submit" name="" value="비율 저장"></th>
+        </tr>
+      </thead>
     </form>
-  </div>
   {% for con in contributions  %}
   <tr>
     <td>{{ con.memberId }}</td>
@@ -28,5 +32,6 @@
   </tr>
   {% endfor %}
 </table>
+</div>
 </div>
 {% endblock %}
