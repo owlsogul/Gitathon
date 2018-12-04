@@ -24,16 +24,17 @@
         <br/>
         <div class="row">
             <div class="col-4"> </div>
-        <div class="col-3">
+        <div class="col-4">
         <div class="login-form">
             <form class="" action="/accounts/login" method="POST">
                 {% csrf_token %}
                 <input type="text" name="memberId" placeholder="아이디를 입력해주세요"><br />
                 <input type="password" name="password" placeholder="비밀번호를 입력해주세요"><br />
                 <input type="submit" name="" value="함께하기">
-                <a href="/lobby/join"><pre>  </pre><input type="submit" name-"" value="회원가입"></a>
+                <a href="/lobby/join"><input type="submit" name-"" value="회원가입"></a>
             </form>
         </div>
+        <div class="col-4"></div>
         </div>
         </div>
     </div>
