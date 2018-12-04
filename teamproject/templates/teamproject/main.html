@@ -30,6 +30,12 @@
     <input type="text" name="fromBranch" value="" placeholder="from Branch">
     <input type="text" name="toBranch" value="" placeholder="to Branch">
     <input type="submit" name="" value="Merge Request!">
+    <div class="">
+    브런치 목록
+    {% for branch in branchData %}
+      {{ branch }} <br>
+    {% endfor %}
+    </div>
   </form>
   </div>
   <div class="col-3">

@@ -5,6 +5,7 @@ from accounts.models import *
 from hackathon.models import *
 
 from teamproject import parseGit
+from teamproject import gitBranch
 import subprocess
 import os
 
@@ -17,6 +18,9 @@ def main(request, teamId):
         memberId = request.session['memberId']
         team = Team.objects.get(pk=teamId)
         teamMembers = Participate.objects.filter(teamId = team)
+        teamLeader = team.leaderId
+        leaderParticipate = Participate.objects.get(memberId=teamLeader, teamId=team)
+        leaderHack = leaderParticipate.hackId
 
         # merge request part
         mergeResponse = []
@@ -39,6 +43,11 @@ def main(request, teamId):
                 mergeData['canMerge'] = True
             mergeResponse.append(mergeData)
 
+        #branch list
+        hackName = teamLeader.memberId
+        if leaderHack is not None:
+            hackName = leaderHack.pk
+        parsingData = gitBranch.showAllRemoteBranch(hackName, team.teamName)
 
         return render(request, 'teamproject/main.html', {
             'memberId':request.session['memberId'],
@@ -46,6 +55,7 @@ def main(request, teamId):
             'team':Team.objects.get(pk=teamId),
             'mergeData':mergeResponse,
             'name': 'main',
+            'branchData':parsingData,
         })
 
 def notice(request, teamId):
@@ -196,7 +206,7 @@ def member(request, teamId):
                 if selectedMember == leader:
                     redirect_to = reverse('main', kwargs={'teamId':teamId})
                     return HttpResponseRedirect(redirect_to)
-                else:        
+                else:
                     teamId = request.POST['teamId']
                     team = Team.objects.get(pk=teamId)
                     participate = Participate.objects.filter(memberId = selectedMember, teamId = team)

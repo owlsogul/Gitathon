@@ -40,8 +40,19 @@ class TeamVote(models.Model):
     memberId = models.ForeignKey('accounts.Member', on_delete=models.CASCADE)
     isAgree = models.BooleanField(default=False)
 
-class Commit(models.Model):
-    commitId = models.CharField(max_length=100, primary_key = True)
+
+class Git(models.Model):
     teamId = models.ForeignKey('teamproject.Team', on_delete=models.CASCADE)
+
+class Branch(models.Model):
+    branchName = models.CharField(max_length=100)
+    containedGit = models.ForeignKey('teamproject.Git', on_delete=models.CASCADE)
+
+class Commit(models.Model):
+    containedBranch = models.ForeignKey('teamproject.Branch', on_delete=models.CASCADE)
+    teamId = models.ForeignKey('teamproject.Team', on_delete=models.CASCADE)
+    commitId = models.CharField(max_length=100, primary_key=True)
+    author = models.CharField(max_length=100)
     code = models.IntegerField()
     comment = models.IntegerField()
+    resource = models.IntegerField()
