@@ -45,7 +45,7 @@
     {% endif %}
                 <a class="nav-link" href="/team/{{teamId}}/chat">채팅</a>
             </li>
-    {% if name == "chat" %}
+    {% if name == "member" %}
             <li class="nav-item active">
     {% else %}
             <li class="nav-item">
@@ -54,6 +54,7 @@
             </li>
   </ul>
   </div>
+  <br/><br/><br/>
   <div class="team-content-wrapper">
     {% block teamContent %}
     {% endblock %}
