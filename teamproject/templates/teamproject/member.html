@@ -1,19 +1,44 @@
 {% extends 'teamproject/base.html' %}
 
 {% block teamContent %}
-팀 1
-<button type="button" name="button">추가</button>
-<button type="button" name="button">삭제</button>
-<table>
-  <tr>
-    <td>이름</td>
-    <td>이메일</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>나</td>
-    <td>jo_mingyu@naver.com</td>
-    <td><input type="checkbox" name="" value=""></td>
-  </tr>
-</table>
+<form class="" action="/team/{{teamId}}/member" method="POST">
+  {% csrf_token %}
+<div class = "containter">
+  <div class = "row">
+    <div class = "col-3">
+    </div>
+    <div class = "col-6">
+      <h5>{{team.teamName}}</h5>
+      <table class="table table-hover text-center">
+      <thead>
+        <tr>
+          <th scope="col">이름</th>
+          <th scope="col">이메일</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for member in memberList %}
+          <tr>
+            <td><a  class = "text-dark" href="./hack_notice_view/{{ hackNotice.pk }}">{{ member.memberId }}</a></td>
+            <td>{{ member.email }}</td>
+            <td><input type="checkbox" name="memberId" value="{{member.memberId}}"></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      </table>
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <div class = "row">
+    <div class = "col-8">
+    </div>
+    <div class = "col-2">
+      <button type="submit" class = "btn btn-outline-warning"name="button">삭제</button>
+    </div>
+  </div>
+    <input type="hidden" name="teamId" value="{{ teamId }}">
+  </form>
+</div>
 {% endblock %}

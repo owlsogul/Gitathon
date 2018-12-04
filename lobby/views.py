@@ -32,3 +32,6 @@ def main(request):
 
 def signup(request):
     return lobby(request)
+
+def join(request):
+    return render(request, 'lobby/register.html', {})

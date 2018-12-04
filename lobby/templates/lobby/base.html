@@ -1,17 +1,57 @@
 <!DOCTYPE html>
 <html lang="kr" dir="ltr">
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    {% load static %}
+    <link href="{% static 'css/blog-home.css' %}" rel="stylesheet">
     <title>{% block customTitle %}{% endblock %}</title>
     {% block customStyle %}{% endblock %}
   </head>
   <body>
     <header class="title-bar">
-      <a href="/lobby/main">Logo</a>
-      {{ memberId }}님 환영합니다.
-      <a href="/accounts/logout">logout</a>
-      <a href="/hackathon/list">Hackathon</a>
-      <a href="#">Profile</a>
+        <div class="container">
+            <div class = row>
+              <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+              <div class = "col-1">
+                <a class="navbar-brand" href="/lobby/main"><img src="{% static 'img/gitathonLogo.png' %}" height="70" width="120"></a>
+              </div>
+              <div class = "col-6">
+              </div>
+              <div class = "col-3">
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">{{ memberId }}님 환영합니다.
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/accounts/logout"> logout</a>
+                        </li>
+                      </ul>
+                  </div>
+                </div>
+                <div class = "col-2">
+                  <div class="collapse navbar-collapse" id="navbarResponsive">
+                      <ul class="navbar-nav ml-auto">
+                          <li class="nav-item">
+                              <a class="nav-link" href="/hackathon/list"><img src="{% static 'img/hackathonLogo.png' %}" height="38">Hackathon</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="#"><img src="{% static 'img/profileLogo.png' %}" height="38">Profile</a>
+                          </li>
+                        </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </nav>
+            </div>
+        </div>
     </header>
     {% block content %}{% endblock %}
   </body>

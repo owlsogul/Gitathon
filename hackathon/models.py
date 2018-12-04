@@ -2,6 +2,9 @@ from django.db import models
 from datetime import *
 from time import strftime
 from django.utils import timezone
+import pygal
+from pygal.style import DarkStyle
+from django.views.generic import TemplateView
 
 # Create your models here.
 
@@ -23,7 +26,7 @@ class HackathonInformation(models.Model):
     memberNum_max = models.IntegerField()
     memberNum_min = models.IntegerField()
     selectMatching = models.IntegerField(choices = matching)
-    Images = models.ImageField(upload_to='uploads/%Y/%m/%d')
+    Images = models.ImageField(upload_to='img')
     text = models.TextField(blank=True)
     created_date = models.DateTimeField(auto_now = True)
     hackathonHost = models.CharField(max_length = 100, default = "none")
@@ -31,7 +34,29 @@ class HackathonInformation(models.Model):
 # 해커톤 공지사항
 class HackNotice(models.Model):
     hackNoticeId = models.AutoField(primary_key=True)
-    hackId = models.ForeignKey(HackathonInformation, on_delete=models.CASCADE)
+    hackId = models.ForeignKey('hackathon.HackathonInformation', on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     content = models.TextField()
     date = models.DateTimeField(default=timezone.now())
+
+# 해커톤 가중치 기반 깃 활용도 평가 비율
+class HackUsability(models.Model):
+    hackId = models.OneToOneField('hackathon.HackathonInformation', on_delete=models.CASCADE)
+    commitRate = models.FloatField(default=25.0)
+    lineRate = models.FloatField(default=25.0)
+    branchRate = models.FloatField(default=25.0)
+    teamRate = models.FloatField(default=25.0)
+
+# Abusing 스키마
+class Abusing(models.Model):
+    teamId = models.ForeignKey('teamproject.Team', on_delete=models.CASCADE)
+    context = models.CharField(max_length=200)
+    commitId = models.CharField(max_length=200)
+
+# 팀별 gitScore점수
+class GitScore(models.Model):
+    name = models.CharField(max_length=255)
+    amt = models.IntegerField()
+
+    def __str__(self):
+        return self.name

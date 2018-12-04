@@ -34,6 +34,11 @@ ALLOWED_HOSTS = [
     'gitathon.ddns.net'
 ]
 
+# #### Celery CONFIGURATION
+## Broker settings.
+#BROKER_URL = 'django://'
+## django celery backend Database
+#CELERY_RESULT_BACKEND = 'djcelery.backends.cahce:CacheBackend'
 
 # Application definition
 
@@ -48,9 +53,13 @@ INSTALLED_APPS = [
     'teamproject',
     'hackathon',
     'accounts',
+    'git_parser',
     'channels',
     'chat',
+    'background_task',
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

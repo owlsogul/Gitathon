@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Gitathon!</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  </head>
+  <body>
+      <br/><br/>
+      <div class="container">
+      <div class="row">
+          <div class="col-3"> </div>
+          <div class="col-3">
+                {% load static %}
+                <pre>      </pre><a herf="/lobby/main"><img src="{% static 'img/gitathonLogo.png' %}"></a>
+          </div>
+      </div>
+      <br/><br/>
+      <div class="row">
+          <div class="col-5"> </div>
+            <div class="col-6">
+                <div class="register-form">
+                    <form class="" action="/accounts/register" method="POST">
+                        {% csrf_token %}
+                        <input type="text" name="memberId" placeholder="아이디를 입력해주세요"><br />
+                        <input type="text" name="email" placeholder="이메일을 입력해주세요"><br />
+                        <input type="password" name="password" placeholder="비밀번호를 입력해주세요"><br />
+                        <input type="submit" name="" value="가입하기">
+                    </form>
+                </div>
+            </div>
+      </div>
+  </div>
+  </body>
+</html>

@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import render, reverse, HttpResponseRedirect, redirect
 from django.utils import timezone
 from teamproject.models import *
 from accounts.models import *
@@ -45,6 +45,7 @@ def main(request, teamId):
             'teamId':teamId,
             'team':Team.objects.get(pk=teamId),
             'mergeData':mergeResponse,
+            'name': 'main',
         })
 
 def notice(request, teamId):
@@ -72,6 +73,7 @@ def notice(request, teamId):
             'hasHackathon':hasHackathon,
             'teamNotices':teamNotices,
             'hackNotices':hackNotices,
+            'name': 'notice',
         })
 
 def contribution(request, teamId):
@@ -133,6 +135,7 @@ def contribution(request, teamId):
             'resource':teamContribution.resource,
             'contributions':contributions.values(),
             'test': contributions,
+            'name': "contribution",
         })
 
 def contribution_save(request, teamId):
@@ -169,16 +172,43 @@ def chat(request, teamId):
             'teamId':teamId,
             'team':team,
             'chatMsgs':chatMsgs,
+            'name': 'chat',
         })
 
 def member(request, teamId):
     if not 'memberId' in request.session:
         return redirect('/lobby')
     else:
+        memberId = request.session['memberId']
+        member = Member.objects.get(memberId=memberId)
+        team = Team.objects.get(pk=teamId)
+        leader = team.leaderId
+
+        if member != leader:
+            redirect_to = reverse('main', kwargs={'teamId':teamId})
+            return HttpResponseRedirect(redirect_to)
+        else:
+            memberList = Member.objects.filter(participate__teamId = team)
+            if request.method == 'POST':
+                selectedMemberId = request.POST['memberId']
+                selectedMember = Member.objects.get(memberId=selectedMemberId)
+                #리더를 삭제 -> 금지
+                if selectedMember == leader:
+                    redirect_to = reverse('main', kwargs={'teamId':teamId})
+                    return HttpResponseRedirect(redirect_to)
+                else:        
+                    teamId = request.POST['teamId']
+                    team = Team.objects.get(pk=teamId)
+                    participate = Participate.objects.filter(memberId = selectedMember, teamId = team)
+                    participate.update(teamId=None)
+                    memberList = Member.objects.filter(participate__teamId = team)
+
         return render(request, 'teamproject/member.html', {
             'memberId':request.session['memberId'],
             'teamId':teamId,
-            'team':Team.objects.get(pk=teamId),
+            'team':team,
+            'name': 'member',
+            'memberList':memberList,
         })
 
 # TODO: create view에서 해커톤 아이디랑 이름 받아와서 해커톤 가능하게 할 수 있겠다.
@@ -260,11 +290,13 @@ def team_notice_view(request, teamId, noticeId):
     memberId = request.session['memberId']
     noticeType = 'team'
     notice = TeamNotice.objects.get(pk=noticeId)
+    teamId = teamId
 
     return render(request, 'teamproject/notice_view.html', {
         'memberId':memberId,
         'noticeType':noticeType,
         'notice':notice,
+        'teamId':teamId,
     })
 def hack_notice_view(request, teamId, noticeId):
     # exception
