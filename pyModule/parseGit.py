@@ -2,34 +2,79 @@ import subprocess
 import os
 import sys
 
-def parseGit(hackName, teamName, lastCommit, resource):
+def isNotVaildArguments():
+    if len(sys.argv) < 2:
+        return True
+    else:
+        return False
+
+def isResource():
+    if len(sys.argv) > 2:
+        return True
+    else:
+        return False
+
+def isNotVaildRemoteBranchs(remote_branch):
+    if len(remote_branch) == 0:
+        return True
+    else:
+        return False
+
+def makeResourceList():
+    res = []
+    for index in range(len(sys.argv) - 2):
+        res.append(sys.argv[index+2])
+    return res
+
+def changeDirAndGetOldPath(path):
 	old_path = os.getcwd()
-	path = "/home/pi/remote/" + str(hackName) + "/" + str(teamName)
 	os.chdir(path)
+	return old_path
+
+def getAllRemoteBranch():
+	remoteBranch = []
 
 	try:
-		result = subprocess.check_output('git log --abbrev-commit --name-status --all', shell=True).decode()
-		newCommit = findNewCommit(result, lastCommit, resource)
+		result = subprocess.check_output('git branch -r -a', shell=True).decode()
+		result.encode()
+
+		for line in result.split("\n"):
+			words = line.replace("->", "/").replace(" ", "").split("/")
+
+			if len(words) == 0:
+				continue
+
+			if words[0] == "remotes":
+				if (words[2] != 'HEAD'):
+				    remoteBranch.append(words[2])
+
+	except subprocess.CalledProcessError as e:
+		return []
+
+	return remoteBranch
+
+def parseGit(branch, resource):
+	try:
+		command = "git checkout " + branch
+		os.system(command)
+
+		result = subprocess.check_output('git log --abbrev-commit --name-status', shell=True).decode()
+		newCommit = findNewCommit(result, resource)
 		findCommandAndCode(newCommit)
+
 		if len(newCommit) == 0:
-			print("Parse Fail!")
-			os.chdir(old_path)
 			return 0
 
 		else:
-			print ("Parse Successful!")
-			os.chdir(old_path)
 			return newCommit
 
 	except subprocess.CalledProcessError as e:
-		print ("Error", e.output)
-		os.chdir(old_path)
 		return 0
 
 
 
 
-def findNewCommit(output, lastCommit, extens):
+def findNewCommit(output, extens):
 	newCommit = []
 	oneDic = {}
 	isNotFirst = False
@@ -42,8 +87,6 @@ def findNewCommit(output, lastCommit, extens):
 		if len(words) != 0:
 
 			if words[0] == "commit":
-				if lastCommit == words[1]:
-					break
 
 				if isNotFirst:
 					oneDic['resource'] = totalRes
@@ -116,7 +159,7 @@ def findCommandAndCode(newCommit):
 
 
 		commit["code"] = code
-		commit["command"] = command
+		commit["comment"] = command
 		code = 0
 		command = 0
 
@@ -154,3 +197,38 @@ def isPyCommand(words):
 		return True
 
 	return False
+
+def destory(old_path):
+	os.system('git checkout master')
+	os.chdir(old_path)
+
+
+if __name__ == "__main__":
+
+    if isNotVaildArguments():
+        sys.exit(1)
+
+    resouce = []
+    path = sys.argv[1]
+    old_path = changeDirAndGetOldPath(path)
+    remote_branch = getAllRemoteBranch()
+    result = {}
+    branchData = {}
+
+    if isNotVaildRemoteBranchs(remote_branch):
+        sys.exit(1)
+
+    result['branchList'] = remote_branch
+
+    if isResource():
+        resource = makeResourceList()
+
+    for branch in remote_branch:
+        branchData[branch] = parseGit(branch, resource)
+
+    result['branchData'] = branchData
+
+    destory(old_path)
+
+    print("RESULT_PRINT")
+    print(result)
