@@ -28,6 +28,11 @@ def makeResourceList():
 
 def changeDirAndGetOldPath(path):
 	old_path = os.getcwd()
+<<<<<<< HEAD
+=======
+	path = "/home/pi/remote/" + str(hackName) + "/" + str(teamName)
+	#path  = "C:\\Users\\owlsogul\\Documents\\GitHub\\AI_Project1"
+>>>>>>> 30588076b2f9b167a36f199d43bd31a2c354b4d3
 	os.chdir(path)
 	return old_path
 
