@@ -1,0 +1,451 @@
+[33m893b6e5e[m change teamproject vies
+[33m9be48ac0[m change parseGit.py
+[33m95548cab[m Merge branch 'dev' of https://github.com/owlsogul/Gitathon into dev
+[33m4b284c66[m edit dev
+[33mc1b55a86[m Update GitManager.jar
+[33mc820bb57[m Update GitManager.jar
+[33m5ebf6ed4[m Update GitManager.jar
+[33m6371d387[m Update GitManager.jar
+[33m0561fd09[m Update GitManager.jar
+[33mc38fe059[m 여백 추가
+[33md1571864[m view 누락된거 수정
+[33mf3fb759e[m 들여쓰기 오류
+[33m5662fde3[m 들여쓰기 수정
+[33m31a2492f[m 오타 수정
+[33mbff8ce33[m 오타수정
+[33m44183100[m 인덴테이션 수정
+[33mf878bdf8[m 오타수정
+[33m25f5cc7c[m Merge branch 'mingyu_commit_alarm' into dev
+[33mfe9878d7[m 수정
+[33m778cca0b[m Merge branch 'dev' of https://github.com/owlsogul/gitathon into dev
+[33m6b10f999[m Merge branch 'hack_front' into dev
+[33mc8aa2562[m 실제 수행 버전
+[33m82c8edc5[m Merge branch 'dev' of https://github.com/owlsogul/gitathon into dev
+[33m122b4685[m edit gitignore
+[33m09f88aa6[m 올리는 거 까지 완성
+[33m3682fda3[m add team main add hr
+[33m54e406a8[m add team main add hr
+[33m8967dc8f[m add team main add hr
+[33mabb5783d[m add team notice view css
+[33m86e26eea[m add team main css
+[33ma4a9ccaf[m add team main css
+[33mfe325f14[m add team main css
+[33mcc0aa743[m add team main css
+[33m77f7b316[m add team main css
+[33mdb8b4361[m add team main css
+[33m19600e57[m add team main css
+[33m8e0ff3e8[m add team main css
+[33mc6f10de6[m add team main css
+[33m85ae77ee[m add team main css
+[33md1e9e793[m add reigster css
+[33m1c44357d[m add reigster css
+[33md4530f01[m Merge branch 'hack_front' of https://github.com/owlsogul/gitathon into hack_front
+[33m42f8e1d3[m add reigster css
+[33m2a3b5358[m Merge branch 'hack_front' into hackathon
+[33md7d1ab27[m Merge branch 'hack_front' of https://github.com/owlsogul/Gitathon into hack_front
+[33m51400815[m 멤버관리 프론트
+[33m745bd350[m add reigster css
+[33m4d94b2d5[m add reigster css
+[33m41ab9185[m add reigster css
+[33mb69fd1a3[m add reigster css
+[33m72ae5175[m add reigster css
+[33m3db11df6[m add reigster css
+[33m24815aa1[m add reigster css
+[33mb1059ea5[m add reigster css
+[33m7d5b2f1a[m add reigster css
+[33m6b3cb2ac[m add reigster css
+[33m8d66dbfd[m link outside of form
+[33mecc14c95[m link outside of form
+[33mee1542f2[m link outside of form
+[33md930f740[m link outside of form
+[33m998a00b1[m link outside of form
+[33mbadc4dd2[m Merge branch 'hack_front' of https://github.com/owlsogul/gitathon into hack_front
+[33m0bda6a7b[m link outside of form
+[33m1bfbde53[m Merge branch 'hack_front' of https://github.com/owlsogul/Gitathon into hack_front
+[33m9c575ffa[m link outside of form
+[33me1c5f1c8[m Merge branch 'hack_front' of https://github.com/owlsogul/Gitathon into hack_front
+[33mc2d67d78[m fix chat Front
+[33m506c10fa[m import django conf
+[33m8adb9f61[m link to register
+[33me6e4549d[m add teamNotice front
+[33med63ae79[m main css
+[33m58758fe0[m main css
+[33m72d4f45d[m main css
+[33m21052b48[m main css
+[33me10f7975[m main css
+[33mbb9d1d46[m main css
+[33m38212da4[m main css
+[33m20f5905d[m main css
+[33mb098de8c[m main css
+[33m25b63af4[m main css
+[33m8257aa3e[m table to div
+[33mc214abc6[m table to div
+[33m2e1412c6[m table to div
+[33m4e908bd0[m table to div
+[33m179c2bba[m table to div
+[33mdd5d63d5[m table to div
+[33mfa85e1fd[m edit space
+[33m3143c7ea[m edit space
+[33m2eabd004[m hackfront merge
+[33m11be1fb9[m hackfront merge
+[33m228632ce[m 팀 공지사항 틀
+[33m171e03a9[m Merge branch 'hack_front' of https://github.com/owlsogul/Gitathon into hack_front
+[33mb54bd20f[m fix team nav error
+[33mf1fa9765[m Merge branch 'hack_front' of https://github.com/owlsogul/gitathon into hack_front
+[33ma66b22fb[m edit teamproject main
+[33m23e37d49[m change background tasks time 60
+[33mb39489c5[m error fix
+[33m77de7881[m Merge branch 'hack_front' of https://github.com/owlsogul/Gitathon into hack_front
+[33m9f32e6b5[m add gitEval Charts
+[33m48e2e48d[m solve conflict gitignore
+[33me0b2cc26[m merged
+[33m30a6ef63[m trying to merge
+[33m4195b8b0[m fix front of abuse commit
+[33m2f4a7e17[m abuse front
+[33mdb723412[m add memberId
+[33m8da154c8[m gitEval front (그래프 그리기 전 버전)
+[33md95cb7d6[m add admin-teamlist front
+[33mb5ec452a[m add notice front
+[33mf24dd4e1[m add noticeView front
+[33m76b016c2[m add noticeList front
+[33m2939759d[m complete teamlist page
+[33md120fdb6[m complete teamlist page
+[33m1531dcff[m 개최자도 참여한 해커톤 뜨게
+[33m2188cbe4[m 개최자도 참여한 해커톤 뜨게
+[33m78c5fd7c[m fix hackathon view and model
+[33m878a559d[m Merge branch 'hack_front' of https://github.com/owlsogul/gitathon into hack_front
+[33m6c08976f[m add memberId in hackathon/views.py
+[33m681cb3d4[m hackathon menu
+[33m32dfb61d[m add git_parser migrations init
+[33mabcf1acd[m add git_parser app
+[33mceb3b47f[m finish hackathon main
+[33mff296365[m team create css
+[33mab025f8d[m edit .gitignore
+[33m8fd70027[m modift gitignore
+[33md6407acf[m change to static
+[33m641a331a[m Merge branch 'hack_front' of https://github.com/owlsogul/gitathon into hack_front
+[33m3aff4ecd[m setup urls
+[33m1fa07cc1[m main Front
+[33mbada8702[m list Front
+[33maf036ad7[m fix hackathonmainView
+[33m1ce107bc[m fix listHackathon view Func
+[33m7d52199b[m add lobby front
+[33m0b0d15fd[m fetch from hackathon branch
+[33m7813cd62[m fetch from hackathon branch
+[33m3a2a6468[m fetch from hackathon branch
+[33m5e18f706[m delete migrations file
+[33mf559f5f9[m test hackathon gitEval
+[33ma0812899[m modify base.html
+[33m053a3876[m resolve teamId error in abuse page
+[33m4d3a9994[m 주석 수정
+[33m91a2210f[m print 주석처리
+[33m5119f5b5[m fix comments
+[33m2a044757[m fix abuse page
+[33md1a33a82[m abusing test2
+[33mfe770a1a[m abusing test2
+[33m76faed7e[m abusing test1
+[33mc3563969[m abusing test1
+[33m55daa15b[m fix abuse func
+[33mb1ba3880[m fix abuse page
+[33mbb8faf19[m change to side-bar
+[33m5d3d26a9[m fix abusingpage
+[33m6223bcf7[m add makeFileList func
+[33mcc30209f[m add abusing page to list abusing message
+[33mafb32a37[m fix abusing function
+[33md5506d5c[m modify logo path
+[33m4267d4df[m make navi bar
+[33m5ec1fa80[m Merge branch 'hack_front' of https://github.com/owlsogul/gitathon into hack_front
+[33m890afb3b[m resize logo
+[33m7005fe13[m Merge branch 'hack_front' of https://github.com/owlsogul/gitathon into hack_front
+[33m6f11946b[m resize logo
+[33mf626e685[m Merge branch 'hack_front' of https://github.com/owlsogul/gitathon into hack_front
+[33m3a25e613[m add logo files
+[33m7a2dd21c[m Merge branch 'hack_front' of https://github.com/owlsogul/gitathon into hack_front
+[33mefa301a9[m load static
+[33m098b2f0f[m Merge branch 'hack_front' of https://github.com/owlsogul/gitathon into hack_front
+[33m926dcd8f[m load static
+[33mbc3c9c88[m Merge branch 'hack_front' of https://github.com/owlsogul/gitathon into hack_front
+[33m7a5951a4[m collectstatic
+[33me8a99281[m add look commitCount algorithm
+[33md43b50b1[m test abusing background tasks
+[33m3c04d9af[m fix error
+[33mfbe02a85[m Merge branch 'hack_front' of https://github.com/owlsogul/gitathon into hack_front
+[33m703744b8[m change bootstrap link
+[33me3c21b0d[m Merge branch 'hack_front' of https://github.com/owlsogul/gitathon into hack_front
+[33m3fef3b2b[m add css
+[33m27baac98[m migrate
+[33mbda05836[m add django background tasks test file
+[33m16fcc33e[m add pyModule init file
+[33mb610ff5a[m setting django background tacks
+[33mcaae158f[m navi bar
+[33m88ccfae8[m make new branch
+[33m04e32af8[m Update main.html
+[33mb7b5402d[m 오탈자 수정
+[33m83c91225[m 파싱 데이터 가져오기
+[33mc87d17d5[m abusing test
+[33md9adcaa9[m abusing test
+[33m5ab666db[m abusing test
+[33m8aa4614a[m edit celery set
+[33m7ac3b27d[m edit celery set
+[33md31822ff[m fix settings.py
+[33m5401afb5[m fix celery.py
+[33m57d3ac2e[m fix settings.py
+[33m02ddc2b1[m fix settings.py
+[33m005ffe8c[m add celery
+[33md1af9ece[m fix showDiffCommit func
+[33m082e81bb[m add abusing algoritm comment
+[33mbf617173[m add pyModule of show differnce in commit
+[33m9302e4e7[m abusing test2
+[33m497a0171[m abusing test1
+[33m6482726f[m fix abusing link
+[33mbee89583[m add abusing template
+[33m9456fd4a[m add abusing views
+[33m9bf0d630[m add abusing urls
+[33m4f0f52c7[m meerge branch 'hackGitEval' into hackathon me me#Please enter a commit message to explain why this merge is necessary, me#especially if it merges an updated upstream into a topic branch. me me#Lines starting with '#' will be ignored, and an empty message aborts me#the commit. merge hackathon evaluating based on git
+[33m61bd239e[m delete migration file
+[33m4a5c47fd[m 오타 수정
+[33m2f755a6f[m fix variable name
+[33m2a6292de[m Merge branch 'hackGitEval' of https://github.com/owlsogul/Gitathon into hackGitEval
+[33mf9f1e2e0[m fix gitEval
+[33m08e276be[m fix zeroDivision error
+[33mae45164d[m modify count Merged Branch func
+[33m7946cce0[m Merge branch 'hackGitEval' of https://github.com/owlsogul/gitathon into hackGitEval
+[33m48f8b679[m modify countMergedBracnh func
+[33m9766948f[m fix gitHackathon func
+[33m2b066aef[m 2
+[33m77469c04[m 1
+[33m3ce84fa3[m add pyModule
+[33m75cf8673[m delte pyModule
+[33m96e39643[m add import pyModule
+[33mf158ac51[m add count all remote branch
+[33m73b4eed0[m make gitBranch module
+[33ma9c8b0e6[m 오타수정
+[33mf204d9ee[m true 오탈자 수정
+[33mf3faee85[m 오타수정
+[33mbe283c45[m get 방식 -> filter 방식 수정
+[33mf24e77c9[m get 으로 안나오는거 수정
+[33mb1ae38e8[m 쓸모없는 Post 데이터 가져오는거 수정
+[33m7bd03fad[m 오타수정
+[33m17240470[m test
+[33m5413d676[m 오탈자 수정
+[33m9ddaedd0[m 객체 만들어줌
+[33mb36dd8de[m 오탈자 수정
+[33md684f7be[m 머지 request
+[33m1f393c41[m fix gitEvalView
+[33m57abbacd[m 표준 점수 계산 추가
+[33m9f3c636d[m add attribute of std_score
+[33m1891e22a[m add teamScore
+[33mbfddd67d[m 부동소수점 문제 해결
+[33m29509d5d[m change viewHackFunction.py
+[33m3d333889[m chacte gitHackthon.html
+[33m42d853ce[m 평가 클릭시 생기는 오류 수정
+[33m68db7b61[m make hackUsability model
+[33mceffac2f[m add hackUsability model
+[33mb6c1cfa4[m change accounts model
+[33mc7c01db8[m fix HackUsability model
+[33m3fd1c8ff[m update deleted file
+[33mfb3052aa[m fix HackUsability model
+[33mce543d06[m update deleted file
+[33m765b0ef5[m HackUsability 모델 추가시 무결성 문제 해결
+[33mf0b2d8bd[m add HackUsability model
+[33md1fd376d[m update teamproject
+[33m8ce2ab2c[m 주석 수정
+[33m1207f799[m add pyModule Gitparser
+[33md69435ca[m 주석 수정
+[33m1642cdc3[m fix pyModule's parseGit
+[33m93d066a5[m Merge remote-tracking branch 'origin/hackathon' into mingyu_chat
+[33md549240d[m 백분율 표시
+[33m4ce4dbf1[m 백분율 표기
+[33m1b2d5549[m 토탈을 확률로 표시
+[33m633f3429[m Update accounts/models.py
+[33m45f7e55e[m 쿠키 오류 해결
+[33m364c49e9[m 에러 해결
+[33m62a39733[m 비율 저장
+[33m4763944b[m 오탈자 수정
+[33m8a587385[m 깃에 아무것도 안올라왓을 경우 처리
+[33md88db3aa[m 세세한 부분 수정
+[33m42ad3659[m 딕셔너리는 객체 처럼!
+[33m57a65c83[m 테스트
+[33mfe2c0aac[m 제대로 보여지게
+[33m017eef41[m 테스트
+[33m08033aa1[m 오탈자 수정
+[33md3b6207c[m 오탈자 수정
+[33m67f76c87[m 오탈자 수정
+[33m9f55a53a[m 기여도 딕셔너리로 바꿈
+[33m86340a3b[m 오탈자 수정
+[33m9a43732b[m 오타수정
+[33m67b5af66[m 기여도 계산
+[33m3f03948a[m 공지사항 뷰 ui 수정
+[33m77a4cda7[m 공지사항 ui 수정
+[33m85d52f43[m Merge branch 'mingyu_chat' of https://github.com/owlsogul/Gitathon into mingyu_chat
+[33m200fda98[m 공지 저장
+[33mae1af5f8[m fix gitEval view
+[33mb70e0d5b[m create gitEval function
+[33m93b40381[m fix gitEvaltemplate
+[33m9cb8aa6e[m Parse contribution
+[33meb331eaf[m 타임존 now 에러 해결중
+[33m558154ff[m 쿠키 등록
+[33ma793c92c[m 공지 보기/작성
+[33m3c7b07be[m 공지 보는 url 수정
+[33m0888b268[m notice 작성 html
+[33m89d9522b[m 오탈자 수정
+[33m98bd5e9e[m Merge branch 'mingyu_chat' of https://github.com/owlsogul/Gitathon into mingyu_chat
+[33m3e8bdb14[m 터지는건 해결, 파싱 시도중
+[33m2bc30d40[m 공지사항
+[33m6ce878c5[m fix gitEval algorithm
+[33m3d43b46f[m add nomalization function
+[33mc4063a71[m add calculate percentage to gitEValPage View
+[33m7ed3a485[m add function of calculating Percentage of gitEval
+[33m5aede160[m add viewHackFuntion python file
+[33m945c94c2[m add gitEvalPage Rate exception
+[33md1b25091[m fix gitEvalPage
+[33mc5bfef5a[m Merge branch 'mingyu_chat' of https://github.com/owlsogul/Gitathon into mingyu_chat
+[33mc49e1190[m parse Test
+[33mb89ff90e[m Update teamproject/views.py
+[33m84d48e95[m fix gitEvalPage view function
+[33m0a7f8767[m Merge branch 'mingyu_chat' of https://github.com/owlsogul/Gitathon into mingyu_chat
+[33mf916cb2c[m 컨트리뷰션 html
+[33mcd2d86a4[m add new urls of gitEvalPage
+[33ma0df3c44[m add teamlist of gitEvalPage
+[33me5147be0[m fix gitEval default teamId
+[33mbd1c16b5[m parseGit Test
+[33m54597c0f[m parseGit Test
+[33m2470651f[m parseGit Test
+[33m6bc7a552[m contribute test
+[33mbf0f644c[m Test for view
+[33m50c791d8[m add gitEvalPage view
+[33md0e5217f[m add gitEvalPage urls
+[33m12cd4cbe[m add gitEvaluPage template
+[33m42d721b0[m test
+[33mf1879735[m test
+[33m8ddc5313[m test
+[33m0ba3653b[m test
+[33mfbcecd3f[m test
+[33mbbc17e4a[m Merge remote-tracking branch 'origin/contribution' into mingyu_chat
+[33m0d193c25[m All option
+[33m21197034[m add return condition
+[33m7eae2314[m test
+[33m33ca026d[m test
+[33m2babdba4[m test
+[33mf3537873[m test
+[33ma8fd7166[m test
+[33m28f4373e[m test
+[33mf205ed23[m test
+[33mbfb23b31[m test
+[33m39de6d45[m test
+[33mbcf28d9b[m test
+[33meea7e736[m test
+[33m34c6f196[m test
+[33maca64783[m test
+[33mf6eda1dd[m test
+[33m93797d04[m test
+[33mc481749c[m test
+[33mfa3c56fd[m test
+[33mb05a75e1[m test
+[33m66234bf8[m test
+[33m3e2b0d15[m 데이터 파싱 모듈 가져옴
+[33mc7f0e1ec[m Merge remote-tracking branch 'origin/contribution' into mingyu_chat
+[33m9c8bf3c4[m add python module
+[33mcd7b2e1b[m 웹소켓 포트 수정
+[33m62afdd1d[m 통일
+[33ma76e1b1b[m 날짜 양식 통일
+[33mb554e286[m 날짜 형식 통일
+[33m17903f92[m wss
+[33m42e730ac[m wss
+[33m44e79861[m 뷰어에서 해석할수 잇게
+[33m287c93a5[m 어드민에 등록
+[33m7b7a5568[m 시리얼라이즈
+[33md9762720[m 타임존 시리얼라이즈 가능하게
+[33md893e004[m id 오타
+[33ma9db1593[m import 오타 수정
+[33m014ce41a[m asgi 배포
+[33mccbb5381[m 채팅 컨슈머 수정
+[33mc11a4a14[m 채팅
+[33m93719aa9[m 출처 삭제
+[33m7dd603fc[m 오류 수정
+[33m875392a8[m 테스트 호스트
+[33m29e3713f[m chatting 예시
+[33mc1ab254e[m 오타 수정
+[33meaea27c6[m add uwsgi plugin
+[33mbcb23943[m add noticeView template
+[33m3c9a21f2[m add noticeWrite template
+[33mfebf9d69[m add noticeList template
+[33ma5de3b68[m add hack notice functions
+[33ma5019ad6[m add notice url
+[33mb04d4da3[m fix menuvar notice link
+[33m5655953e[m add hackNotice model
+[33m218ca0ed[m add hackNotice Model admin page
+[33mf72dd9f4[m fix teamcreate function
+[33mc19d9a77[m 주석 정리
+[33mdae0c113[m 데몬으로 uwsgi.ini
+[33mf72daf7f[m uwsgi.ini 프로젝트 경로 수정
+[33m78bbd667[m uwsgi.ini
+[33mfefc455f[m process create 코드 관리
+[33m0c626f65[m Update views.py
+[33mcd26e3d6[m Update views.py
+[33me376921e[m Update mainpageHackathon.html
+[33m5f95ff7c[m Update views.py
+[33mc9762efa[m Update views.py
+[33m9b76dbc8[m Update views.py
+[33mb2f71687[m Update create.html
+[33m37763fe5[m Update views.py
+[33m4ddf9eb2[m Update views.py
+[33m4097d07e[m Update create.html
+[33mb94bfb0a[m Update settings.py
+[33me51607a1[m Update settings.py
+[33m1df9ca6f[m Update urls.py
+[33mf0b8667e[m Update urls.py
+[33m769f9d08[m Update views.py
+[33m76c9334e[m Merge branch 'dev' of https://github.com/owlsogul/Gitathon into dev
+[33ma7258780[m fix lobby
+[33mc5559bd9[m Merge branch 'dev' of https://github.com/owlsogul/Gitathon into dev
+[33m9a76f281[m 깃 원격 저장소 연결
+[33maba99f86[m fix create teamproject
+[33m5bcfd19d[m fix create teamproject
+[33m3218baf8[m 팀 프로젝트 테스트 ui
+[33mb80305fc[m Merge branch 'dev' of https://github.com/owlsogul/Gitathon into dev
+[33m1236f8ea[m 로비
+[33me9bbe00b[m fix hackathon views
+[33m42abf6b9[m Merge branch 'mingyu_team' into dev
+[33ma912bb11[m Merge remote-tracking branch 'origin/hackathon' into dev
+[33m79f0d533[m uwsgi 시도
+[33m13072851[m Participate 팀 null 가능
+[33m25f002ea[m demo
+[33mf3f2d33b[m letencrypt  모듈 삭제 및 host 추가
+[33me210d612[m some test
+[33m813f13f6[m add teamlist page
+[33m037805c8[m change user information to seesion
+[33mc6d0ad06[m add teamlist page
+[33maf9a57bb[m allow owlsogul.iptime.org host
+[33md55270d5[m 팀 프로젝트 생성 백엔드 완성
+[33medc51d26[m 메인 페이지 팀플 목록 나오게
+[33m396751de[m 팀프로젝트 생성
+[33m392a6f60[m html 확장해서 쓸수 있게 base.html 만들어서 확장
+[33mc395d2ca[m 팀플 관련 모델 구현
+[33m19d8ec59[m Merge branch 'mingyu' into mingyu_team
+[33mc0a56612[m add hackathon main page
+[33m856db36a[m 로그인 기능 프로토타입
+[33mb38cc45f[m 팀프로젝트 테스트 프론트
+[33meefd517e[m add hackathon main page urls
+[33mebde637e[m 로비 프로토타입
+[33m3203f78d[m fix hackathon apply function of deadline
+[33mc0ad3b5f[m add hackathon apply function of deadline
+[33m40bf001a[m fix hackathon apply function
+[33mac753497[m fix hackathon apply function
+[33m6ebac917[m change hackathonInformation model
+[33mf3e5a5e0[m make participate model DB Schema
+[33m89851950[m add searching hackathon by title
+[33m33135928[m add list page html
+[33m57f5b0aa[m add hackathon temp data
+[33mc495f91e[m create superuser
+[33m5c9817e1[m migrate hackathon app
+[33m2438f79f[m add function of holding hackathon
+[33mbda32651[m add hackathon holding page urls
+[33md9a8dd9f[m create hackathon information data class
+[33m61b6b798[m add forms.py
+[33medb76ec7[m add hackathon data to admin page
+[33m4f119786[m create templates folder
+[33mf2b6c402[m add hackathon urls
+[33m203150c5[m git init
+[33m0e9b41c1[m git init
+[33m369d7fe9[m Initial commit

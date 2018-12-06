@@ -1,36 +1,65 @@
 {% extends 'teamproject/base.html' %}
 
 {% block teamContent %}
-<table>
-  <tr>
-    <td>branch</td>
-    <td>commit tree</td>
-    <td>commit name</td>
-  </tr>
-</table>
-
-<div class="">
-머지 투표 만들기
+<div class="container">
+  <br/><br/><br/>
+  <div classs="row">
+    <div class='col-3'>
+        <div> </div>
+    </div>
+    <div class='col-8'>
+        <table class="table table-hover text-center">
+            <thead>
+                <th scope="col">branch</th>
+                <th scope="col">commit tree</th>
+                <th scope="col">commit name</th>
+            </thead>
+        </table>
+    </div>
+    <div class='col-2'>
+    </div>
+  </div>
+  <br/><br/>
+  <div class="row">
+      <hr/>
+    <div class="col-2"> </div>
+    <div class="col-6">
+  머지 투표 만들기
   <form class="" action="./merge_request" method="post">
   {% csrf_token %}
     <input type="text" name="fromBranch" value="" placeholder="from Branch">
     <input type="text" name="toBranch" value="" placeholder="to Branch">
     <input type="submit" name="" value="Merge Request!">
+    <div class="">
+    브런치 목록
+    {% for branch in branchData %}
+      {{ branch }} <br>
+    {% endfor %}
+    </div>
   </form>
-</div>
+  </div>
+  <div class="col-3">
+  현재 진행중인 머지 투표 목록
+  </div>
+  <div class="col-1">
+  </div>
+  </div>
 
-<div class="">
-현재 진행중인 머지 투표 목록
-<table>
-  <tr>
-    <td>Merge Request Id</td>
-    <td>from Branch</td>
-    <td>to Branch</td>
-    <td>찬성</td>
-    <td>반대</td>
-    <td>Merge</td>
-  </tr>
-  {% for data in mergeData %}
+  <br/><br/>
+  <div class='row'>
+  <table class="table table-hover text-center">
+    <thead>
+        <tr>
+            <th scope="col">Merge Request Id</th>
+            <th scope="col">from Branch</th>
+            <th scope="col">to Branch</th>
+            <th scope="col">찬성</th>
+            <th scope="col">반대</th>
+            <th scope="col">Merge</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for data in mergeData %}
     <tr>
       <td>{{ data.requestId }}</td>
       <td>{{ data.fromBranch }}</td>
@@ -64,6 +93,8 @@
       </td>
     </tr>
   {% endfor %}
+  </tbody>
 </table>
+</div>
 </div>
 {% endblock %}

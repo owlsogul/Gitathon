@@ -16,18 +16,6 @@
     float: left;
     height: 100%;
   }
-
-  .ContentBoxWithTitle {
-    border: 1px gray solid;
-  }
-  .ContentBoxWithTitle .ContentBoxTitle{
-    background: gray;
-    margin: 0, 0, 0, 0;
-    color: white;
-  }
-  .ContentBoxWithTitle .RecentActBox{
-    width: 100%;
-  }
 </style>
 {% endblock %}
 
@@ -36,56 +24,52 @@ Gitathon Main
 {% endblock %}
 
 {% block content %}
-<div class="side-bar">
-  <div class="TeamprojectBox ContentBoxWithTitle">
-    <div class="ContentBoxTitle">
-      내 팀프로젝트
+<br/>
+<br/>
+<div class = "container">
+<div class = "row">
+    <div class = "col-5">
+      <div class="card my-4">
+        <h5 class="card-header">내 팀 프로젝트</h5>
+          <div class="card-body">
+            <ul>
+              {% for team in teams %}
+                <li><a href="/team/{{ team.id }}/main">{{ team.teamName }}</a></li>
+              {% endfor %}
+            </ul>
+            <a href="#">show more</a><br/>
+            <a href="/team/create">create new</a>
+        </div>
+       </div>
+       <div class="card my-4">
+         <h5 class="card-header">내 해커톤</h5>
+         <div class="card-body">
+            <ul>
+              {% for hack in hackList %}
+                <li><a href="/hackathon/page/main/{{hack.id}}">{{hack.title}}</a></li>
+              {% endfor %}
+            </ul>
+          <div class="ContentBoxFooter">
+            <a href="#">show more</a><br/>
+            <a href="/hackathon/hold">create new</a>
+          </div>
+          </div>
+          </div>
     </div>
-    <div class="ContentBoxHeader">
+    <div class = "col-6">
+      <div class="card my-4">
+        <h5 class="card-header"> 최근 활동들</h5>
+          <div class="card-body">
+            <ul>
+              {% for team in teams %}
+                <li><a href="/team/{{ team.id }}/main">{{ team.teamName }}</a></li>
+              {% endfor %}
+            </ul>
+            <a href="#">show more</a><br/>
+            <a href="/team/create">create new</a>
+        </div>
+       </div>
+      </div>
     </div>
-    <div class="ContentBoxBody">
-      <ul>
-        {% for team in teams %}
-          <li><a href="/team/{{ team.id }}/main">{{ team.teamName }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-    <div class="ContentBoxFooter">
-      <a href="#">show more</a><br/>
-      <a href="/team/create">create new</a>
-    </div>
-  </div>
-  <div class="ContentBoxWithTitle HackathonBox">
-    <div class="ContentBoxTitle">
-      내 해커톤
-    </div>
-    <div class="ContentBoxHeader">
-    </div>
-    <div class="ContentBoxBody">
-      <ul>
-        {% for hack in hackList %}
-          <li><a href="/hackathon/page/main/{{hack.id}}">{{hack.title}}</a></li>
-        {% endfor %}
-      </ul>
-
-    </div>
-    <div class="ContentBoxFooter">
-      <a href="#">show more</a><br/>
-      <a href="/hackathon/hold">create new</a>
-    </div>
-  </div>
-</div>
-<div class="main">
-  <div class="ContentBoxWithTitle RecentActBox">
-    <div class="ContentBoxTitle">
-      최근 활동들
-    </div>
-    <div class="ContentBoxHeader">
-    </div>
-    <div class="ContentBoxBody">
-      안녕하세요
-    </div>
-    <div class="ContentBoxFooter"></div>
-  </div>
 </div>
 {% endblock%}

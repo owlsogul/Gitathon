@@ -1,43 +1,51 @@
 <!DOCTYPE html>
+{% extends 'lobby/base.html' %}
+{% block content %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <title>Hackathon Main Page</title>
+    {% load static %}
+    <link href="{% static 'css/hack.css' %}" rel="stylesheet">
+    <title>{% block customTitle %}{% endblock %}</title>
+    {% block customStyle %}{% endblock %}
+    <script>
+    {% if message %}
+    alert('{{ message }}');
+    {% endif %}
+    </script>
   </head>
   <body>
+    <br/>
+    <br/>
+    <br/>
     <div class = "containter">
-      <div class = "row">
-        <div class ="col">
-        header
-        <br>
-        </div>
-      </div>
       <div class ="row">
-      <div class = "col-2">
+      <div class = "col-3">
       </div>
       <div class = "col-8">
-        <div class = "alert alert-dark" role="alert">
+        <div class="hackTitle" role="alert">
           {% if contest.contestDate_end > todayDate %}
             {% if contest.contestDate_start > todayDate %}
-              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회 시작전</span>
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a>( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회 시작전</span>
             {% elif contestDate_start == todayDate %}
               {% if contestTime_start <= todayTime %}
-              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회 중</span>
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회 중</span>
               {% else %}
-              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회 시작 전</span>
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회 시작 전</span>
               {% endif %}
             {% else %}
-              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회 중</span>
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회 중</span>
              {% endif %}
           {% elif contest.contestDate_end == todayDate %}
             {% if contest.contestTime_end < todayTime %}
-            <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회종료</span>
+            <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회종료</span>
             {% else %}
-              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회중</span>
+              <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회중</span>
             {% endif %}
           {% else %}
-          <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-secondary">대회종료</span>
+          <a href="/hackathon/page/main/{{contest.id}}" class = "alert-link">{{contest.title}}</a> ( {{contest.applyNum}}/{{contest.peopleNum}}) <span class="badge badge-warning">대회종료</span>
           {% endif %}
         </div>
       </div>
@@ -45,13 +53,17 @@
       </div>
       </div>
     </div>
-    <br>
+    <br/>
+    <br/>
+    <br/>
     <div class = "containter">
       <div class = "row">
-        <div class = "col">
-          <ul class="nav justify-content-center nav-pills">
-            <li class="nav-item">
-              <a class="nav-link active" href="/hackathon/page/main/{{contest.id}}">메인</a>
+        <div class = "col-3">
+        </div>
+        <div class = "col-6">
+          <ul class="nav justify-content-center nav-pills nav-justified hackMenu">
+            <li class="nav-item active">
+              <a class="nav-link" href="/hackathon/page/main/{{contest.id}}">메인</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/hackathon/page/teamlist/{{contest.id}}">팀목록</a>
@@ -64,14 +76,17 @@
             </li>
           </ul>
         </div>
+        <div class = "col-2">
+        </div>
       </div>
-      <br>
-      <br>
+      </div>
+      <br/>
+      <br/>
+      <div class = "container">
       <div class = "row">
         <div class = "col-2">
         </div>
         <div class = "col-8">
-          이미지
         </div>
         <div class = "col-2">
         </div>
@@ -80,14 +95,15 @@
         <div class = "col-2">
         </div>
         <div class = "col-8">
-          <br>
-          <br>
-          <br>
-          <div class = "card">
-            해커톤 개설자 : {{contest.hackathonHost}}
-            <br/>
-            <br/>
-            {{contest.text}}
+          <div class="card">
+            <div class="card-body">
+              <p class="card-text">해커톤 개설자 ID : {{contest.hackathonHost}}</p>
+              <p class="card-text">신청 기간 : {{contest.applyDate_start}} {{contest.applyTime_start}} ~ {{contest.applyDate_end}} {{contest.applyTime_end}}</p>
+              <p class="card-text">대회 기간 : {{contest.contestDate_start}} {{contest.contestTime_start}} ~ {{contest.contestDate_end}} {{contest.contestTime_end}}</p>
+              <p class="card-text">팀 최소인원 : {{contest.memberNum_min}}</p>
+              <p class="card-text">팀 최대인원 : {{contest.memberNum_max}}</p>
+              <p class="card-text">소개 : {{contest.text}}</p>
+            </div>
           </div>
         </div>
         <div class = "col-2">
@@ -100,3 +116,4 @@
   </body>
   </body>
 </html>
+{% endblock %}
