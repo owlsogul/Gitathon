@@ -41,6 +41,7 @@ def catchAbusing(request):
     return JsonResponse({}, status=302)
 
 # Create your views here.
+@csrf_exempt
 def get_commit_with_member(request):
     if request.method == 'POST':
         memberId = request.POST['memberId']
@@ -56,6 +57,7 @@ def get_commit_with_member(request):
         commitIdArrDic['commits'] = commitIdArr
         return JsonResponse(commitIdArrDic)
 
+@csrf_exempt
 def get_commit_with_hack(request):
     if request.method == 'POST':
         hackId = request.POST['hackId']
