@@ -88,7 +88,7 @@ def add_commit_with_member(request):
         branchList = received_json_data['branchList']
         branchData = received_json_data['branchData']
         for branchName in branchList:
-            for commitData in brachData[branchName]:
+            for commitData in branchData[branchName]:
                 commit = Commit.objects.create(teamId=team[0], author=commitData['author'], comment=commitData['comment'], code=commitData['code'], resource=commitData['resource'])
                 commit.save()
 
@@ -108,7 +108,7 @@ def add_commit_with_hack(request):
         branchList = received_json_data['branchList']
         branchData = received_json_data['branchData']
         for branchName in branchList:
-            for commitData in brachData[branchName]:
+            for commitData in branchData[branchName]:
                 commit = Commit.objects.create(teamId=team[0], author=commitData['author'], comment=commitData['comment'], code=commitData['code'], resource=commitData['resource'])
                 commit.save()
 
