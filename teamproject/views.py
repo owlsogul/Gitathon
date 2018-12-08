@@ -102,10 +102,7 @@ def contribution(request, teamId):
 
         resourceList = ["jpg", "png"]
         current_path = os.getcwd()
-        parsingData = parseGit.parseGit(hackName, team.teamName, "", resourceList)
-        os.chdir(current_path)
-        print("@@@@ hackName: " + hackName)
-        print("@@@@ teamName: " + team.teamName)
+        commits = Commit.objects.filter(teamId=team)
 
         contributions = {}
         etcContribution = {'memberId':'#etc', 'code':0, 'comment':0, 'resource':0, 'total':0}
@@ -116,16 +113,16 @@ def contribution(request, teamId):
             contributions[p.memberId.memberId] = newContribution
 
         if parsingData != 0: # error exception
-            for commit in parsingData:
-                author = commit['author']
+            for commit in commits:
+                author = commit.author
                 if author in contributions:
-                    contributions[author]['code']     += commit['code']
-                    contributions[author]['comment']  += commit['comment']
-                    contributions[author]['resource'] += commit['resource']
+                    contributions[author]['code']     += commit.code
+                    contributions[author]['comment']  += commit.comment
+                    contributions[author]['resource'] += commit.resource
                 else :
-                    etcContribution['code']     += commit['code']
-                    etcContribution['comment']  += commit['comment']
-                    etcContribution['resource'] += commit['resource']
+                    etcContribution['code']     += commit.code
+                    etcContribution['comment']  += commit.comment
+                    etcContribution['resource'] += commit.resource
 
             contributions['#etc'] = etcContribution
             totalContribution = 0.0
