@@ -85,3 +85,4 @@ class Commit(models.Model):
 
     comment = models.IntegerField()
 
+    resource = models.IntegerField()
