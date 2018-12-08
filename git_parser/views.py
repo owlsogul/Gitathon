@@ -79,7 +79,7 @@ def get_commit_with_hack(request):
 def add_commit_with_member(request):
 
     if request.method == 'POST':
-        received_json_data = json.loads(request.POST['data'].decode("utf-8"))
+        received_json_data = json.loads(request.POST['data'])
         memberId = request.POST['memberId']
         teamName = request.POST['teamName']
 
@@ -99,7 +99,7 @@ def add_commit_with_member(request):
 def add_commit_with_hack(request):
 
     if request.method == 'POST':
-        received_json_data = json.loads(request.POST['data'].decode("utf-8"))
+        received_json_data = json.loads(request.POST['data'])
         hackId = request.POST['hackId']
         teamName = request.POST['teamName']
 
