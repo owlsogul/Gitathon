@@ -48,7 +48,7 @@ def get_commit_with_member(request):
         teamName = request.POST['teamName']
 
         team = Team.objects.filter(participate__memberId = memberId, teamName=teamName).distinct()
-        commits = Commit.objects.filter(teamId=team)
+        commits = Commit.objects.filter(teamId=team[0])
 
         commitIdArr = []
         commitIdArrDic = {}
@@ -64,7 +64,7 @@ def get_commit_with_hack(request):
         teamName = request.POST['teamName']
 
         team = Team.objects.filter(participate__hackId = hackId, teamName=teamName).distinct()
-        commits = Commit.objects.filter(teamId=team)
+        commits = Commit.objects.filter(teamId=team[0])
 
         commitIdArr = []
         commitIdArrDic = {}
@@ -73,26 +73,41 @@ def get_commit_with_hack(request):
         commitIdArrDic['commits'] = commitIdArr
         return JsonResponse(commitIdArrDic)
 
+@csrf_exempt
 def add_commit_with_member(request):
 
-    received_json_data = json.loads(request.POST['data'].decode("utf-8"))
-    memberId = request.POST['memberId']
-    teamName = request.POST['teamName']
+    if request.method == 'POST':
+        received_json_data = json.loads(request.POST['data'].decode("utf-8"))
+        memberId = request.POST['memberId']
+        teamName = request.POST['teamName']
 
-    team = Team.objects.filter(participate__memberId = memberId, teamName=teamName).distinct()
-    git = Git.objects.get(teamId=team)
+        team = Team.objects.filter(participate__memberId = memberId, teamName=teamName).distinct()
 
-    branchList = received_json_data['branchList']
-    branchData = received_json_data['branchData']
-    for branchName in branchList:
-        branch = Branch.objects.filter(commit_teamId = team.pk(), branchName=branchName).distinct()
-        if branch is None:
-            branch = Branch.objects.create(branchName=branchName)
-            branch.save()
-        for commitData in brachData['branchName']:
-            commit = Commit.objects.create(containedGit = git, author=commitData['author'], comment=commitData['comment'], code=commitData['code'], resource=commitData['resource'], branchId=branch)
-            commit.save()
+        branchList = received_json_data['branchList']
+        branchData = received_json_data['branchData']
+        for branchName in branchList:
+            for commitData in brachData['branchName']:
+                commit = Commit.objects.create(teamId=team[0], author=commitData['author'], comment=commitData['comment'], code=commitData['code'], resource=commitData['resource'])
+                commit.save()
+
+        return JsonResponse(received_json_data)
 
 
+@csrf_exempt
+def add_commit_with_hack(request):
 
-    return JsonResponse(received_json_data)
+    if request.method == 'POST':
+        received_json_data = json.loads(request.POST['data'].decode("utf-8"))
+        hackId = request.POST['hackId']
+        teamName = request.POST['teamName']
+
+        team = Team.objects.filter(participate__hackId = hackId, teamName=teamName).distinct()
+
+        branchList = received_json_data['branchList']
+        branchData = received_json_data['branchData']
+        for branchName in branchList:
+            for commitData in brachData['branchName']:
+                commit = Commit.objects.create(teamId=team[0], author=commitData['author'], comment=commitData['comment'], code=commitData['code'], resource=commitData['resource'])
+                commit.save()
+
+        return JsonResponse(received_json_data)

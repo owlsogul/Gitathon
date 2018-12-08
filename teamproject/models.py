@@ -81,6 +81,8 @@ class Commit(models.Model):
 
     teamId = models.ForeignKey('teamproject.Team', on_delete=models.CASCADE)
 
+    author = models.CharField(max_length=100)
+
     code = models.IntegerField()
 
     comment = models.IntegerField()
