@@ -100,8 +100,6 @@ def contribution(request, teamId):
         if participate.hackId is not None:
             hackName = participate.hackId.pk
 
-        resourceList = ["jpg", "png"]
-        current_path = os.getcwd()
         commits = Commit.objects.filter(teamId=team)
 
         contributions = {}
