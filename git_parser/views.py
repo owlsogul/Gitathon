@@ -87,11 +87,16 @@ def add_commit_with_member(request):
 
         branchList = received_json_data['branchList']
         branchData = received_json_data['branchData']
+        numCommit = 0
         for branchName in branchList:
             for commitData in branchData[branchName]:
                 commit = Commit.objects.create(commitId=commitData['commit'], teamId=team[0], author=commitData['author'], comment=commitData['comment'], code=commitData['code'], resource=commitData['resource'])
                 commit.save()
+                numCommit += 1
 
+        if numCommit > 0
+            teamCommitNoti = TeamCommitNotification.objects.create(teamId=team)
+            teamCommitNoti.sendNotification()
         return JsonResponse(received_json_data)
 
 
@@ -107,9 +112,15 @@ def add_commit_with_hack(request):
 
         branchList = received_json_data['branchList']
         branchData = received_json_data['branchData']
+        numCommit = 0
         for branchName in branchList:
             for commitData in branchData[branchName]:
                 commit = Commit.objects.create(commitId=commitData['commit'], teamId=team[0], author=commitData['author'], comment=commitData['comment'], code=commitData['code'], resource=commitData['resource'])
                 commit.save()
+                numCommit += 1
+
+        if numCommit > 0
+            teamCommitNoti = TeamCommitNotification.objects.create(teamId=team)
+            teamCommitNoti.sendNotification()
 
         return JsonResponse(received_json_data)

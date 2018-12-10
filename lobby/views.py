@@ -24,10 +24,12 @@ def main(request):
         joinTeams = Team.objects.filter(id__in=joinIds)
         # 내 해커톤
         hackList = HackathonInformation.objects.filter(participate__memberId=request.session['memberId'])
+        teamNotification = TeamCommitNotification.objects.filter(teamId__in=joinTeams)
         return render(request, 'lobby/main.html', {
             'memberId':request.session['memberId'],
             'teams':joinTeams,
-            'hackList':hackList
+            'hackList':hackList,
+            'commitNotifications':teamNotification,
         })
 
 def signup(request):

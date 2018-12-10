@@ -88,3 +88,15 @@ class Commit(models.Model):
     comment = models.IntegerField()
 
     resource = models.IntegerField()
+
+class TeamCommitNotification(models.Model):
+
+    teamId = models.ForeignKey('teamproject.Team', on_delete=models.CASCADE)
+
+    date = models.DateTimeField('date', default=timezone.now())
+
+    def sendNotification(self):
+
+        self.date = timezone.now()
+
+        self.save()

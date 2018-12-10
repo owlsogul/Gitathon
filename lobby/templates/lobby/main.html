@@ -61,8 +61,8 @@ Gitathon Main
         <h5 class="card-header"> 최근 활동들</h5>
           <div class="card-body">
             <ul>
-              {% for team in teams %}
-                <li><a href="/team/{{ team.id }}/main">{{ team.teamName }}</a></li>
+              {% for commitNoti in commitNotifications %}
+                <li><a href="/team/{{ commitNoti.teamId.id }}/main">{{ commitNoti.teamId.teamName }}</a></li>
               {% endfor %}
             </ul>
             <a href="#">show more</a><br/>
