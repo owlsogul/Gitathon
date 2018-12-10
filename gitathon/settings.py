@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'channels',
     'chat',
     'background_task',
+	'pyModule',
 ]
 
 

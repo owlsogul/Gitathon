@@ -21,18 +21,13 @@ def isNotVaildRemoteBranchs(remote_branch):
         return False
 
 def makeResourceList():
-    res = []
-    for index in range(len(sys.argv) - 2):
-        res.append(sys.argv[index+2])
+    res = argv[2].split("@")
     return res
 
 def changeDirAndGetOldPath(path):
 	old_path = os.getcwd()
-<<<<<<< HEAD
-=======
 	path = "/home/pi/remote/" + str(hackName) + "/" + str(teamName)
 	#path  = "C:\\Users\\owlsogul\\Documents\\GitHub\\AI_Project1"
->>>>>>> 30588076b2f9b167a36f199d43bd31a2c354b4d3
 	os.chdir(path)
 	return old_path
 
@@ -206,19 +201,26 @@ def destory(old_path):
 	os.chdir(old_path)
 
 
+
 if __name__ == "__main__":
 
     if isNotVaildArguments():
+        print ("invalid argument!")
         sys.exit(1)
+
+    print ("valid argument!")
 
     resouce = []
     path = sys.argv[1]
     old_path = changeDirAndGetOldPath(path)
+    print("Changed directory!")
     remote_branch = getAllRemoteBranch()
+    print("Get all remote branch")
     result = {}
     branchData = {}
 
     if isNotVaildRemoteBranchs(remote_branch):
+        print ("There's no remote branch")
         sys.exit(1)
 
     result['branchList'] = remote_branch

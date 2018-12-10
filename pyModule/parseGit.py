@@ -142,14 +142,8 @@ def findCommandAndCode(newCommit):
 						else:
 							code = code + 1
 
-					if extension == "java" or extension == "jj":
+					elif extension == "java" or extension == "jj":
 						if isJavaCommand(words, isCommand):
-							command = command + 1
-						else:
-							code = code + 1
-
-					elif extension == "py":
-						if isPyCommand(words):
 							command = command + 1
 						else:
 							code = code + 1
@@ -192,11 +186,6 @@ def isJavaCommand(words, flag):
 	else:
 		return False
 
-def isPyCommand(words):
-	if words[1][0:1] == "#":
-		return True
-
-	return False
 
 def destory(old_path):
 	os.system('git checkout master')

@@ -128,7 +128,8 @@ def contribution(request, teamId):
                 con['total'] = con['code'] * teamContribution.code + con['comment'] * teamContribution.comment + con['resource'] * teamContribution.resource
                 totalContribution += con['total']
 
-            if totalContribution == 0.0
+            if totalContribution == 0.0:
+
                 totalContribution = 1
 
             for con in contributions.values():
