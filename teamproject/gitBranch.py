@@ -5,12 +5,18 @@ import sys
 old_path = ""
 
 def showAllRemoteBranch(hackName, teamName):
+	temp=os.getcwd()
 	changeDir(hackName, teamName)
+	old_path = temp
 	remoteBranch = []
+	print(old_path)
 
 	try:
 		result = subprocess.check_output('git branch -r -a', shell=True).decode()
 		result.encode()
+		
+		if(len(result) == 0):
+			os.chdir(old_path)
 
 		for line in result.split("\n"):
 			words = line.replace("->", "/").replace(" ", "").split("/")
