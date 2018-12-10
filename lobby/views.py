@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from teamproject.models import Team
+from teamproject.models import *
 from accounts.models import Member, Participate
 from hackathon.models import *
 
