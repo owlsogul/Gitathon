@@ -94,7 +94,7 @@ def add_commit_with_member(request):
                 commit.save()
                 numCommit += 1
 
-        if numCommit > 0
+        if numCommit > 0:
             teamCommitNoti = TeamCommitNotification.objects.create(teamId=team)
             teamCommitNoti.sendNotification()
         return JsonResponse(received_json_data)
@@ -119,7 +119,7 @@ def add_commit_with_hack(request):
                 commit.save()
                 numCommit += 1
 
-        if numCommit > 0
+        if numCommit > 0:
             teamCommitNoti = TeamCommitNotification.objects.create(teamId=team)
             teamCommitNoti.sendNotification()
 
